@@ -1,4 +1,4 @@
-# Round 1 Review — `papers/noisy-signal-impact-trading.md`
+# 1. Round 1 Review — `papers/noisy-signal-impact-trading.md`
 
 Scope: scope discipline, internal consistency, exposition clarity, brief adherence.
 Mode: **review-only, no edits applied.**
@@ -7,7 +7,7 @@ Note on inputs: the task pointed at `plan.md` and `progress.md` in the repo root
 
 ---
 
-## 1. Brief coverage (a)–(h)
+## 1.1. Brief coverage (a)–(h)
 
 | Brief item | Where covered | Verdict |
 |---|---|---|
@@ -24,7 +24,7 @@ All eight requested elements are present. (a) and (h) are the deepest novelty-cl
 
 ---
 
-## 2. Internal consistency — §5.4 limit cases (**BLOCKER**)
+## 1.2. Internal consistency — §5.4 limit cases (**BLOCKER**)
 
 Equation (12): $x_t = \dfrac{1-\lambda\rho}{1-\lambda^2}(f_t - \lambda f_{t-1})$.
 
@@ -39,7 +39,7 @@ Direct substitution of the bullets in §5.4:
 
 ---
 
-## 3. Tentative / unsupported claims
+## 1.3. Tentative / unsupported claims
 
 - **§8.1 inline TODO + half-formula** ("$\lambda_W = \rho - \sigma^2/\sigma_\eta^2 \cdot (...)$ ... *TODO: state closed-form Wiener filter pole...*"). The TODO is flagged, but the surrounding sentence still asserts a partial formula that is itself not derived and not obviously correct. The expression `(...)` left in the formula is unprofessional for a "first complete draft." **FIX-NOW** — either complete the derivation or remove the half-formula and defer the result entirely to §10 (limitations) as an open computation.
 - **Eq (22) substitution "$\rho_W$ = autocorrelation of filtered signal"**: stated as if exact, but the Wiener-filtered AR(1)+noise signal is **not itself AR(1)** in general (its spectrum is rational of higher order), so plugging $\rho_W$ into the AR(1)-derived formula (12) is a heuristic, not an exact identity. The paper does not flag this. **FIX-NOW** — add a one-line "heuristic substitution; exact form requires re-solving Wiener–Hopf for the filtered spectrum" caveat.
@@ -48,7 +48,7 @@ Direct substitution of the bullets in §5.4:
 
 ---
 
-## 4. Figures and provenance
+## 1.4. Figures and provenance
 
 - Plan §"Figures and Calculations" labelled Fig 1 / Fig 2 as Mermaid diagrams and explicitly noted "may or may not materially help."
 - The brief does not require figures.
@@ -57,19 +57,19 @@ Direct substitution of the bullets in §5.4:
 
 ---
 
-## 5. Sources appendix
+## 1.5. Sources appendix
 
 Every primary peer-reviewed/preprint reference has a working-looking direct URL (DOI, arXiv, SSRN, or publisher page). Books (Wiener 1949, Samko–Kilbas–Marichev 1993) have no URL, which is standard for monographs. Almgren–Chriss URL `www.risk.net/journal-of-risk/1506832/...` is a generic redirect that may be stale but is the canonical Risk.net link. **OK** — no blockers.
 
 ---
 
-## 6. Abstract
+## 1.6. Abstract
 
 The abstract covers: stationary setting ✓, propagator/general $K$ ✓, LF duality + two norms ✓, Wiener–Hopf factorisation ✓, AR(1) + exponential scalar result ✓, kernel-innovation interpretation ✓, power-law → fractional derivative ✓, noisy signal + two-stage Wiener prefilter ✓, separation principle under Gaussian linearity ✓. **Accurate and complete.** No fix needed.
 
 ---
 
-## 7. Section ordering and length
+## 1.7. Section ordering and length
 
 - §8 "Examples" is the weakest section.
   - §8.1 mostly recapitulates §5 + §7 plus the broken `(...)` formula.
@@ -82,7 +82,7 @@ Other ordering: §1 → §11 flow is clean. Length is appropriate for a "note."
 
 ---
 
-## 8. Markdown / LaTeX
+## 1.8. Markdown / LaTeX
 
 - `\boxed{...}` in eq (6) and eq (12): braces balanced, render-safe.
 - Eq (4)–(5) cluster is **muddled but not broken**: eq (5) is $\hat H = \frac{1}{\hat K}\cdot\frac{[\hat f/\hat K_-]_+}{\hat f}$, which divides the causal projection by $\hat f$ — this is not the standard Wiener–Hopf form for $\hat H$ and the role of $S_f$ that appears in eq (4) is dropped without comment. Eq (6) is the correct statement (as a relation between $\hat x$ and $\hat f$, not $\hat H$). Recommend dropping eq (5) or rederiving it cleanly. **FIX-NOW** (clarity, not arithmetic).
@@ -93,7 +93,7 @@ Other ordering: §1 → §11 flow is clean. Length is appropriate for a "note."
 
 ---
 
-## Summary
+## 1.9. Summary
 
 | # | Finding | Class |
 |---|---|---|

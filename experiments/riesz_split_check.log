@@ -1,0 +1,81 @@
+Parameters: theta=1.0, sigma=1.0, gamma=0.5, beta=(1-gamma)/2=0.25
+Grid: N=262144, L=500.0, dx=3.814697e-03
+alpha_t = alpha(0) = -0.17033800
+
+--- Symbol-level pointwise check (all three should be ~identical) ---
+  max |m1 - m2| over xi:  1.069e-14
+  max |m1 - m3| over xi:  7.105e-15
+  max |Im(m2)|        :   8.882e-16
+  max |Im(m3)|        :   0.000e+00
+
+--- FFT bulk operator at s = t = 0 ---
+  (M1) Riesz       D^(1-g) bar_alpha(t,.)(t):  -0.605010418490
+  (M2) Multiplic.  D_+^b D_-^b bar_alpha:       -0.605010418490
+  (M3) Additive    (1/2sin)(D_+ + D_-):         -0.605010418490
+  |M1 - M2| = 2.220e-16
+  |M1 - M3| = 2.220e-16
+  |M2 - M3| = 4.441e-16
+
+--- Marchaud quadrature for D_-^(1-g) bar_alpha(t,.)(t) (OU forecast tail) ---
+  Closed form (theta^(1-g) * alpha_t): -0.170338000355
+  Marchaud quadrature:                  -0.170328390137
+  Relative error: 5.642e-05
+
+--- Marchaud quadrature for D_+^(1-g) alpha(t) on realized path ---
+  D_+ alpha(t) (numerical) = -0.954687404173
+
+--- Cross-check: additive-form bulk operator from quadrature vs FFT ---
+  FFT  (M3):                                       -0.605010418490
+  Marchaud quad (D_+ quad + D_- quad)/(2 sin):     -0.795506297099
+  Marchaud quad (D_+ quad + D_- closed)/(2 sin):   -0.795513092548
+  |FFT - quad|         = 1.905e-01
+  |FFT - closed-form|  = 1.905e-01
+
+--- Isolate FFT vs quadrature for D_+ and D_- individually ---
+  D_-^(1-g) bar_alpha(t,.)(t):
+    closed form (OU):     -0.1703380004
+    Marchaud quadrature:  -0.1703283901   (rel err vs CF: 5.64e-05)
+    FFT (symbol (-ixi)^(1-g)):  0.0644886532   (rel err vs CF: 1.38e+00)
+  D_+^(1-g) bar_alpha(t,.)(t):
+    Marchaud quadrature:        -0.9546874042
+    FFT (symbol (ixi)^(1-g)):   -0.9201025924
+    |FFT - quad|: 3.458e-02
+  Sum check (1/(2 sin))*(D_+ + D_-):
+    FFT D_+ + FFT D_-:    -0.6050104185  vs Riesz FFT M1: -0.6050104185
+    Quad D_+ + Quad D_-:  -0.7955062971
+
+--- Diagnosis: FFT wrap-around contamination on realized OU path ---
+  alpha at left FFT boundary  s=-L:  0.351230
+  alpha at right FFT boundary s=+L: -1.218224e-218
+  The realized OU path does NOT decay at s=-L; FFT periodic extension
+  wraps these O(sigma/sqrt(2 theta)) values into what D_- (anticausal)
+  perceives as 'future', contaminating the FFT result.
+  Marchaud quadrature does not periodically extend; it is the correct value.
+
+======================================================================
+CLEAN TEST: Gaussian curve  f(s) = exp(-s^2/(2 w^2))  (Schwartz, no wrap)
+======================================================================
+  f at FFT boundaries: f(-L)=0.000e+00, f(+L)=0.000e+00
+
+  Bulk operator D^(1-g) f at s=0:
+    Analytic Riesz (closed form):   0.671306308659
+    (M1) FFT Riesz:                 0.671182392590
+    (M2) FFT multiplicative:        0.671182392590
+    (M3) FFT additive:              0.671182392590
+    Marchaud additive (quad+tail):  0.671306308856
+    |FFT  - analytic|:    1.239e-04
+    |Quad - analytic|:    1.974e-10
+    |FFT  - Marchaud|:    1.239e-04
+
+  Component (D_+) check:
+    analytic D_+ on Gaussian:  0.474685243106
+    Marchaud quad+tail:        0.474685243245    err: 1.40e-10
+    FFT (i xi)^(1-g):          0.474597621213    err: 8.76e-05
+
+======================================================================
+SUMMARY: bulk operator D^(1-gamma) bar_alpha(t,.)(t)
+======================================================================
+  (M1) FFT Riesz:                -0.6050104185
+  (M2) FFT multiplicative W-H:   -0.6050104185   diff=+2.22e-16
+  (M3) FFT additive half-sum:    -0.6050104185   diff=-2.22e-16
+  Marchaud additive (full quad): -0.7955062971   diff=-1.90e-01

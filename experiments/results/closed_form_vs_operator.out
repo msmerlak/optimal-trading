@@ -1,0 +1,87 @@
+========================================================================
+Case A: AR(1) x exponential kernel, rho=0.7, lambda=0.5
+========================================================================
+Closed-form coefficients (paper eq. 12):  c=0.866667
+  h_closed[:5] = [ 0.86666667 -0.43333333  0.          0.          0.        ]
+  h_op[:5]     = [ 8.66666667e-01 -4.33333333e-01 -1.30048236e-15  2.61387619e-15
+ -1.80423577e-15]
+  ||h_op - h_closed||_inf = 2.614e-15
+  ||h_op - h_closed||_2   = 4.585e-15
+
+Expected revenue per period (analytical, stationary):
+  theoretical J*       = 0.552288
+  closed-form policy   = 0.552288
+  operator policy      = 0.552288
+  naive (x=f) policy   = -0.075415
+  closed - op gap      = 0.000e+00
+  PnL uplift vs naive  = 0.627702  (ratio -7.323x)
+
+Realised revenue on simulated path (T=200000, burn=500):
+  closed-form policy   = 0.555125
+  operator policy      = 0.555125
+  naive (x=f) policy   = -0.075485
+
+========================================================================
+Case B: AR(1) x ARFIMA-spectrum kernel, rho=0.7, alpha=0.3
+        (kernel hat K(omega) = (2 sin omega/2)^(-2*alpha))
+========================================================================
+Closed-form prefactor (1-rho)^alpha = 0.696845
+  h_closed[:6] = [ 0.6968453  -0.20905359 -0.07316876 -0.0414623  -0.02798705 -0.02071042]
+  h_op[:6]     = [ 0.69046924 -0.20914167 -0.07392986 -0.0423257  -0.02887486 -0.02160378]
+  ||h_op - h_closed||_inf = 2.036e-02
+  ||h_op - h_closed||_2   = 2.197e-02
+
+Expected revenue per period (analytical, stationary):
+  closed-form policy   = 0.464045
+  operator policy      = 0.468401
+  naive (x=f) policy   = -1.211675
+  closed - op gap      = 4.355e-03
+
+Realised revenue on simulated path (T=200000, burn=1000):
+  closed-form policy   = 0.464236
+  operator policy      = 0.468653
+  naive (x=f) policy   = -1.174971
+
+========================================================================
+Case B: AR(1) x ARFIMA-spectrum kernel, rho=0.5, alpha=0.4
+        (kernel hat K(omega) = (2 sin omega/2)^(-2*alpha))
+========================================================================
+Closed-form prefactor (1-rho)^alpha = 0.757858
+  h_closed[:6] = [ 0.75785828 -0.30314331 -0.09094299 -0.04850293 -0.0315269  -0.02269937]
+  h_op[:6]     = [ 0.74996999 -0.30404137 -0.09248778 -0.0500414  -0.03301575 -0.02414247]
+  ||h_op - h_closed||_inf = 1.846e-02
+  ||h_op - h_closed||_2   = 2.173e-02
+
+Expected revenue per period (analytical, stationary):
+  closed-form policy   = 0.367545
+  operator policy      = 0.376835
+  naive (x=f) policy   = -1.724147
+  closed - op gap      = 9.290e-03
+
+Realised revenue on simulated path (T=200000, burn=1000):
+  closed-form policy   = 0.371536
+  operator policy      = 0.381076
+  naive (x=f) policy   = -1.677388
+
+========================================================================
+Case B: AR(1) x ARFIMA-spectrum kernel, rho=0.9, alpha=0.2
+        (kernel hat K(omega) = (2 sin omega/2)^(-2*alpha))
+========================================================================
+Closed-form prefactor (1-rho)^alpha = 0.630957
+  h_closed[:6] = [ 0.63095734 -0.12619147 -0.05047659 -0.03028595 -0.02120017 -0.01611213]
+  h_op[:6]     = [ 0.62504256 -0.12565885 -0.05053087 -0.03048337 -0.02145696 -0.01639992]
+  ||h_op - h_closed||_inf = 3.270e-02
+  ||h_op - h_closed||_2   = 3.358e-02
+
+Expected revenue per period (analytical, stationary):
+  closed-form policy   = 1.017624
+  operator policy      = 1.026398
+  naive (x=f) policy   = -2.780674
+  closed - op gap      = 8.774e-03
+
+Realised revenue on simulated path (T=200000, burn=1000):
+  closed-form policy   = 1.002720
+  operator policy      = 1.011674
+  naive (x=f) policy   = -2.711714
+
+Saved JSON: experiments/results/closed_form_vs_operator.json

@@ -1,0 +1,31 @@
+============================================================
+Experiment 1: exponential kernel + AR(1) signal
+============================================================
+
+  Parameters: lam=0.5, rho=0.7, sigma=1.0
+  Predicted scalar c = (1-lam*rho)/(1-lam^2)        = 0.866667
+  Numerical scalar c (from FFT H_causal[0])         = 0.866667
+
+  Closed-form J*_causal   = 0.552288
+  Numerical  J(H_causal)   = 0.552288
+  Numerical  J(H_WH)       = 0.392157
+  (these three should agree to ~1e-6)
+
+  J_noncausal benchmark   = 0.718954  (analytical)
+  J_noncausal benchmark   = 0.718954  (numerical)
+  J_naive (H=1)           = -0.075415  (analytical)
+  J_naive (H=1)           = -0.075415  (numerical)
+
+  Causal/non-causal ratio  = 0.7682
+  Causal/naive ratio       = -7.3233
+
+  Causal impulse response (lags 0..3): [ 0.86667 -0.43333 -0.      -0.     ]
+  WH-numerical impulse     (lags 0..3): [ 1.33333 -0.66667 -0.      -0.     ]
+
+  Max |J_formula - J_WH| over (lam,rho) sweep: 9.09e+00
+Traceback (most recent call last):
+  File "/Users/orwell/Library/CloudStorage/Dropbox/Research/projects/optimal-trading/experiments/numerics.py", line 514, in <module>
+    r1 = run_exp1()
+  File "/Users/orwell/Library/CloudStorage/Dropbox/Research/projects/optimal-trading/experiments/numerics.py", line 254, in run_exp1
+    assert max_abs_disagreement < 1e-3, "Closed form and numerical WH should agree"
+AssertionError: Closed form and numerical WH should agree

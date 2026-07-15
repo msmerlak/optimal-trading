@@ -27,7 +27,7 @@
 \newtheorem{corollary}{Corollary}
 
 % ---------- Title ----------
-\title{Optimal Trading Against a Signal: a Wiener-Hopf Approach}
+\title{Optimal Trading Filters: a Wiener-Hopf Approach}
 \author{Matteo Smerlak\thanks{Capital Fund Management, 23 rue de l'Universit\'e, 75007 Paris, France.\ \texttt{matteo.smerlak@cfm.com}}}
 \date{}
 
@@ -45,7 +45,7 @@
 % =====================================================
 \section*{Abstract}
 
-We study the problem of maximizing expected gain from a return-predicting signal net of the impact cost of one's own trades, under a propagator impact model with a general symmetric positive-definite kernel. Existing treatments express the adapted optimal trading rate as the solution of an integral or stochastic Volterra equation. We give a closed-form bulk expression for this rate using a causal--anticausal (Wiener-Hopf) factorization of the impact cost operator. For the empirically supported power-law kernel $G(t)=|t|^{-\beta}$ with $\beta\in(0,1)$, the factors are fractional integrals, and the optimal trading policy simplifies to a composition of fractional derivatives of order $(1-\beta)/2$ applied to the signal and its forecasts. On a finite horizon the same recipe produces an optimal policy that converges to the whole-line formula in the interior at rate $O(d(t)^{-(1-\beta)/2})$, where $d(t)$ is the distance from $t$ to the nearest boundary.
+We study the problem of maximizing expected gain from a return-predicting signal net of the impact cost of one's own trades, under a propagator impact model with a general symmetric positive-definite kernel. Existing treatments express the adapted optimal trading rate as the solution of an integral or stochastic Volterra equation. We give a closed-form bulk expression in terms of the driving signal using a causal--anticausal (Wiener-Hopf) factorization of the impact cost operator. For the empirically supported power-law kernel $G(t)=|t|^{-\beta}$ with $\beta\in(0,1)$, the factors are fractional integrals, and the optimal trading policy simplifies to a composition of fractional derivatives of order $(1-\beta)/2$ applied to the signal and its forecasts. On a finite horizon the same recipe produces an optimal policy that converges to the whole-line formula in the interior at rate $O(d(t)^{-(1-\beta)/2})$, where $d(t)$ is the distance from $t$ to the nearest boundary.
 
 % =====================================================
 \section{Introduction}
@@ -108,7 +108,7 @@ on the adapted subspace $L^2_{\adap}$. The factorization is Wiener--Hopf on the 
 
 The three composed operators act on the signal: the anticausal square-root inverse $C_-^{-1}$ applied to $\alpha$ produces an $\F_s$-measurable ``whitened'' process at each $s$ once future signal values are replaced by their conditional expectations (the \emph{forecast curve} $\bar\alpha(t,s) = \E_t[\alpha_s]$); the projection $P_+$ enforces adaptedness; the causal square-root inverse $C_+^{-1}$ colors the whitened process back to obtain the trading rate. The three-step architecture --- anticausal whitening, adapted projection, causal coloring --- is the temporal analog of the Wiener--Kolmogorov prediction filter for stationary processes \citep{Wiener1949}, with $C_+$ in place of the process spectral square root.
 
-\paragraph{Power-law kernel: bulk formula.} For $G(t) = |t|^{-\beta}$ the whole-line factors are the Marchaud fractional integrals $C_\pm = c_\beta^{1/2}\,I_\pm^\nu$ with $\nu = (1-\beta)/2$, and \eqref{eq:closedform-intro} reduces to a fractional derivative applied to the forecast curve:
+\paragraph{Power-law kernel: bulk formula.} For $G(t) = |t|^{-\beta}$ the whole-line factors are the Liouville (Weyl) fractional integrals $C_\pm = c_\beta^{1/2}\,I_\pm^\nu$ with $\nu = (1-\beta)/2$, and \eqref{eq:closedform-intro} reduces to a fractional derivative applied to the forecast curve:
 \begin{equation}\label{eq:bulk-intro}
 u^\star_t \;=\; \gamma^{-1}\,c_\beta^{-1}\,(D_+^\nu\,\zeta)(t), \qquad \zeta_s \;=\; \bigl(D_-^\nu\,\bar\alpha(s,\cdot)\bigr)(s).
 \end{equation}
@@ -163,7 +163,7 @@ Let $\hat C(\xi)\ge 0$ with $\log\hat C(\xi)/(1+\xi^2)\in L^1(\R)$. Then $\hat C
 \begin{equation}\label{eq:wh}
 \hat C(\xi) \;=\; \hat C_-(\xi)\,\hat C_+(\xi),
 \end{equation}
-with $\hat C_+$ analytic and non-vanishing in the closed upper half-plane, $\hat C_-$ analytic in the closed lower half-plane, and $\overline{\hat C_+(\xi)} = \hat C_-(\xi)$; equivalently $C_+^* = C_-$. In the time domain, $C_+$ has kernel supported on $\{s\le t\}$ (causal Volterra) and $C_-$ on $\{s\ge t\}$ (anticausal). The factorization is unique up to a positive multiplicative constant.
+with $\hat C_+$ analytic and non-vanishing in the closed upper half-plane, $\hat C_-$ analytic in the closed lower half-plane, and $\overline{\hat C_+(\xi)} = \hat C_-(\xi)$; equivalently $C_+^* = C_-$. In the time domain, $C_+$ has kernel supported on $\{s\le t\}$ (causal Volterra) and $C_-$ on $\{s\ge t\}$ (anticausal). Under the normalization $\overline{\hat C_+}=\hat C_-$ the factorization is unique up to a unimodular multiplicative constant.
 \end{proposition}
 
 Existence is classical \citep{WienerHopf1931,Krein1962}. Kernel-specific factors are worked out in \S4 (power-law) and \S5.1 (exponential).
@@ -173,14 +173,14 @@ Existence is classical \citep{WienerHopf1931,Krein1962}. Kernel-specific factors
 On $[0,T]$ translation invariance is lost, Fourier factorization does not apply, and the appropriate analog is the Volterra-triangular factorization of Gohberg and Krein \citeyearpar{GohbergKrein1970}, abstractly the Arveson outer factorization on a continuous nest \citep{Arveson1975}.
 
 \begin{proposition}[Gohberg--Krein factorization]
-Let $G_T$ be the restriction of $C$ to $L^2([0,T])$, viewed as an integral operator with kernel $G(|t-v|)\mathbf{1}_{[0,T]^2}$. If $G_T$ is a strictly positive compact perturbation of the identity on $L^2([0,T])$ (equivalently, its symbol satisfies the whole-line Wiener--Hopf hypothesis), then $G_T$ admits a factorization
+Let $G_T$ be the restriction of $C$ to $L^2([0,T])$, viewed as an integral operator with weakly singular kernel $G(|t-v|)\mathbf{1}_{[0,T]^2}$, and suppose $G_T$ is strictly positive on $L^2([0,T])$ (injective with $\langle G_T f,f\rangle>0$ for $f\ne0$, guaranteed by $\hat C>0$ on $\xi\ne0$ via Plancherel on the extension by zero). Then $G_T$ admits a causal--anticausal factorization
 \begin{equation}\label{eq:gt-factor}
-G_T \;=\; T\, T^*,
+G_T \;=\; C_-\, C_+,
 \end{equation}
-with $T$ a bounded Volterra operator on $L^2([0,T])$: its kernel is supported on $\{s\le t\}\cap[0,T]^2$, and $T^*$ is the adjoint (kernel supported on $\{s\ge t\}$). The factor $T$ is unique up to a left unitary on $L^2([0,T])$.
+with $C_+$ a Volterra operator whose kernel is supported on $\{s\le t\}\cap[0,T]^2$ (causal) and $C_- = C_+^*$ its adjoint (kernel on $\{s\ge t\}$). The causal factor $C_+$ is unique up to a left unitary commuting with the nest $\{P_{[0,t]}\}$ (a diagonal phase). For the power-law kernel $G_T$ is compact with unbounded inverse, so the factors act between weighted Sobolev spaces rather than on $L^2$ (\S4.1).
 \end{proposition}
 
-The factorization is the Arveson outer factorization of the positive operator $G_T$ with respect to the continuous nest of projections $\{P_{[0,t]}\}_{t\in[0,T]}$ \citep[Thm~4.4.2]{Arveson1975}\citep[Ex.~6.2/9.2]{PorterStirling1990}. The explicit power-law factor is given in \S4.
+The classical Gohberg--Krein outer factor $T$ realizes the Arveson outer factorization of $G_T$ with respect to the continuous nest $\{P_{[0,t]}\}_{t\in[0,T]}$ as $G_T = T\,T^*$ with $T$ causal \citep[Thm~4.4.2]{Arveson1975}\citep[Ex.~6.2/9.2]{PorterStirling1990}. This places the causal factor on the \emph{left}; the adapted projected inverse of Lemma~1 (below) instead needs the causal factor on the right, obtained by the time reflection $C_+ = R\,T^*R$, $(Rf)(t)=f(T-t)$, since $R\,G_T R = G_T$ gives $C_-C_+ = R\,(TT^*)\,R = G_T$. The explicit power-law factors are given in \S4.
 
 \subsection{The adapted projected inverse}
 
@@ -204,7 +204,7 @@ Under the hypotheses of \S2.1, the unique adapted solution of \eqref{eq:foc} is
 \begin{equation}\label{eq:closedform}
 u^\star \;=\; \gamma^{-1}\, C_+^{-1}\, P_+\, C_-^{-1}\, \alpha,
 \end{equation}
-understood in either setting: on the whole line with $C_\pm$ the Wiener--Hopf factors, or on $[0,T]$ with $C_\pm = T$, $T^*$ the Gohberg--Krein factors of $G_T$ and $\alpha$ replaced by the effective signal $\alpha^{\eff} = \alpha + \sum_k\mu_k\psi_k$ built by adjoining KKT multipliers for each linear position constraint.
+understood in either setting: on the whole line with $C_\pm$ the Wiener--Hopf factors, or on $[0,T]$ with $C_+ = R\,T^*R$ the reflected (terminal-anchored) causal Gohberg--Krein factor of $G_T$ and $C_- = C_+^*$. When linear position constraints are imposed, $\alpha$ is replaced by an effective signal $\alpha^{\eff} = \alpha + \sum_k\mu_k\psi_k$ adjoining one multiplier per constraint: a finite family for expectation constraints such as $\E[X_T]=0$, and a process-valued multiplier $\mu(\cdot)$ for the pathwise liquidation constraint $X_T=0$ a.s.\ \citep{FordeSanchezSmith2022}.
 \end{theorem}
 
 The acausal factor $C_-^{-1}$ applied to the adapted signal $\alpha$ at time $s$ requires the future path $\{\alpha_r\}_{r\ge s}$, which is not in $\F_s$. The adapted projection replaces this future by its conditional expectation, and commutation of the deterministic operator $C_-^{-1}$ with conditional expectation on the argument variable \citep[Prop.~2.6.13]{HytonenVanNeervenVeraarWeis2016} gives
@@ -232,15 +232,15 @@ Inverses are the Marchaud fractional derivatives $C_\pm^{-1} = c_\beta^{-1/2}\,D
 
 \emph{Boundedness caveat.} The pure power-law symbol satisfies the log-integrability hypothesis of Proposition~1, so the symbol factorization \eqref{eq:wh} exists distributionally. The factors are however unbounded on $L^2(\R)$: $\hat C_\pm(\xi)$ diverges at $\xi=0$ and $\hat C_\pm^{-1}$ diverges as $|\xi|\to\infty$, so the projected-inverse identity of \S3.3 is an equality between unbounded operators. It holds on the dense domain fixed by the standing spectral hypothesis of \S2.1, which ensures $C^{-1}\alpha\in L^2$ and gives sense to each Marchaud composition. A bounded-operator setup is recovered by adjoining a temporary-impact term $\tfrac12\eta u_t^2$ (\S5.2): the modified symbol $M(\xi) = c_\beta|\xi|^{\beta-1}+\eta/\gamma$ has $M^{-1}\in L^\infty(\R)$, Proposition~1 applies with $C_\pm^{-1}$ bounded on $L^2$ without spectral-decay assumptions on $\alpha$, and the $\eta\to 0$ limit recovers the pure power-law formulas on the \S2.1 domain.
 
-\emph{Finite-interval factors.} On $[0,T]$ the classical Gohberg--Krein construction \citep{FordeSanchezSmith2022,PorterStirling1990} gives
+\emph{Finite-interval factors.} On $[0,T]$ the classical Gohberg--Krein outer construction \citep{FordeSanchezSmith2022,PorterStirling1990} gives $G_T = T\,T^*$ with
 \begin{equation}\label{eq:volterra-kernel}
-(T\varphi)(t) \;=\; \int_0^t k(s,t)\,\varphi(s)\,ds, \qquad k(s,t) \;=\; c_\beta^{1/2}\,(t/s)^{(1-\beta)/2}\,(t-s)^{\nu-1}/\Gamma(\nu).
+(T\varphi)(t) \;=\; \int_0^t k(s,t)\,\varphi(s)\,ds, \qquad k(s,t) \;=\; c_\beta^{1/2}\,(t/s)^{\nu}\,(t-s)^{\nu-1}/\Gamma(\nu),
 \end{equation}
-Equivalently, $T$ is a causal Riemann--Liouville integral of order $\nu$ conjugated by an endpoint-weight multiplication:
+equivalently $T = c_\beta^{1/2}\, B^{-1}\, I_+^\nu\, B$ with $B(t)=t^{-\nu}$, the left-endpoint-anchored form. This outer factorization places the causal factor on the \emph{left}; the adapted projected inverse of Lemma~1 requires the causal factor on the right, $G_T = C_-\,C_+$. By the reflection $(Rf)(t)=f(T-t)$ and $R\,G_T R = G_T$, that factor is the terminal-anchored causal Volterra operator $C_+ = R\,T^*R$,
 \begin{equation}\label{eq:weight-conj}
-T \;=\; c_\beta^{1/2}\, B^{-1}\, I_+^\nu\, B, \qquad T^* \;=\; c_\beta^{1/2}\, B\, I_-^\nu\, B^{-1}, \qquad B(t) = t^{-\nu},
+C_+ \;=\; c_\beta^{1/2}\, B_T\, I_+^\nu\, B_T^{-1}, \qquad C_- = C_+^* = c_\beta^{1/2}\, B_T^{-1}\, I_-^\nu\, B_T, \qquad B_T(t) = (T-t)^{-\nu},
 \end{equation}
-so that $G_T = T\,T^* = c_\beta\, B^{-1}\, I_+^\nu\, B^2\, I_-^\nu\, B^{-1}$ is the weight-conjugated form consistent with the whole-line factorization \eqref{eq:marchaud-wh}. $T$ acts boundedly between the weighted Sobolev spaces of Porter--Stirling \citep[Ex.~6.2/9.2]{PorterStirling1990} and Samko--Kilbas--Marichev \citep[\S13.5]{SamkoKilbasMarichev1993}. The endpoint weight $B$ absorbs the loss of translation invariance at the left endpoint; the Gohberg--Krein outer factor is unique only up to a left unitary, and the choice above pins it to the left-endpoint nest $\{P_{[0,t]}\}$, breaking manifest $t\leftrightarrow T{-}t$ symmetry while $G_T = TT^*$ preserves it.
+with kernel $c_\beta^{1/2}\,\bigl((T-s)/(T-t)\bigr)^{\nu}(t-s)^{\nu-1}/\Gamma(\nu)$ on $\{s\le t\}$, so that $G_T = C_-C_+ = c_\beta\, B_T^{-1}\, I_-^\nu\, B_T^2\, I_+^\nu\, B_T^{-1}$ (verified by direct kernel integration). Both factors act boundedly between the weighted Sobolev spaces of Porter--Stirling \citep[Ex.~6.2/9.2]{PorterStirling1990} and Samko--Kilbas--Marichev \citep[\S13.5]{SamkoKilbasMarichev1993}. The terminal-anchored weight $B_T$ absorbs the loss of translation invariance at the forward endpoint and pins $C_+$ to the nest $\{P_{[0,t]}\}$ up to a diagonal phase, breaking manifest $t\leftrightarrow T{-}t$ symmetry while $G_T = C_-C_+$ preserves it.
 
 \subsection{Bulk formula on the whole line}
 
@@ -253,7 +253,7 @@ u^\star_t \;=\; \gamma^{-1}\,c_\beta^{-1}\,(D_+^\nu\,\zeta)(t), \qquad \zeta_s \
 \end{equation}
 \end{corollary}
 
-The intermediate process $\zeta$ has stationary power spectrum $c_\beta^{-1}|\xi|^{1-\beta}\,S_\alpha(\xi)$: the inner fractional differentiation $D_-^\nu$ cancels the frequency dependence of the impact operator, and the outer $D_+^\nu$ colors the whitened process causally. Without the adapted projection the composition $D_+^\nu D_-^\nu$ would reduce (in symbol form) to the symmetric Riesz derivative $|\xi|^{1-\beta}$; adaptedness splits it into the two one-sided derivatives of order $\nu$ separated by $P_+$.
+The inner fractional differentiation $D_-^\nu$ acts on the forecast curve and cancels the frequency dependence of the impact operator; the outer $D_+^\nu$ colors the resulting adapted process causally. Only in the anticipative case (future signal known, no projection) would the whitened process $C_-^{-1}\alpha$ carry the flat-in-impact spectrum $c_\beta^{-1}|\xi|^{1-\beta}\,S_\alpha(\xi)$; the adapted $\zeta_s = (D_-^\nu\bar\alpha(s,\cdot))(s)$ replaces future values by forecasts and has a strictly smaller spectrum (for OU, $\zeta_s = \theta^\nu\alpha_s$ with spectrum $\theta^{2\nu}S_\alpha(\xi)$, cf.\ \eqref{eq:ou}). Without the projection the composition $D_+^\nu D_-^\nu$ would reduce (in symbol form) to the symmetric Riesz derivative $|\xi|^{1-\beta}$; adaptedness splits it into the two one-sided derivatives of order $\nu$ separated by $P_+$.
 
 For OU $\alpha$ with mean-reversion rate $\theta$, direct Marchaud integration against the exponential forecast tail gives $(D_-^\nu\bar\alpha(t,\cdot))(t) = \theta^\nu\alpha_t$, so
 \begin{equation}\label{eq:ou}
@@ -268,18 +268,18 @@ Substituting \eqref{eq:closedform} into Theorem~1:
 \begin{corollary}[Power-law finite-interval formula]
 For $G(t) = |t|^{-\beta}$ on $[0,T]$, the adapted optimal rate is
 \begin{equation}\label{eq:bdry}
-u^{\star,T}_t \;=\; \gamma^{-1}\,c_\beta^{-1}\, B(t)^{-1}\,\bigl(D_+^\nu\, B\, P_+\, B\, D_-^\nu\, B^{-1}\,\alpha^{\eff}\bigr)(t),
+u^{\star,T}_t \;=\; \gamma^{-1}\,c_\beta^{-1}\,\bigl(B_T\, D_+^\nu\, B_T^{-1}\, P_+\, B_T^{-1}\, D_-^\nu\, B_T\,\alpha^{\eff}\bigr)(t),
 \end{equation}
-where $B(t) = t^{-\nu}$ (the multiplications by $B$ commute with $P_+$ since $B$ is deterministic; the split form emphasises the origin of each $B$ from the $T$ and $T^*$ factors) and $\alpha^{\eff} = \alpha + \sum_k\mu_k\psi_k$ is the effective signal including KKT-multiplier corrections for endpoint constraints; the multipliers $\mu_k$ solve a finite linear system from the constraint equations.
+where $B_T(t) = (T-t)^{-\nu}$ is the terminal-anchored endpoint weight from the factors \eqref{eq:weight-conj} (the multiplications by $B_T$ commute with $P_+$ since $B_T$ is deterministic, so $B_T^{-1}P_+B_T^{-1} = P_+B_T^{-2}$) and $\alpha^{\eff} = \alpha + \sum_k\mu_k\psi_k$ is the effective signal adjoining a multiplier per position constraint --- a finite linear system for expectation constraints, and a process-valued multiplier for the pathwise liquidation constraint $X_T=0$ a.s.\ \citep{FordeSanchezSmith2022}.
 \end{corollary}
 
-The composition applies, in order: (i) endpoint weight $B^{-1}$ to the effective signal; (ii) anticausal Marchaud derivative $D_-^\nu$; (iii) reweighting by $B$; (iv) adapted projection; (v) reweighting by $B$; (vi) causal Marchaud derivative $D_+^\nu$; (vii) endpoint weight $B^{-1}$. The three multiplication operators arise from the two Gohberg--Krein factorizations of \eqref{eq:closedform} substituted into $u^\star = \gamma^{-1}T^{-1}P_+(T^*)^{-1}\alpha^{\eff}$; this intermediate form is the operator version of the Volterra representation of \citet[Thm 2.2]{FordeSanchezSmith2022}.
+The composition applies, in order: (i) terminal weight $B_T$ to the effective signal; (ii) anticausal Marchaud derivative $D_-^\nu$; (iii) reweighting by $B_T^{-1}$; (iv) adapted projection; (v) reweighting by $B_T^{-1}$; (vi) causal Marchaud derivative $D_+^\nu$; (vii) terminal weight $B_T$. The multiplications arise from substituting the reflected Gohberg--Krein factors $C_\pm$ of \eqref{eq:weight-conj} into $u^\star = \gamma^{-1}C_+^{-1}P_+C_-^{-1}\alpha^{\eff}$. Forde, S\'anchez-Betancourt and Smith \citep[Thm~2.2]{FordeSanchezSmith2022} solve the same finite-interval problem through the full inverse $G_T^{-1}=(T^*)^{-1}T^{-1}$, for which the factor order is immaterial; \eqref{eq:bdry} instead exposes the adapted projection between the two half-order factors, which requires the causal factor on the right.
 
-Formula \eqref{eq:bdry} is a \emph{boundary-deformed fractional derivative}: the whole-line composition $D_+^\nu\,P_+\,D_-^\nu$ of \eqref{eq:bulk} is preserved as the operator core; the boundary weights $B, B^{-1}$ sandwich it and absorb the two-endpoint geometry into local multiplicative rescalings.
+Formula \eqref{eq:bdry} is a \emph{boundary-deformed fractional derivative}: the whole-line composition $D_+^\nu\,P_+\,D_-^\nu$ of \eqref{eq:bulk} is preserved as the operator core; the terminal weights $B_T, B_T^{-1}$ sandwich it, while the left endpoint enters through the truncation of the Marchaud kernels to $[0,T]$.
 
 \subsection{Interior asymptotic and rate of convergence}
 
-As $T\to\infty$, \eqref{eq:bdry} converges pointwise to \eqref{eq:bulk} in the interior. Let $d(t) = \min(t,T-t)$ be the distance from $t$ to the nearest boundary. Centering at the midpoint $t = T/2 + t'$, the weight $B(T/2+t') = (T/2+t')^{-\nu}$ factors as a $T$-dependent scalar $(T/2)^{-\nu}$ times a slowly varying interior factor $(1+2t'/T)^{-\nu}$. The scalar cancels in the $B^{-1}\cdot B$ conjugations of \eqref{eq:bdry}, and the interior factor converges to 1 uniformly on compact $t'$ sets. Similarly, the Volterra kernel $k(s,t)$ of \eqref{eq:volterra-kernel} satisfies $(t/s)^{(1-\beta)/2}\to 1$ centered at the interior, and $k(T/2+s',T/2+t')\to c_\nu(t'-s')^{\nu-1}$, the whole-line causal Riemann--Liouville kernel.
+As $T\to\infty$, \eqref{eq:bdry} converges pointwise to \eqref{eq:bulk} in the interior. Let $d(t) = \min(t,T-t)$ be the distance from $t$ to the nearest boundary. Centering at the midpoint $t = T/2 + t'$, the terminal weight $B_T(T/2+t') = (T/2-t')^{-\nu}$ factors as a $T$-dependent scalar $(T/2)^{-\nu}$ times a slowly varying interior factor $(1-2t'/T)^{-\nu}$. The scalar cancels in the $B_T^{-1}\cdot B_T$ conjugations of \eqref{eq:bdry}, and the interior factor converges to 1 uniformly on compact $t'$ sets, with relative deviation $O(d(t)^{-1})$. The reflected Volterra kernel $\bigl((T-s)/(T-t)\bigr)^{\nu}(t-s)^{\nu-1}$ satisfies $\bigl((T-s)/(T-t)\bigr)^{\nu}\to 1$ in the interior, converging to the whole-line causal Riemann--Liouville kernel $(t-s)^{\nu-1}/\Gamma(\nu)$.
 
 \begin{proposition}[Interior error bound]
 For $\alpha$ bounded and effective signal $\alpha^{\eff}\in\dot H^\nu(\R)$,
@@ -289,7 +289,7 @@ For $\alpha$ bounded and effective signal $\alpha^{\eff}\in\dot H^\nu(\R)$,
 with $\nu = (1-\beta)/2$ and $C_1(\beta), C_2(\beta)$ $\beta$-dependent constants.
 \end{proposition}
 
-The first term is the Marchaud truncation error from cutting the fractional-derivative tail at the boundary; the second is the KKT-multiplier contribution from endpoint constraints, bounded uniformly in $T$ \citep[Prop.~3.2]{FordeSanchezSmith2022}. For empirical $\beta\in(0.2,0.6)$, $\nu\in(0.2,0.4)$, giving slow $d(t)^{-\nu}$ interior convergence --- a quantitative expression of the long spatial memory of the impact kernel.
+The first term is the Marchaud truncation error from cutting the fractional-derivative tail at the boundary; it dominates the weight-conjugation deviation, which is $O(d(t)^{-1})$ and hence subdominant for $\nu<1$. The second term is the endpoint-constraint correction, entering through the S\"ohngen--Tricomi eigenfunction $\phi_1(t) = [t(T-t)]^{(\beta-1)/2}$ of the no-signal solution \citep{GatheralSchiedSlynko2012,FordeSanchezSmith2022}, whose coefficient is $O(\|\alpha^{\eff}\|_{\dot H^\nu}\,T^{-\nu})$ under the stated regularity. For empirical $\beta\in(0.2,0.6)$, $\nu\in(0.2,0.4)$, giving slow $d(t)^{-\nu}$ interior convergence --- a quantitative expression of the long memory of the impact kernel.
 
 % =====================================================
 \section{Discussion}
@@ -316,6 +316,7 @@ For an Ornstein--Uhlenbeck signal with mean reversion $\theta$, the whitened pro
 \begin{equation}\label{eq:exp-ou}
 u^{\star,\,\rm exp}_t \;=\; \frac{\kappa+\theta}{2\kappa\gamma}\bigl[(\kappa-\theta)\alpha_t + \sigma\dot W_t\bigr], \qquad \E\bigl[u^{\star,\,\rm exp}_t\,\bigm|\,\alpha_t\bigr] \;=\; \frac{\kappa^2-\theta^2}{2\kappa\gamma}\,\alpha_t.
 \end{equation}
+The white-noise term $\sigma\dot W_t$ reflects that the exponential-kernel cost does not penalize the high-frequency content of the rate, so $u^{\star,\,\rm exp}$ is a distribution-valued optimum; it is regularized to an $L^2$ process by any temporary-impact term $\tfrac12\eta u_t^2$ (\S5.2), the empirically relevant case.
 The conditional mean rate flips sign at $\theta = \kappa$. When the signal mean-reverts faster than the impact tail decays ($\theta>\kappa$), the trader takes the opposite side of the signal on average: any signal-following trade would leave an impact residual longer-lived than the signal itself, so acting against the signal amortises the cost. The power-law analog \eqref{eq:ou} shows no such transition; the scale-free causal inverse has a branch point at $\xi=0$ and no zero on the imaginary axis, so no pole--zero crossing occurs as $\theta$ varies.
 
 \subsection{Temporary impact}
@@ -324,17 +325,17 @@ Adding a temporary-impact term $\tfrac12\eta u_t^2$ modifies the FOC symbol to $
 
 \subsection{Multi-asset extension}
 
-Empirical cross-impact between correlated assets --- trades in one name moving others in the same principal-component sector --- motivates a portfolio version of Theorem~1. For a cross-impact kernel $\mathbf{K}(t) = |t|^{-\beta}\mathbf{A}$ with $\mathbf{A} = Q\Lambda Q^\top$ symmetric positive-definite, Theorem~1 diagonalizes in the eigenbasis of $\mathbf{A}$: the scalar fractional-derivative rule \eqref{eq:bulk} applies independently to each principal-component alpha with eigenvalue prefactor $\Lambda_{ii}^{-1}$. The symmetric case covers the leading positive-definite parameterization; non-symmetric cross-impact would require a Wiener--Hopf factorization of the matrix symbol $\mathbf{A}(\xi)$, which is available only when the eigenvalue crossings on the imaginary axis are absent.
+Empirical cross-impact between correlated assets --- trades in one name moving others in the same principal-component sector --- motivates a portfolio version of Theorem~1. For a cross-impact kernel $\mathbf{K}(t) = |t|^{-\beta}\mathbf{A}$ with $\mathbf{A} = Q\Lambda Q^\top$ symmetric positive-definite, Theorem~1 diagonalizes in the eigenbasis of $\mathbf{A}$: the scalar fractional-derivative rule \eqref{eq:bulk} applies independently to each principal-component alpha with eigenvalue prefactor $\Lambda_{ii}^{-1}$. The symmetric case covers the leading positive-definite parameterization; non-symmetric cross-impact requires a matrix Wiener--Hopf factorization of $\mathbf{A}(\xi)$, which exists under the same log-integrability hypothesis but may carry non-zero partial indices, in which case the factor is not a simple fractional integral and the scalar reduction fails \citep{GohbergKrein1970}.
 
 \subsection{Numerical implementation}
 
-Fractional derivatives discretize to Toeplitz matrices. On a uniform grid of $N$ points, $D_\pm^\nu$ is a lower- or upper-triangular Toeplitz whose entries are generalized binomial coefficients from the expansion of $(1-z)^\nu$. Evaluating \eqref{eq:bulk} costs $O(N\log N)$ per time step via FFT, compared with $O(N^2)$ Nystr\"om inversion of the Fredholm equation. The finite-interval formula \eqref{eq:bdry} adds two diagonal multiplications by $B$ and $B^{-1}$, preserving the $O(N\log N)$ cost.
+Fractional derivatives discretize to Toeplitz matrices. On a uniform grid of $N$ points, $D_\pm^\nu$ is a lower- or upper-triangular Toeplitz whose entries are generalized binomial coefficients from the expansion of $(1-z)^\nu$. Evaluating \eqref{eq:bulk} over the whole grid costs $O(N\log N)$ via FFT, compared with $O(N^2)$ Nystr\"om inversion of the Fredholm equation. The finite-interval formula \eqref{eq:bdry} adds diagonal multiplications by $B_T$ and $B_T^{-1}$, preserving the $O(N\log N)$ cost.
 
 \subsection{Role of the forecast curve}
 
 Theorem~1 makes explicit that the optimal rate at time $t$ depends on the \emph{entire} forecast curve $\bar\alpha(t,\cdot)$. The stationary time series of optimal rates against a given signal is a deterministic functional of the family of forecast curves, with two immediate practical consequences.
 
-\emph{Signal engineering.} Under the power-law kernel the whole-line value attained at $u^\star$ takes the form $V(\alpha) = \tfrac{1}{2\gamma c_\beta}\int|\xi|^{1-\beta}\,S_\alpha(\xi)\,d\xi$, weighting the forecast spectrum by $|\xi|^{1-\beta}$ --- an operational specification that differs from an $R^2$ of the signal against future returns. Two signals with identical $R^2$ can differ arbitrarily in tradeable value once their timescales differ, and the fractional-order weighting gives an operational specification of what makes one forecast better than another for a given impact kernel.
+\emph{Signal engineering.} The perfectly-anticipating (non-adapted) optimum $\gamma^{-1}C^{-1}\alpha$ attains value $V_{\rm ant}(\alpha) = \tfrac{1}{2\gamma}\,\E\langle\alpha,C^{-1}\alpha\rangle = \tfrac{1}{2\gamma c_\beta}\!\int|\xi|^{1-\beta}\,S_\alpha(\xi)\,\tfrac{d\xi}{2\pi}$ (spectral density normalized by $\E[\alpha_t^2]=\int S_\alpha\,d\xi/2\pi$). This is an upper bound on the adapted value $\tfrac{1}{2\gamma}\E\|P_+C_-^{-1}\alpha\|^2$ actually attained at $u^\star$ --- for an OU signal the two differ by the factor $\sin(\pi\beta/2)$. The bound weights the signal spectrum by $|\xi|^{1-\beta}$, a specification that differs from an $R^2$ of the signal against future returns: two signals with identical $R^2$ can differ arbitrarily in tradeable value once their timescales differ, and the fractional-order weighting quantifies what makes one forecast better than another for a given impact kernel.
 
 \emph{Forecast horizon.} The Marchaud representation of $D_-^\nu$ averages forecast increments $\bar\alpha(s,r) - \bar\alpha(s,s)$ over all future lags $r > s$ with weight $(r-s)^{-1-\nu}$. Forecasts are required over all horizons; horizon truncation gives an error decaying like $r_{\max}^{-\nu}$ in the maximum forecast horizon.
 
@@ -343,16 +344,11 @@ Theorem~1 makes explicit that the optimal rate at time $t$ depends on the \emph{
 The joint gain--risk--cost problem inherits the same operator structure once the two frictions share a coordinate. Cost acts on the trading rate $u$; a mean--variance holding penalty $\tfrac{\lambda}{2}\E\int x_t^\top\Sigma x_t\,dt$ acts on the position $x_t = \int_{-\infty}^t u_s\,ds$, which in rate coordinates is the operator with Fourier symbol $\lambda\Sigma/\xi^2$. Adding it to \eqref{eq:gaincost} replaces $C$ by the symbol $\gamma\hat C(\xi) + \lambda\Sigma/\xi^2$ --- still a positive Toeplitz operator, admitting Wiener--Hopf and Gohberg--Krein factorization, to which Lemma~1 applies without modification. The pure trading limit ($\lambda\to 0$) and the pure holding limit ($\gamma\to 0$) are the two boundaries of this joint factorization.
 
 % =====================================================
-\section{Limitations}
-
-The results assume: (i) a symmetric positive-definite propagator kernel, so the cross-impact matrix in \S5.3 must be symmetric; (ii) linear cost in the trading rate, with no bid--ask spread, tick-size effects, or non-linear temporary impact beyond the quadratic penalty of \S5.2; (iii) constant volatility --- volatility clustering and jumps in $\alpha$ are excluded; (iv) linear KKT constraints only, ruling out inequality position bounds; (v) a stationary signal spectrum in the whole-line formulas of \S4.2, with the OU case requiring $\beta>1/2$. The interior error bound (Proposition~3) is pointwise in $t$ and uses generic constants; sharp constants in $\beta$ are not tracked.
-
-% =====================================================
 \section{Concluding Remarks}
 
 This paper establishes a closed-form solution to the gain--cost trading problem under a general symmetric positive-definite propagator kernel. The construction rests on the causal--anticausal factorization of the cost operator --- Wiener--Hopf on the whole line, Gohberg--Krein on a finite interval, both realized as instances of the Arveson outer factorization for positive operators on a continuously nested Hilbert space. The adapted optimal rate is expressed as the composition of the causal square-root inverse of the cost operator with the adapted projection of the anticausal square-root inverse applied to the forecast curve, an expression whose form depends on the kernel only through its factorization.
 
-For the power-law kernel, the whole-line factors are the Marchaud fractional integrals of order $\nu = (1-\beta)/2$, and the closed form expresses the optimal rate as a composition of an anticausal and a causal Marchaud fractional derivative of order $\nu$, separated by the adapted projection $P_+$. Without $P_+$ the composition would reduce to the symmetric Riesz derivative of order $1-\beta$; the projection preserves the two half-order pieces and encodes the causality constraint. On a finite horizon the fractional integrals acquire endpoint-weight conjugations induced by the Gohberg--Krein factorization, and the optimal rate takes the form of a boundary-deformed fractional derivative that converges to the whole-line formula in the interior of the horizon at rate $O(d(t)^{-\nu})$.
+For the power-law kernel, the whole-line factors are the Liouville (Weyl) fractional integrals of order $\nu = (1-\beta)/2$, and the closed form expresses the optimal rate as a composition of an anticausal and a causal Marchaud fractional derivative of order $\nu$, separated by the adapted projection $P_+$. Without $P_+$ the composition would reduce to the symmetric Riesz derivative of order $1-\beta$; the projection preserves the two half-order pieces and encodes the causality constraint. On a finite horizon the fractional integrals acquire terminal-anchored endpoint-weight conjugations induced by the reflected Gohberg--Krein factorization, and the optimal rate takes the form of a boundary-deformed fractional derivative that converges to the whole-line formula in the interior at rate $O(d(t)^{-\nu})$.
 
 % =====================================================
 \appendix
@@ -360,9 +356,9 @@ For the power-law kernel, the whole-line factors are the Marchaud fractional int
 
 \paragraph{Proof of Lemma 1 (whole-line case).} With $C_\pm = c_\beta^{1/2} I_\pm^\nu$ on $L^2(\R)$, $C_\pm$ are Hilbert-space isomorphisms between $\Ldot{-\nu}$ and $L^2$ (respectively $L^2$ and $\Ldot{\nu}$) by Plancherel and the symbol $c_\beta^{1/2}|\xi|^{(\beta-1)/2}$. Their adjointness $C_+^* = C_-$ follows from the kernel-flip $(t-s)^{\nu-1}\mathbf{1}_{s\le t}\mapsto(s-t)^{\nu-1}\mathbf{1}_{t\le s}$. On $L^2_{\adap}\cap\Ldot{-\nu}$ the composition $P_+ C P_+$ is bounded, symmetric, and strictly positive (from $\hat C > 0$ on $\xi\ne 0$), hence boundedly invertible on its range. Causality of $C_+$ implies $P_+^\perp C_+ P_+ = 0$, so $C_+$ preserves $L^2_{\adap}$ and $C_+^{-1}$ commutes with $P_+$ on adapted inputs. The adjoint identity $P_+ C_- P_+^\perp = 0$ follows. Taking adjoints of $C_+^{-1}\colon L^2 \to \Ldot{-\nu}$ gives $P_+ C_-^{-1} P_+^\perp = 0$ as well, so $C_-^{-1}$ preserves ${L^2_{\adap}}^\perp$. For adapted $u$: $P_+ C P_+ u = P_+ C_- C_+ u$; applying $C_+^{-1} P_+ C_-^{-1}$ returns $u$ via $P_+ C_-^{-1} P_+ C_-$ acting as $P_+$ on the adapted vector $C_+ u$.
 
-\paragraph{Proof of Lemma 1 (finite-interval case).} Replace $C_\pm$ by the Gohberg--Krein factors $T, T^*$ of Proposition~2. Volterra causality of $T$ (kernel on $\{s\le t\}\cap[0,T]^2$) gives $P_+^\perp T P_+ = 0$ and $P_+ T^* P_+^\perp = 0$; the composition argument of the whole-line case then applies verbatim.
+\paragraph{Proof of Lemma 1 (finite-interval case).} Take $C_+ = RT^*R$ the reflected causal Gohberg--Krein factor of Proposition~2 and $C_- = C_+^* = RTR$, so that $C_-C_+ = R(TT^*)R = RG_TR = G_T$. Volterra causality of $C_+$ (kernel on $\{s\le t\}\cap[0,T]^2$) gives $P_+^\perp C_+ P_+ = 0$ and $P_+ C_- P_+^\perp = 0$; the composition argument of the whole-line case then applies verbatim.
 
-\paragraph{Existence of the outer factor.} The Wiener--Hopf factorization on $\R$ under the log-integrability hypothesis is classical \citep{WienerHopf1931,Krein1962}. The finite-interval $G_T = TT^*$ factorization is Arveson's outer factorization theorem for positive operators on a continuous nest \citep[Thm~4.4.2]{Arveson1975}; an equivalent constructive proof for symmetric weakly-singular integral kernels via spectral square root is in \citep[Ex.~6.2/9.2]{PorterStirling1990}; the explicit weight-conjugation form \eqref{eq:volterra-kernel}--\eqref{eq:weight-conj} for the power-law kernel is derived in \citep[pp.~590--591]{FordeSanchezSmith2022}.
+\paragraph{Existence of the outer factor.} The Wiener--Hopf factorization on $\R$ under the log-integrability hypothesis is classical \citep{WienerHopf1931,Krein1962}. The finite-interval outer factorization $G_T = TT^*$ is Arveson's theorem for positive operators on a continuous nest \citep[Thm~4.4.2]{Arveson1975}; an equivalent constructive proof for symmetric weakly-singular integral kernels via spectral square root is in \citep[Ex.~6.2/9.2]{PorterStirling1990}; the explicit left-anchored factor \eqref{eq:volterra-kernel} for the power-law kernel is derived in \citep[pp.~590--591]{FordeSanchezSmith2022}, and the reflected causal factor \eqref{eq:weight-conj} required here follows from it by the reflection $R$.
 
 \paragraph{Proof of Corollary 1.} Define the candidate $u^{\rm cand}_t := \gamma^{-1}c_\beta^{-1}(D_+^\nu\zeta)(t)$. Adaptedness: $D_+^\nu$ at time $t$ depends only on $\{\zeta_s\}_{s\le t}$, and each $\zeta_s \in \F_s\subset\F_t$ by \eqref{eq:proj-cma} and $\F_s$-measurability of the forecast curve. FOC verification proceeds in three steps.
 
@@ -380,13 +376,13 @@ using $I_-^\nu D_-^\nu = \mathrm{id}$ on $H^\nu(\R)$ \citep[\S5.3 Thm 5.3]{Samko
 
 \emph{Admissibility.} The spectral hypothesis ensures $|\xi|^{1-\beta}\widehat{\bar\alpha}(\xi)\in L^2$ pathwise, so $u^\star\in L^2_{\adap}$ by Plancherel.\qed
 
-\paragraph{Proof of Corollary 2.} The anticausal Marchaud derivative $D_-^\nu$ in \eqref{eq:bdry} acts on $\alpha^{\eff}$ extended by zero outside $[0,T]$, the natural convention for the finite-interval Volterra calculus \citep[\S13.5]{SamkoKilbasMarichev1993}. Substitute \eqref{eq:weight-conj} into \eqref{eq:closedform}: $u^{\star,T} = \gamma^{-1}\,T^{-1}\,P_+\,(T^*)^{-1}\,\alpha^{\eff}$ with $T^{-1} = c_\beta^{-1/2}\, B^{-1} D_+^\nu B$ and $(T^*)^{-1} = c_\beta^{-1/2}\, B D_-^\nu B^{-1}$ (inverting \eqref{eq:weight-conj} using $(I_\pm^\nu)^{-1} = D_\pm^\nu$). Collecting the two $c_\beta^{-1/2}$ factors into $c_\beta^{-1}$ gives \eqref{eq:bdry}. $T^{-1}$ is a Volterra operator between the appropriate weighted Sobolev spaces \citep[\S13.5]{SamkoKilbasMarichev1993}, not on $L^2$ directly. Adaptedness follows from causality of $T^{-1}$ (Volterra inverse of Volterra is Volterra).\qed
+\paragraph{Proof of Corollary 2.} The anticausal Marchaud derivative $D_-^\nu$ in \eqref{eq:bdry} acts on $\alpha^{\eff}$ extended by zero outside $[0,T]$, the natural convention for the finite-interval Volterra calculus \citep[\S13.5]{SamkoKilbasMarichev1993}. Substitute the reflected factors \eqref{eq:weight-conj} into \eqref{eq:closedform}: $u^{\star,T} = \gamma^{-1}\,C_+^{-1}\,P_+\,C_-^{-1}\,\alpha^{\eff}$ with $C_+^{-1} = c_\beta^{-1/2}\, B_T D_+^\nu B_T^{-1}$ and $C_-^{-1} = c_\beta^{-1/2}\, B_T^{-1} D_-^\nu B_T$ (inverting \eqref{eq:weight-conj} using $(I_\pm^\nu)^{-1} = D_\pm^\nu$). Collecting the two $c_\beta^{-1/2}$ factors into $c_\beta^{-1}$ gives \eqref{eq:bdry}. $C_+^{-1}$ is a Volterra operator between the appropriate weighted Sobolev spaces \citep[\S13.5]{SamkoKilbasMarichev1993}, not on $L^2$ directly. Adaptedness follows from causality of $C_+^{-1}$ (Volterra inverse of Volterra is Volterra).\qed
 
 \paragraph{Proof of Proposition 3.} The Marchaud tail bound: $|(D_-^\nu f)(s) - (D_-^{\nu,[0,T]}f)(s)| \le \tfrac{2\|f\|_\infty}{\Gamma(1-\nu)}(T-s)^{-\nu}$ from
 \[
 (D_-^\nu f)(s) = \tfrac{\nu}{\Gamma(1-\nu)}\!\int_0^\infty \tfrac{f(s)-f(s+r)}{r^{1+\nu}}\,dr,
 \]
-truncated at $r = T-s$. Symmetrically the outer $D_+^\nu$ contributes a tail bounded by $t^{-\nu}$. The dominant interior truncation is on the closer boundary, giving the first term of \eqref{eq:interior}. The KKT-multiplier eigenfunction $\phi_1(t) = [t(T-t)]^{(\beta-1)/2}$ associated with the terminal-inventory constraint satisfies $|\phi_1(t)|\le d(t)^{-\nu}(T-d(t))^{-\nu}\le d(t)^{-\nu}(T/2)^{-\nu}$, and its KKT coefficient is bounded uniformly in $T$ by $\|\alpha^{\eff}\|_{\dot H^\nu}$ \citep[Prop.~3.2]{FordeSanchezSmith2022}. This gives the second term of \eqref{eq:interior}.\qed
+truncated at $r = T-s$. Symmetrically the outer $D_+^\nu$ contributes a tail bounded by $t^{-\nu}$. The dominant interior truncation is on the closer boundary, giving the first term of \eqref{eq:interior}. The terminal-weight conjugation contributes a further error: on the Marchaud support the ratio $B_T(t)/B_T(s) = \bigl((T-s)/(T-t)\bigr)^{\nu} = 1 + O((t-s)/(T-t))$, so its deviation from the whole-line unweighted operator is $O(d(t)^{-1})$, subdominant to $d(t)^{-\nu}$ for $\nu<1$. The endpoint-constraint correction enters through the S\"ohngen--Tricomi eigenfunction $\phi_1(t) = [t(T-t)]^{(\beta-1)/2}$ of the no-signal solution \citep{GatheralSchiedSlynko2012,FordeSanchezSmith2022}, which satisfies $|\phi_1(t)|\le d(t)^{-\nu}(T/2)^{-\nu}$; under $\alpha^{\eff}\in\dot H^\nu$ its coefficient is $O(\|\alpha^{\eff}\|_{\dot H^\nu}\,T^{-\nu})$, giving the second term of \eqref{eq:interior}.\qed
 
 \paragraph{Acknowledgements.} The author thanks Antoine Bambade, Raphael Benichou, Iacopo Mastromatteo, Jean-Yves Audibert, and Raphael Maillet for useful discussions. Drafting, literature review, and LaTeX preparation were assisted by Claude Opus via the Feynman research harness; all mathematical claims and results were verified by the author.
 
