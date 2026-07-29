@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.12)  29 JUL 2026 14:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.12)  29 JUL 2026 15:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -379,24 +379,24 @@ File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 ) (./optimal-trading-filters-v5.aux)
 \openout1 = `optimal-trading-filters-v5.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -463,58 +463,125 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 33.
+Package hyperref Info: Link coloring OFF on input line 34.
  (./optimal-trading-filters-v5.out) (./optimal-trading-filters-v5.out)
 \@outlinefile=\write3
 \openout3 = `optimal-trading-filters-v5.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 35.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 36.
 
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 35.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 36.
 
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-No file optimal-trading-filters-v5.bbl.
-[1
+) [1
 
 {/Users/orwell/Library/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdft
 ex.map}{/Users/orwell/Library/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
- (./optimal-trading-filters-v5.aux)
+
+[2] [3] [4] [5] [6]
+<figures/fig_filter_structure.pdf, id=317, 966.69157pt x 267.07521pt>
+File: figures/fig_filter_structure.pdf Graphic file (type pdf)
+<use figures/fig_filter_structure.pdf>
+Package pdftex.def Info: figures/fig_filter_structure.pdf  used on input line 2
+52.
+(pdftex.def)             Requested size: 469.75502pt x 129.7799pt.
+ [7] [8 <./figures/fig_filter_structure.pdf>]
+<figures/fig_transfer_impulse.pdf, id=413, 851.97331pt x 341.62029pt>
+File: figures/fig_transfer_impulse.pdf Graphic file (type pdf)
+<use figures/fig_transfer_impulse.pdf>
+Package pdftex.def Info: figures/fig_transfer_impulse.pdf  used on input line 2
+92.
+(pdftex.def)             Requested size: 469.75502pt x 188.35567pt.
+<figures/fig_causality_gap.pdf, id=417, 424.22491pt x 301.36589pt>
+File: figures/fig_causality_gap.pdf Graphic file (type pdf)
+<use figures/fig_causality_gap.pdf>
+Package pdftex.def Info: figures/fig_causality_gap.pdf  used on input line 307.
+
+(pdftex.def)             Requested size: 291.2458pt x 206.89882pt.
+ [9 <./figures/fig_transfer_impulse.pdf>] [10 <./figures/fig_causality_gap.pdf>
+]
+<figures/fig_boundary_layer.pdf, id=564, 534.79799pt x 303.534pt>
+File: figures/fig_boundary_layer.pdf Graphic file (type pdf)
+<use figures/fig_boundary_layer.pdf>
+Package pdftex.def Info: figures/fig_boundary_layer.pdf  used on input line 343
+.
+(pdftex.def)             Requested size: 338.22418pt x 191.96848pt.
+ [11 <./figures/fig_boundary_layer.pdf>] [12]
+Overfull \hbox (12.55298pt too wide) in paragraph at lines 387--388
+ []\OT1/cmr/bx/n/10.95 Ornstein--Uhlenbeck for-mu-las.[] \OT1/cmr/m/n/10.95 Wit
+h $[] = \OML/cmm/m/it/10.95 ^^[^^R=\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 ^^R 
+\OMS/cmsy/m/n/10.95 ^^@ \OML/cmm/m/it/10.95 i!\OT1/cmr/m/n/10.95 )$, the com-bi
+-na-tion $\OML/cmm/m/it/10.95 h \OMS/cmsy/m/n/10.95 ^^@ []\OML/cmm/m/it/10.95 =
+\OT1/cmr/m/n/10.95 ^^H(\OML/cmm/m/it/10.95 ^^R\OT1/cmr/m/n/10.95 ) = \OML/cmm/m
+/it/10.95 ^^[^^R\OT1/cmr/m/n/10.95 [[](\OML/cmm/m/it/10.95 !\OT1/cmr/m/n/10.95 
+) \OMS/cmsy/m/n/10.95 ^^@
+ []
+
+
+Overfull \hbox (2.50328pt too wide) in paragraph at lines 391--392
+ []\OT1/cmr/bx/n/10.95 Proposition []1[].[] \OT1/cmr/m/n/10.95 The finite-horiz
+on pol-icy [] dif-fers from the whole-line one through the terminal-
+ []
+
+[13] (./optimal-trading-filters-v5.bbl [14]) [15]
+(./optimal-trading-filters-v5.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `optimal-trading-filters-v5.out' has not chan
 ged.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+(rerunfilecheck)             Checksum: 2177B97396BBB3D2C4C5DD0E7100846D;3400.
  ) 
 Here is how much of TeX's memory you used:
- 11456 strings out of 469006
- 175367 string characters out of 5454813
- 596001 words of memory out of 5000000
- 40006 multiletter control sequences out of 15000+600000
- 637863 words of font info for 79 fonts, out of 8000000 for 9000
+ 11820 strings out of 469006
+ 182788 string characters out of 5454813
+ 615786 words of memory out of 5000000
+ 40256 multiletter control sequences out of 15000+600000
+ 639822 words of font info for 85 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 75i,11n,79p,1283b,447s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,11n,79p,1286b,605s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx1
 0.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr17.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmtt9.pfb></Users/orwell/Library/texmf/fonts/type1/public/cm-super/sf
-rm0600.pfb></Users/orwell/Library/texmf/fonts/type1/public/cm-super/sfrm0800.pf
-b>
-Output written on optimal-trading-filters-v5.pdf (1 page, 90469 bytes).
+mbx12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmex10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2026basic/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2026basic/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2026basic/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2026basic/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2026basic/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2026basic/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2026basic/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026bas
+ic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2026
+basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2
+026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
+e/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/tex
+live/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local
+/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/lo
+cal/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb
+></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/symbols/m
+sbm10.pfb></Users/orwell/Library/texmf/fonts/type1/public/cm-super/sfrm0600.pfb
+></Users/orwell/Library/texmf/fonts/type1/public/cm-super/sfrm0800.pfb>
+Output written on optimal-trading-filters-v5.pdf (15 pages, 422446 bytes).
 PDF statistics:
- 54 PDF objects out of 1000 (max. 8388607)
- 34 compressed objects within 1 object stream
- 2 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 808 PDF objects out of 1000 (max. 8388607)
+ 637 compressed objects within 7 object streams
+ 109 named destinations out of 1000 (max. 500000)
+ 165 words of extra memory for PDF output out of 10000 (max. 10000000)
 
