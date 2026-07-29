@@ -154,7 +154,7 @@ fig.savefig("figures/fig_speed_position.png")
 fig.savefig("figures/fig_speed_position.pdf")
 print("wrote figures/fig_speed_position.png")
 
-# copy to v3/figures
+# copy to arxiv/figures
 for ext in ("png", "pdf"):
-    shutil.copy(f"figures/fig_speed_position.{ext}", f"v3/figures/fig_speed_position.{ext}")
-print("copied to v3/figures/")
+    shutil.copy(f"figures/fig_speed_position.{ext}", f"arxiv/figures/fig_speed_position.{ext}")
+print("copied to arxiv/figures/")

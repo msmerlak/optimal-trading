@@ -69,13 +69,15 @@ ax[0].text(1.8e-2, plateau*1.16, r"$1/\sqrt{2\kappa\gamma}$ (exp.\ plateau)", fo
 for wc, txt in [(wc1, r"$\omega_c$"), (w_exp, r"$\omega_e$"), (w_pow, r"$\omega_*$")]:
     ax[0].axvline(wc, color="0.75", lw=0.8, ls=":")
     ax[0].text(wc*1.15, 1.5e-4, txt, fontsize=9, color="0.4")
+# power-law slope guide, placed to overlay the power-law transfer curve
 gg = np.logspace(0.4, 2.6, 20)
-ax[0].loglog(gg, 0.85*gg**(-(1+beta)/2), "C3", lw=0.8, ls=":")
-ax[0].text(gg[len(gg)//2], 0.85*gg[len(gg)//2]**(-(1+beta)/2)*1.5, r"$\omega^{-(1+\beta)/2}$",
+ax[0].loglog(gg, 0.62*gg**(-(1+beta)/2), "C3", lw=0.9, ls=":")
+ax[0].text(gg[len(gg)//2]*1.1, 0.62*gg[len(gg)//2]**(-(1+beta)/2)*1.7, r"$\omega^{-(1+\beta)/2}$",
            fontsize=8.6, color="C3")
-gh = np.logspace(3.5, 4.4, 20)
-ax[0].loglog(gh, 20*gh**(-1.0), "0.5", lw=0.8, ls=":")
-ax[0].text(gh[0]*0.30, 20*gh[0]**(-1.0)*1.5, r"$\omega^{-1}$ (temp.)", fontsize=8.6, color="0.4")
+# high-frequency instantaneous-cost roll-off: both curves -> 1/(sqrt(eta) * omega)
+gh = np.logspace(3.3, 4.5, 20)
+ax[0].loglog(gh, (1/np.sqrt(eta))*gh**(-1.0), "0.5", lw=0.9, ls=":")
+ax[0].text(gh[2], (1/np.sqrt(eta))*gh[2]**(-1.0)*2.0, r"$\omega^{-1}$ (instant.)", fontsize=8.6, color="0.4")
 ax[0].set_ylim(6e-5, 6)
 ax[0].set_title(r"(a) transfer function $|H(\omega)|=1/\sqrt{n(\omega)}$")
 ax[0].set_xlabel(r"frequency $\omega$"); ax[0].set_ylabel(r"$|H(\omega)|$")

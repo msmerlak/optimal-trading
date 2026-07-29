@@ -37,10 +37,10 @@ th = np.logspace(-2, 1.5, 280)
 
 fig, ax = plt.subplots(figsize=(7.0, 4.6))
 curves = [
-    (r"exponential $+$ temp. cost",  n_exp(eta), "C0", "-"),
-    (r"power-law $+$ temp. cost",    n_pow(eta), "C3", "-"),
-    (r"exponential (no temp.)",      n_exp(0.0), "C0", ":"),
-    (r"power-law (no temp.)",        n_pow(0.0), "C3", ":"),
+    (r"exponential $+$ instantaneous cost",  n_exp(eta), "C0", "-"),
+    (r"power-law $+$ instantaneous cost",    n_pow(eta), "C3", "-"),
+    (r"exponential (no instant.\ cost)",      n_exp(0.0), "C0", ":"),
+    (r"power-law (no instant.\ cost)",        n_pow(0.0), "C3", ":"),
 ]
 for lbl, nf, c, ls in curves:
     lw = 2.1 if ls == "-" else 1.6
@@ -49,21 +49,21 @@ for lbl, nf, c, ls in curves:
 # the finite-lambda cap: v(theta->0) -> 1/(2 lambda) (constant signal = Markowitz value)
 cap = 1.0/(2*lam)
 ax.axhline(cap, color="0.5", lw=0.9, ls="--")
-ax.text(0.013, 0.33, r"$v\to \dfrac{1}{2\lambda}$ as $\theta\to0$:"
-        "\nconstant signal traded\nMarkowitz (finite, no blow-up)", fontsize=8.6, color="0.35",
+ax.text(0.013, 0.33, r"$v\to \dfrac{1}{2\lambda}$ as $\theta\to0$"
+        "\n(constant signal, Markowitz value)", fontsize=8.6, color="0.35",
         va="top")
 # exp floor
 floor = 1.0/(2*(2*kap*gam+lam))
 ax.axhline(floor, color="C0", lw=0.7, ls=":")
-ax.text(9.0, floor*1.12, r"$\dfrac{1}{2(2\kappa\gamma+\lambda)}$ (exp floor)", fontsize=8.0, color="C0")
+ax.text(9.0, floor*1.12, r"$\dfrac{1}{2(2\kappa\gamma+\lambda)}$ (exp.\ floor)", fontsize=8.0, color="C0")
 # power-law slope guide
 g = np.logspace(0.5, 1.4, 30)
 ax.loglog(g, 0.55*g**(-(1+beta)), "0.5", lw=0.8, ls=":")
 ax.text(g[-1]*1.03, 0.55*g[-1]**(-(1+beta)), r"$\propto\theta^{-(1+\beta)}$", fontsize=8.6, color="0.4")
 
-ax.set_title(r"value vs speed, fixed finite risk $\lambda=0.5$  (mu-form, no discount, $\mathrm{Var}(\mu)=1$)")
-ax.set_xlabel(r"signal speed $\theta$")
-ax.set_ylabel(r"value rate $v(\theta)=1/2\Phi(\theta)^2$")
+ax.set_title(r"value versus signal speed ($\lambda=0.5$ fixed, $\mathrm{Var}(\mu)=1$)")
+ax.set_xlabel(r"signal mean-reversion rate $\theta$")
+ax.set_ylabel(r"value rate $v(\theta)=1/(2\Phi(\theta)^2)$")
 ax.legend(fontsize=9.0, loc="lower left")
 fig.tight_layout()
 fig.savefig("figures/fig_value_lambda.png"); fig.savefig("figures/fig_value_lambda.pdf")
