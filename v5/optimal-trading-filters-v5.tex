@@ -61,7 +61,7 @@ J(x) \;=\;
 \end{equation}
 where $\eta,\gamma,\lambda\ge0$ weight the temporary, transient, and inventory costs. The first term is the mean--variance gain of portfolio choice; the remaining three are the frictions of execution. Sections~\ref{sec:interior}--\ref{sec:filters} treat this problem on the whole line, appropriate to an ongoing operation; Section~\ref{sec:finite} restricts it to a window $[0,T]$ closing flat, $x_T=0$.
 
-The transient term carries the structure that makes \eqref{eq:objective} nontrivial. Following \citet{AlmgrenChriss2001}, early execution models split impact into a temporary part felt only by the trade that causes it and a permanent part linear in cumulative volume. Transaction data revised this picture: impact is concave in size \citep{LilloFarmerMantegna2003} and transient, a displacement that decays over time \citep{BouchaudGefenPottersWyart2004}. In the resulting propagator model the mid-price carries a weighted memory of past order flow through the kernel $g$, and the modeling choice reduces to the shape of $g$. \citet{ObizhaevaWang2013} derive an exponential kernel $g(t)=e^{-\kappa t}$ from a block-shaped limit order book that refills at a constant rate, a single resilience time $1/\kappa$. Empirical decay is slower: a power law $g(t)\propto t^{-\beta}$ with $\beta$ around $0.2$--$0.6$ \citep{BouchaudGefenPottersWyart2004,JusselinRosenbaum2020}, consistent with the absence of price manipulation \citep{Gatheral2010} and, through the exponent, with rough volatility \citep{JusselinRosenbaum2020}. The exponential kernel is analytically convenient; the power law fits the data. Both are treated below.
+The difficulty in \eqref{eq:objective} comes entirely from the transient cost; the inventory and temporary terms are local in time. Following \citet{AlmgrenChriss2001}, early execution models split impact into a temporary part felt only by the trade that causes it and a permanent part linear in cumulative volume. Transaction data revised this picture: impact is concave in size \citep{LilloFarmerMantegna2003} and transient, a displacement that decays over time \citep{BouchaudGefenPottersWyart2004}. In the resulting propagator model the mid-price carries a weighted memory of past order flow through the kernel $g$, and the modeling choice reduces to the shape of $g$. \citet{ObizhaevaWang2013} derive an exponential kernel $g(t)=e^{-\kappa t}$ from a block-shaped limit order book that refills at a constant rate, a single resilience time $1/\kappa$. Empirical decay is slower: a power law $g(t)\propto t^{-\beta}$ with $\beta$ around $0.2$--$0.6$ \citep{BouchaudGefenPottersWyart2004,JusselinRosenbaum2020}, consistent with the absence of price manipulation \citep{Gatheral2010} and, through the exponent, with rough volatility \citep{JusselinRosenbaum2020}. The exponential kernel is the tractable choice, the power law the empirically supported one; both are treated below.
 
 It is convenient to refer all three costs to the position. The quadratic form in \eqref{eq:objective} is $\tfrac12\langle x,Nx\rangle$ for the \emph{friction operator}
 \begin{equation}\label{eq:symbol}
@@ -77,9 +77,9 @@ a continuous-time analogue of the Markowitz rule $w=\lambda^{-1}\Sigma^{-1}\mu$ 
 
 \subsection{The adaptedness constraint}\label{sec:adaptedness}
 
-The position at time $t$ may depend on the signal observed up to $t$ and not on its future: $x_t$ must be measurable with respect to the information $\F_t$. When the friction is local this constraint is slack. With inventory cost alone ($\eta=\gamma=0$) the symbol is the constant $\lambda$, \eqref{eq:markowitz-anticip} reads pointwise, and the optimum is the memoryless Markowitz position $x_t=\mu_t/\lambda$ \citep{Markowitz1952,Merton1971}. Adding a temporary cost turns $N$ into the differential operator $\lambda-\eta\,\partial_t^2$, still local in time; the optimum becomes a partial-adjustment rule that tracks a discounted target, the aim portfolio of \citet{GarleanuPedersen2013,GarleanuPedersen2016}. In both cases the adapted optimum coincides with the pointwise reading of \eqref{eq:markowitz-anticip}, and no genuine intertemporal coupling arises.
+The position at time $t$ may depend on the signal observed up to $t$ and not on its future: $x_t$ must be measurable with respect to the information $\F_t$. When the friction is local this constraint is slack. With inventory cost alone ($\eta=\gamma=0$) the symbol is the constant $\lambda$; reading \eqref{eq:markowitz-anticip} pointwise gives the memoryless Markowitz position $x_t=\mu_t/\lambda$ \citep{Markowitz1952,Merton1971}. Adding a temporary cost turns $N$ into the differential operator $\lambda-\eta\,\partial_t^2$, still local in time; the optimum becomes a partial-adjustment rule that tracks a discounted target, the aim portfolio of \citet{GarleanuPedersen2013,GarleanuPedersen2016}. In both cases the adapted optimum coincides with the pointwise reading of \eqref{eq:markowitz-anticip}, and no genuine intertemporal coupling arises.
 
-Transient impact removes this locality. Its contribution to the symbol, $\gamma\hat g(\omega)\,\omega^2$, is not a polynomial, so $Nx$ at time $t$ depends on the position over both the past and the future. Perfect-foresight inversion \eqref{eq:markowitz-anticip} is then acausal, and the constraint binds. Varying \eqref{eq:objective} over adapted perturbations replaces the plain first-order condition by its projection,
+Transient impact breaks this locality. Its contribution to the symbol, $\gamma\hat g(\omega)\,\omega^2$, is not a polynomial, so applying $N$ couples the position across both the past and the future. Perfect-foresight inversion \eqref{eq:markowitz-anticip} is then acausal, and the constraint binds. Varying \eqref{eq:objective} over adapted perturbations replaces the plain first-order condition by its projection,
 \begin{equation}\label{eq:foc}
 \E_t\bigl[(Nx^\star)_t\bigr] \;=\; \mu_t
 \qquad\Longleftrightarrow\qquad
@@ -144,7 +144,7 @@ which will carry the dependence of the filter on the signal's mean-reversion rat
 
 \subsection{The projected inverse}\label{sec:pi}
 
-The one-sided factors assemble the compressed inverse required by \eqref{eq:foc}.
+We can now assemble the compressed inverse required by \eqref{eq:foc} from the one-sided factors.
 
 \begin{lemma}[Adapted projected inverse]\label{lem:pi}
 Let $A=A_-A_+$ be a positive operator with $A_+$ causal with causal inverse and $A_-=A_+^\ast$ anticausal with anticausal inverse. Then, on adapted processes,
@@ -166,7 +166,7 @@ x^\star_t = \bigl(N_+^{-1}\zeta\bigr)_t, \quad
 the second form using that the deterministic operator $N_-^{-1}$ commutes with conditioning on its time argument.
 \end{theorem}
 
-The policy \eqref{eq:policy} composes three operations. The anticausal factor $N_-^{-1}$ acts first; applied to the true future of $\mu$ it would be acausal, so the projection $P_+$ replaces that future by the forecast curve $\bar\mu(s,\cdot)$, producing the whitened forecast $\zeta$. The causal factor $N_+^{-1}$ then recolours. Completing the square in \eqref{eq:objective} gives an equivalent reading: up to a constant, $J(x)=-\tfrac12\|x-N^{-1}\mu\|_N^2$ in the friction norm $\|y\|_N^2=\E\langle y,Ny\rangle$, so $x^\star$ is the orthogonal projection of the perfect-foresight optimum $N^{-1}\mu$ onto the adapted positions in that norm. This is a Wiener--Kolmogorov estimation problem with the friction in place of the signal covariance, and the correspondence is the one that carries frequency-domain factorization from filtering into control \citep{Wiener1949,Whittle1963,Whiteman1985}.
+Three steps make up the policy \eqref{eq:policy}: first, whiten by the anticausal factor $N_-^{-1}$; since that would draw on the true future of $\mu$, replace it by the forecast curve $\bar\mu(s,\cdot)$, which yields the whitened forecast $\zeta$; then recolour by the causal factor $N_+^{-1}$. Completing the square in \eqref{eq:objective} gives an equivalent reading: up to a constant, $J(x)=-\tfrac12\|x-N^{-1}\mu\|_N^2$ in the friction norm $\|y\|_N^2=\E\langle y,Ny\rangle$, so $x^\star$ is the orthogonal projection of the perfect-foresight optimum $N^{-1}\mu$ onto the adapted positions in that norm. This is a Wiener--Kolmogorov estimation problem with the friction in place of the signal covariance, and the correspondence is the one that carries frequency-domain factorization from filtering into control \citep{Wiener1949,Whittle1963,Whiteman1985}.
 
 The gap between $x^\star$ and the perfect-foresight optimum has a dual description. Applying $N$ to \eqref{eq:policy},
 \begin{equation}\label{eq:multiplier}
@@ -196,18 +196,18 @@ v \;=\; \frac{1}{4\pi}\,\bigl\|\pluspart{h}\bigr\|_{L^2}^2 .
 \end{equation}
 \end{theorem}
 
-The hypothesis $\lambda>0$ keeps $h$ and $\hat\pi$ in $L^2$. Without inventory cost the symbol $\hat n$ vanishes at the origin and the position ceases to be stationary; that regime is the subject of Section~\ref{sec:powerlaw}, where the theory is referred to the rate.
+Requiring $\lambda>0$ keeps $h$ and $\hat\pi$ in $L^2$. Without inventory cost the symbol vanishes at the origin and the position ceases to be stationary; Section~\ref{sec:powerlaw} treats that regime, referring the theory to the rate.
 
-When the signal has a finite-dimensional state the filter simplifies further. Call $\mu$ Markov of order $d$ if its forecast curve is a fixed combination of the current value and its first $d-1$ derivatives, $\bar\mu(t,s)=\sum_{k=0}^{d-1}\mu^{(k)}_t\,g_k(s-t)$; equivalently $S_\mu$ is rational of degree $d$. The whitened forecast then collapses to a differential operator, $\zeta_s=\sum_k\rho_k\mu^{(k)}_s$ with $\rho_k=(N_-^{-1}g_k)(0)$, and the policy reads on the observed signal, $\hat x^\star=P(-i\omega)\,\hat\mu/\hat n_+$. The order-one case is the Ornstein--Uhlenbeck signal, the only stationary Gaussian signal with a fixed forecast profile: $\bar\mu(t,s)=\mu_t e^{-\theta(s-t)}$ with mean-reversion rate $\theta>0$. Its single pole gives $\rho_0=1/\Phi(\theta)$, and
+When the signal has a finite-dimensional state the filter simplifies further. Call $\mu$ Markov of order $d$ if its forecast curve is a fixed combination of the current value and its first $d-1$ derivatives, $\bar\mu(t,s)=\sum_{k=0}^{d-1}\mu^{(k)}_t\,g_k(s-t)$; equivalently $S_\mu$ is rational of degree $d$. Whitening the forecast then produces a differential operator, $\zeta_s=\sum_k\rho_k\mu^{(k)}_s$ with $\rho_k=(N_-^{-1}g_k)(0)$, and on the observed signal the policy becomes $\hat x^\star=P(-i\omega)\,\hat\mu/\hat n_+$. The order-one case is the Ornstein--Uhlenbeck signal, the only stationary Gaussian signal with a fixed forecast profile: $\bar\mu(t,s)=\mu_t e^{-\theta(s-t)}$ with mean-reversion rate $\theta>0$. With a single pole, $\rho_0=1/\Phi(\theta)$, and
 \begin{equation}\label{eq:ou-filter}
 \hat x^\star(\omega) \;=\; \frac{\hat\mu(\omega)}{\Phi(\theta)\,\hat n_+(\omega)},
 \qquad v = \frac{\sigma^2\theta}{4\,\Phi(\theta)^2},
 \end{equation}
-with $\theta^2\sigma^2$ the innovation variance of $\mu$. Formula \eqref{eq:ou-filter} is a single expression for every rational friction; Section~\ref{sec:filters} reads off its special cases.
+with $\theta^2\sigma^2$ the innovation variance of $\mu$. Every rational friction is a special case of \eqref{eq:ou-filter}, worked out in Section~\ref{sec:filters}.
 
 \subsection{The value of anticipation}\label{sec:value-general}
 
-The value \eqref{eq:value} admits a benchmark. A trader with the whole path of $\mu$ in hand replaces $\pluspart{\cdot}$ by the identity and attains
+A benchmark for \eqref{eq:value} comes from perfect foresight: a trader with the whole path of $\mu$ in hand replaces $\pluspart{\cdot}$ by the identity and attains
 \begin{equation}\label{eq:vant}
 v_{\rm ant} \;=\; \frac{1}{4\pi}\int\frac{S_\mu(\omega)}{\hat n(\omega)}\,d\omega \;\ge\; v ,
 \end{equation}
@@ -257,7 +257,7 @@ x^\star_t = \frac{1}{\Phi(\theta)\sqrt\eta}\sum_{i=1}^2 w_i\!\int_{-\infty}^t e^
 
 \subsection{Power-law kernels and fractional calculus}\label{sec:powerlaw}
 
-The power-law kernel has no characteristic timescale: its transform $\hat g(\omega)=c_\beta|\omega|^{\beta-1}$, with $c_\beta=2\Gamma(1-\beta)\sin(\pi\beta/2)$, diverges at the origin, so the impact is non-integrable. Writing $|t|^{-\beta}=\Gamma(\beta)^{-1}\int_0^\infty e^{-r|t|}r^{\beta-1}\,dr$ exhibits it as a superposition of exponential kernels over a continuum of decay rates, where a rational kernel has finitely many. The optimal filter inherits this continuum in the form of a fractional operator.
+The power-law kernel has no characteristic timescale: its transform $\hat g(\omega)=c_\beta|\omega|^{\beta-1}$, with $c_\beta=2\Gamma(1-\beta)\sin(\pi\beta/2)$, diverges at the origin, so the impact is non-integrable. Writing $|t|^{-\beta}=\Gamma(\beta)^{-1}\int_0^\infty e^{-r|t|}r^{\beta-1}\,dr$ exhibits it as a superposition of exponential kernels over a continuum of decay rates, where a rational kernel has finitely many. The optimal filter is correspondingly a fractional operator.
 
 With $\eta=\lambda=0$ the symbol $\hat n=\gamma c_\beta|\omega|^{1+\beta}$ vanishes at the origin, so the optimal position is non-stationary and the stationary object is the rate. The natural signal is then the appreciation $\alpha_t=\E_t\int_t^\infty\mu_s\,ds$, with $\mu=\E_t[-\dot\alpha]$; for an Ornstein--Uhlenbeck signal $\alpha=\mu/\theta$. Referred to the rate the friction is $Q$ with symbol $\hat q=\gamma\hat g$ and factors $\hat q_\pm$, Lemma~\ref{lem:pi} applies to $Q=Q_-Q_+$, and Theorem~\ref{thm:general} reads
 \begin{equation}\label{eq:rate-policy}
@@ -286,7 +286,7 @@ an anticausal fractional derivative of the forecast, whitened, followed by a cau
 \hat x^\star(\omega) \;\propto\; (-i\omega)^{-(1+\beta)/2}\,\hat\mu(\omega),
 \qquad x^\star\propto I^{(1+\beta)/2}_+\mu ,
 \end{equation}
-the scale-free counterpart of the Markowitz position $\mu/\lambda$. Its spectral density is $\propto|\omega|^{-(1+\beta)}S_\mu(\omega)$, which is integrable at the origin only if $S_\mu(\omega)=o(|\omega|^\beta)$ there. A persistent return fails this test; for an Ornstein--Uhlenbeck signal $S_\mu(0)\ne0$ and the position drifts without bound, a fractional analogue of the random walk that integrating a persistent return would produce. This is why the pure power-law theory is referred to the rate, which is stationary for every signal. Any $\lambda>0$ confines the position, at the cost of leaving the scale-free regime; the transfer function then interpolates across the crossover frequencies of $\hat q$, risk-dominated at low frequency and temporary-cost-dominated at high frequency, as Figure~\ref{fig:transfer} shows.
+the scale-free counterpart of the Markowitz position $\mu/\lambda$. Its spectral density is $\propto|\omega|^{-(1+\beta)}S_\mu(\omega)$, which is integrable at the origin only if $S_\mu(\omega)=o(|\omega|^\beta)$ there. A persistent return fails this test; for an Ornstein--Uhlenbeck signal $S_\mu(0)\ne0$ and the position drifts without bound, a fractional analogue of the random walk that integrating a persistent return would produce. This is why the pure power-law theory is referred to the rate, which is stationary for every signal. Any inventory cost $\lambda>0$ confines the position, at the cost of leaving the scale-free regime; the transfer function then interpolates across the crossover frequencies of $\hat q$, risk-dominated at low frequency and temporary-cost-dominated at high frequency, as Figure~\ref{fig:transfer} shows.
 
 \begin{figure}[t]
 \centering
