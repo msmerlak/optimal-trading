@@ -378,9 +378,22 @@ c_+(t,s)=(\gamma c_\beta)^{1/2}\Bigl(\frac{T-s}{T-t}\Bigr)^{\!\nu}\frac{(t-s)^{\
 \end{equation}
 verified by direct kernel integration to give $C_-C_+=G_T$ with the correct constant. This is the whole-line factor $(\gamma c_\beta)^{1/2}I^\nu_+$ multiplied by the terminal weight $(T-t)^\nu$; homogeneity of the kernel is what reduces the anchoring to a scalar weight, and away from the endpoints the weight tends to one, which is Proposition~\ref{prop:boundary} for this kernel. Because $g(0)=\infty$, an instantaneous trade is prohibitively costly and no endpoint blocks appear. For a constant signal the projection is trivial and \eqref{eq:finiteT} reduces to the continuous U-shaped profile $u^\star(t)\propto[t(T-t)]^{(\beta-1)/2}$ of \citet[Ex.~2.30]{GatheralSchiedSlynko2012}. For a Gaussian Volterra signal the finite-horizon first-order condition is the stochastic Fredholm equation solved by \citet{FordeSanchezSmith2022}; \eqref{eq:finiteT} with \eqref{eq:gk-kernel} is its solution operator, the time reflection of \eqref{eq:gk-kernel} supplying their left-anchored factor and the generalized Abel inversion of \citet{ChakrabartiGeorge1994} implementing $G_T^{-1}$.
 
-\subsection{Impact surfing}
+\subsection{Impact surfing}\label{sec:surfing}
 
-TO BE COMPLETED: exponential surfs its own impact at high frequency, power-law doesn't
+The endpoint blocks of \S\ref{sec:pureimpact} have a whole-line counterpart. Say that a strategy \emph{surfs} its own impact when the trade rate and the signal carry opposite signs on average, $\E[u^\star_t\,\alpha_t]<0$: the inventory leans with the forecast, but the flow leans against it, so the trader sells into a still-positive signal while the price relaxes back from its earlier impact. For an Ornstein--Uhlenbeck signal this average is proportional to
+\begin{equation}\label{eq:surf}
+R(\theta)\;=\;\frac{\theta^2}{\Phi(\theta)}\Bigl(\frac{1}{\Phi(\theta)}-2c_1\Bigr),
+\qquad c_1=\lim_{|\omega|\to\infty}\frac{1}{\hat n_+(\omega)},
+\end{equation}
+and surfing occurs exactly when $R(\theta)<0$. The inventory stays aligned throughout, $\E[x^\star_t\alpha_t]\propto\theta/\Phi(\theta)^2>0$, so only the flow can reverse.
+
+Here $c_1$ is the amplitude of a lag-zero atom in the rate filter --- a jump in the position, the whole-line residue of the endpoint blocks of \S\ref{sec:pureimpact} --- and it is nonzero only when the impact is finite at zero lag and no instantaneous cost smooths it. For the exponential kernel with $\eta=0$, $\hat n_+=\sqrt A\,(m-i\omega)/(\kappa-i\omega)$ with $A=2\kappa\gamma+\lambda$ and $m=\kappa\sqrt{\lambda/A}$, so $c_1=1/\sqrt A$ and
+\[
+R(\theta)<0 \iff \Phi(\theta)>\tfrac12\sqrt A \iff \theta>\theta^\star:=\kappa-2m.
+\]
+A slowly reverting signal is followed ($R>0$ for $\theta<\theta^\star$) and a fast one is surfed ($R<0$ for $\theta>\theta^\star$); the effect strengthens with the signal speed. As risk aversion or impact grows the threshold $\theta^\star$ is smaller, and past $\lambda=2\kappa\gamma/3$ it is negative, so the flow opposes the signal at every speed. These signs match the discrete adapted optimum to the resolution of the grid.
+
+Adding an instantaneous cost removes the atom, and with it the reversal: for any $\eta>0$ the outer factor grows, $\hat n_+\sim\sqrt\eta\,(-i\omega)$, giving $c_1=0$ and $R(\theta)=\theta^2/\Phi(\theta)^2>0$ at every speed, so the rate keeps the sign of the signal and only its magnitude varies. For the power law $c_1=0$ as well, now because $g(0)=\infty$ makes an instantaneous trade infinitely costly and $\hat n_+\propto(-i\omega)^{(1+\beta)/2}$ diverges; again $R>0$ throughout. With no lag-zero atom the scale-free strategy produces neither a block trade on a finite horizon nor a reversing rate on the whole line, the two consequences of the same finite or infinite $g(0)$. This is the sense in which the power-law solution never surfs its own impact, in keeping with the exclusion of dynamic arbitrage under power-law propagators \citep{Gatheral2010}.
 
 % =====================================================================
 \section{Concluding remarks}\label{sec:conclusion}
