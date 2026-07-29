@@ -53,10 +53,11 @@ A trader holding a predictive signal must weigh the expected gain against the co
 
 A trader observes a return signal $\mu_t$, the conditional expectation at time $t$ of the asset's instantaneous drift, and chooses a position $x_t$ that is bought or sold at the rate $u_t=\dot x_t$. Acting on the signal is costly in three ways that this paper takes as given. Holding a large position exposes capital to risk, penalized by an inventory term quadratic in $x_t$. Demanding immediate liquidity costs a temporary impact, quadratic in the rate $u_t$. And each trade shifts the price against the trades that follow it, a transient displacement that relaxes through a propagator kernel $g$. The trader chooses $x$ to maximize
 \begin{equation}\label{eq:objective}
-J(x) \;=\; \E\!\int x_t\mu_t\,dt
-\;-\; \frac{\eta}{2}\,\E\!\int \dot x_t^2\,dt
-\;-\; \frac{\gamma}{2}\,\E\!\iint g(|t-s|)\,\dot x_t \dot x_s\,dt\,ds
-\;-\; \frac{\lambda}{2}\,\E\!\int x_t^2\,dt ,
+J(x) \;=\;
+\underbrace{\E\!\int x_t\mu_t\,dt}_{\text{gain}}
+\;-\; \underbrace{\frac{\lambda}{2}\,\E\!\int x_t^2\,dt}_{\text{inventory risk}}
+\;-\; \underbrace{\frac{\eta}{2}\,\E\!\int \dot x_t^2\,dt}_{\text{temporary cost}}
+\;-\; \underbrace{\frac{\gamma}{2}\,\E\!\iint g(|t-s|)\,\dot x_t \dot x_s\,dt\,ds}_{\text{transient cost}} ,
 \end{equation}
 where $\eta,\gamma,\lambda\ge0$ weight the temporary, transient, and inventory costs. The first term is the mean--variance gain of portfolio choice; the remaining three are the frictions of execution. Sections~\ref{sec:interior}--\ref{sec:filters} treat this problem on the whole line, appropriate to an ongoing operation; Section~\ref{sec:finite} restricts it to a window $[0,T]$ closing flat, $x_T=0$.
 
