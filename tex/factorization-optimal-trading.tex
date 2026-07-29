@@ -36,25 +36,28 @@
 
 \begin{center}
 \begin{tabular}{p{0.9\linewidth}}
-\textbf{Keywords.} Optimal execution; market impact; propagator model; Wiener--Hopf factorization; Gohberg--Krein factorization; fractional calculus; algorithmic trading.\\[2pt]
+\textbf{Keywords.} Optimal execution; market impact; propagator model; Wiener--Hopf factorization; Gohberg--Krein factorization; fractional calculus; adapted stochastic control.\\[2pt]
 \textbf{JEL classification.} C61; G11; G12; G14.\\[2pt]
-\textbf{AMS classification.} 45E10; 60G35; 91G80; 26A33.
+\textbf{MSC classification.} 45E10; 60G35; 91G80; 26A33.
 \end{tabular}
 \end{center}
 
-% =====================================================
-\section*{Abstract}
-
-We study the problem of maximizing expected gain from a return-predicting signal net of the impact cost of one's own trades, under a propagator impact model with a general symmetric positive-definite kernel. Existing treatments express the adapted optimal trading rate as the solution of an integral or stochastic Volterra equation. We give a closed-form bulk expression in terms of the driving signal using a causal--anticausal (Wiener-Hopf) factorization of the impact cost operator. For the empirically supported power-law kernel $G(t)=|t|^{-\beta}$ with $\beta\in(0,1)$, the factors are fractional integrals, and the optimal trading policy simplifies to a composition of fractional derivatives of order $(1-\beta)/2$ applied to the signal and its forecasts. On a finite horizon the same recipe produces an optimal policy that converges to the whole-line formula in the interior at rate $O(d(t)^{-(1-\beta)/2})$, where $d(t)$ is the distance from $t$ to the nearest boundary.
+\begin{abstract}
+We give a closed-form solution to the problem of maximizing expected gain from a return-predicting signal, net of the impact cost of one's own trades, under a propagator model with a general symmetric positive-definite kernel. The key tool is a projected-inverse identity: for any causal-anticausal factorization $C = C_-C_+$ of the cost operator, the adapted inverse satisfies
+\[
+(P_+\,C\,P_+)^{-1} \;=\; C_+^{-1}\,P_+\,C_-^{-1}
+\]
+on the adapted subspace $L^2_{\rm adap}$. This identity holds in the Wiener--Hopf setting on the whole line and in the Gohberg--Krein/Arveson outer-factorization setting on a finite interval, and reduces the adapted optimal trading rate to a three-step composition: anticausal whitening of the signal's forecast curve, adapted projection, and causal coloring. Existing treatments characterize the adapted optimum implicitly, through stochastic Volterra equations of the second kind; the present approach yields an explicit operator formula whose form depends on the kernel only through its factorization. For the empirically supported power-law kernel $G(t) = |t|^{-\beta}$, $\beta\in(0,1)$, the factors are Liouville fractional integrals of order $\nu = (1-\beta)/2$, and the optimal rate reduces to a composition of anticausal and causal Marchaud fractional derivatives of order $\nu$ applied to the signal's forecast curve. On a finite horizon, the same recipe produces a boundary-deformed fractional derivative that converges to the whole-line formula in the interior at rate $O(d(t)^{-\nu})$, where $d(t)$ is the distance to the nearest boundary.
+\end{abstract}
 
 % =====================================================
 \section{Introduction}
 
 \subsection{The gain--cost problem}
 
-Institutional trading of large orders --- index rebalances, algorithmic strategies against short-horizon forecasts, hedges against derivative books --- routinely moves quantities that are large multiples of top-of-book depth. Empirical studies of trade-and-quote data \citep{LilloFarmerMantegna2003,BouchaudGefenPottersWyart2004,Gatheral2010,JusselinRosenbaum2020} establish that each child order pushes the mid-price against the trader's direction and that the resulting \emph{transient impact} is well described by a translation-invariant propagator kernel $G(t-s)$ that decays with lag: the price at time $t$ carries a term $\int_{s\le t}G(t-s)\,u_s\,ds$ from the trader's own past rate $u$. The cost of a large parent order therefore depends on the whole path of its execution schedule, not only on its instantaneous rate.
+Institutional trading of large orders --- index rebalances, algorithmic strategies against short-horizon forecasts, hedges against derivative books --- routinely moves quantities that are large multiples of top-of-book depth. Empirical studies of trade-and-quote data \citep{LilloFarmerMantegna2003,BouchaudGefenPottersWyart2004,Gatheral2010,JusselinRosenbaum2020} establish that each child order pushes the mid-price against the trader's direction and that the resulting \emph{transient impact} is well described by a translation-invariant propagator kernel $G(t-s)$ that decays with lag: the price at time $t$ receives a contribution $\int_{s\le t}G(t-s)\,u_s\,ds$ from the trader's own past rate $u$. The cost of a large parent order therefore depends on the whole path of its execution schedule, not only on its instantaneous rate.
 
-When the trader holds a return-predicting signal $\alpha_t$ --- a forecast of price change conditional on time-$t$ information --- the gain from trading in the signal's direction competes with the impact cost of moving into the position. Under the propagator model of Bouchaud, Gefen, Potters and Wyart \citeyearpar{BouchaudGefenPottersWyart2004}, extended by Gatheral \citeyearpar{Gatheral2010}, the expected P\&L of an adapted rate $u\in L^2_{\adap}$ is a linear gain against a quadratic cost, and the \emph{gain--cost problem} is
+When the trader holds a return-predicting signal $\alpha_t$ --- a forecast of price change conditional on time-$t$ information --- the gain from trading in the signal's direction competes with the impact cost of moving into the position. Under the propagator model of Bouchaud, Gefen, Potters and Wyart \citeyearpar{BouchaudGefenPottersWyart2004}, extended by Gatheral \citeyearpar{Gatheral2010}, the expected P\&L of an adapted trading rate $u\in L^2_{\adap}$ is a linear gain against a quadratic cost, and the \emph{gain--cost problem} is
 \begin{equation}\label{eq:gaincost}
 \max_{u\in L^2_{\adap}}\ \E\!\int u_t\,\alpha_t\,dt \;-\; \tfrac{\gamma}{2}\,\E\!\iint G(|t-v|)\, u_t\, u_v\,dt\,dv,
 \end{equation}
@@ -90,29 +93,38 @@ Existing treatments of problem \eqref{eq:gaincost} establish existence, uniquene
 
 \emph{Deterministic factorization theory.} Wiener and Hopf \citeyearpar{WienerHopf1931} introduced the factorization of scalar Fourier symbols on a half-line as the basis for solving convolution integral equations. Krein \citeyearpar{Krein1962} developed the corresponding half-line integral-equation theory, and Wiener \citeyearpar{Wiener1949} applied the factorization to stationary linear prediction. Gohberg and Krein \citeyearpar{GohbergKrein1970} established the finite-interval factorization $I+K = (I+L^*)(I+L)$ for positive kernels via Volterra triangularization, and Arveson \citeyearpar{Arveson1975} generalized the picture to positive operators on Hilbert spaces equipped with a continuous nest of projections.
 
+The approach of \citet{AbiJaberNeuman2025} is general in both the kernel and the signal: existence and uniqueness of the adapted optimum are established for any Volterra propagator and any adapted square-integrable signal, and the optimum is characterized as the unique solution of a linear stochastic Volterra equation of the second kind. This characterization is implicit: closed-form expressions require kernel-specific reductions, and the fractional-calculus structure of the power-law case is not made explicit. The present paper gives a complementary analysis. For the stationary whole-line problem, the Wiener--Hopf approach yields a closed-form operator identity for $(P_+CP_+)^{-1}$: the adapted inverse is expressed directly as the product $C_+^{-1}P_+C_-^{-1}$ with $C = C_-C_+$ the causal-anticausal factorization of the cost operator, without resolving a free-boundary equation. The two approaches differ qualitatively. The Volterra-equation approach handles the full finite-horizon problem with terminal inventory constraints and non-stationary signals; the spectral factorization approach gives an explicit formula for the operator structure of the adapted inverse, from which the fractional-derivative form in the power-law case follows by direct substitution.
+
 Across these strands the adapted optimal rate under a stochastic signal and a power-law kernel is characterized implicitly, through fixed-point Volterra equations or horizon-tied resolvent representations. No bulk closed form in terms of the signal path has been given, and the fractional-calculus structure of the problem is left buried in the resolvent. The factorization identity below closes both gaps.
 
 \subsection{Contribution}
 
-We give a closed formula for the adapted optimal trading rate under a general symmetric positive-definite propagator kernel, and show that for the power-law kernel it reduces in the interior of the trading horizon to a fractional derivative of the trader's forecast curve.
+The paper contributes three things: an abstract identity (Lemma~1), a closed-form solution for the stationary problem (Theorem~1 and Corollaries 1--2), and an explicit formula for the signal-speed response function (\S5.1) that settles when contrarian trading is optimal.
 
-\paragraph{Closed formula.} For any factorization $C = C_-\,C_+$ of the cost operator into a causal Volterra factor $C_+$ and its adjoint $C_-$, the adapted first-order condition of \eqref{eq:gaincost} admits the solution
-\begin{equation}\label{eq:closedform-intro}
-u^\star \;=\; \gamma^{-1}\, C_+^{-1}\, P_+\, C_-^{-1}\,\alpha,
-\end{equation}
-via the projected-inverse identity from nest-algebra theory \citep{Arveson1975},
+\paragraph{Core abstract identity (Lemma~1).}
+Let $C$ be a symmetric strictly positive operator on a filtered Hilbert space $\Hilb = L^2(\Omega\times\R)$, and let $C = C_-\,C_+$ be any factorization into a causal Volterra factor $C_+$ (kernel on $\{s\le t\}$) and its adjoint $C_- = C_+^*$. Let $P_+$ be the orthogonal projection onto the adapted subspace $L^2_{\adap}\subset\Hilb$. The projected-inverse identity
 \begin{equation}\label{eq:pi-identity-intro}
 (P_+\, C\, P_+)^{-1} \;=\; C_+^{-1}\, P_+\, C_-^{-1}
 \end{equation}
-on the adapted subspace $L^2_{\adap}$. The factorization is Wiener--Hopf on the whole line and Gohberg--Krein on a finite interval, and \eqref{eq:closedform-intro} closes the problem in both cases.
+holds on $L^2_{\adap}$. The identity is structural: it follows from the two triangularity relations $P_+^\perp C_+ P_+ = 0$ and $P_+ C_- P_+^\perp = 0$, which are equivalent to causality of $C_+$, and from strict positivity of $C$. Its proof (\S3.3) is independent of the specific kernel; it covers the Wiener--Hopf factorization on the whole line and the Gohberg--Krein/Arveson outer factorization on a finite interval as special cases. The identity is the temporal analog of the formula $\Sigma^{-1} = L^{-\top}L^{-1}$ for a matrix inverse via its Cholesky factor $L$, with the adapted projection playing the role of the lower-triangular structure.
 
-The three composed operators act on the signal: the anticausal square-root inverse $C_-^{-1}$ applied to $\alpha$ produces an $\F_s$-measurable ``whitened'' process at each $s$ once future signal values are replaced by their conditional expectations (the \emph{forecast curve} $\bar\alpha(t,s) = \E_t[\alpha_s]$); the projection $P_+$ enforces adaptedness; the causal square-root inverse $C_+^{-1}$ colors the whitened process back to obtain the trading rate. The three-step architecture --- anticausal whitening, adapted projection, causal coloring --- is the temporal analog of the Wiener--Kolmogorov prediction filter for stationary processes \citep{Wiener1949}, with $C_+$ in place of the process spectral square root.
-
-\paragraph{Power-law kernel: bulk formula.} For $G(t) = |t|^{-\beta}$ the whole-line factors are the Liouville (Weyl) fractional integrals $C_\pm = c_\beta^{1/2}\,I_\pm^\nu$ with $\nu = (1-\beta)/2$, and \eqref{eq:closedform-intro} reduces to a fractional derivative applied to the forecast curve:
-\begin{equation}\label{eq:bulk-intro}
-u^\star_t \;=\; \gamma^{-1}\,c_\beta^{-1}\,(D_+^\nu\,\zeta)(t), \qquad \zeta_s \;=\; \bigl(D_-^\nu\,\bar\alpha(s,\cdot)\bigr)(s).
+\paragraph{Closed-form optimal trading rate (Theorem~1).}
+The adapted first-order condition of \eqref{eq:gaincost} is $\gamma\,(P_+CP_+)\,u^\star = \alpha$. Substituting \eqref{eq:pi-identity-intro} gives the closed form
+\begin{equation}\label{eq:closedform-intro}
+u^\star \;=\; \gamma^{-1}\, C_+^{-1}\, P_+\, C_-^{-1}\,\alpha.
 \end{equation}
-The optimal rate at time $t$ is the causal Marchaud fractional derivative, of order $\nu = (1-\beta)/2$, of the ``whitened signal'' $\zeta_s$; and $\zeta_s$ is the anticausal Marchaud fractional derivative of the same order applied to the forecast curve $\bar\alpha(s,\cdot)$ and evaluated at the diagonal. Without the adapted projection the composition $D_+^\nu\,D_-^\nu$ would collapse (in the frequency domain) to the symmetric Riesz derivative of order $2\nu = 1-\beta$; the projection $P_+$ separates the two half-order pieces and prevents that collapse, so the operator $D_+^\nu\,P_+\,D_-^\nu$ is genuinely a composition of one-sided derivatives of order $\nu$ rather than a single fractional derivative. The empirical range $\beta\in(0.2,0.6)$ places each half-order in $(0.2, 0.4)$.
+The acausal operator $C_-^{-1}$ applied to the adapted signal $\alpha$ at time $s$ requires the future of the signal; the adapted projection $P_+$ replaces this future by the conditional expectation, i.e., the \emph{forecast curve}
+\[
+\bar\alpha(t,s) = \begin{cases}\alpha_s, & s\le t,\\ \E_t[\alpha_s], & s>t.\end{cases}
+\]
+The result \eqref{eq:closedform-intro} then factors as three successive operations on the forecast curve: anticausal whitening ($C_-^{-1}$ acting on $\bar\alpha(s,\cdot)$ at $s$), adapted projection (enforcing $\F_s$-measurability), and causal coloring ($C_+^{-1}$). This three-step architecture is the temporal analog of the Wiener--Kolmogorov prediction filter \citep{Wiener1949}.
+
+\paragraph{Power-law kernel: bulk formula (Corollary~1).}
+For $G(t) = |t|^{-\beta}$ the whole-line Wiener--Hopf factors are the Liouville (Weyl) fractional integrals $C_\pm = c_\beta^{1/2}\,I_\pm^\nu$ with $\nu = (1-\beta)/2$. Substituting into \eqref{eq:closedform-intro}:
+\begin{equation}\label{eq:bulk-intro}
+u^\star_t \;=\; \gamma^{-1}\,c_\beta^{-1}\,(D_+^\nu\,\zeta)(t), \qquad \zeta_s \;=\; \bigl(D_-^\nu\,\bar\alpha(s,\cdot)\bigr)(s),
+\end{equation}
+a composition of anticausal and causal Marchaud fractional derivatives of order $\nu$ applied to the forecast curve. Without the adapted projection the composition $D_+^\nu\,D_-^\nu$ collapses (in the frequency domain) to the symmetric Riesz derivative of order $2\nu = 1-\beta$; the projection separates the two half-order pieces and encodes the causality constraint. On a finite horizon the Gohberg--Krein factors introduce terminal-endpoint weight conjugations, giving the boundary-deformed formula of Corollary~2 and convergence to \eqref{eq:bulk-intro} at rate $O(d(t)^{-\nu})$ in the interior (Proposition~3). The empirical range $\beta\in(0.2,0.6)$ places each half-order $\nu$ in $(0.2,0.4)$.
 
 
 % =====================================================
@@ -191,8 +203,45 @@ Let $\Hilb$ be either $L^2(\R)$ or $L^2([0,T])$, tensored with $L^2(\Omega)$ aga
 \end{equation}
 \end{lemma}
 
-\begin{proof}[Proof (sketch)]
-Causality of $C_+$ (kernel on $\{s\le t\}$) gives $P_+^\perp C_+ P_+ = 0$, so $C_+^{-1}$ preserves the adapted subspace; its adjoint identity is $P_+ C_- P_+^\perp = 0$, so $C_-$ preserves the anticausal subspace. Splitting $C_-^{-1}u$ into adapted and anticausal parts and using the second identity to kill the anticausal contribution, one checks that for adapted $u$, $P_+ C_-^{-1} P_+ C_- u = P_+ u = u$. Composing with $C_+^{-1}$ on the left and $P_+ C P_+$ on the right returns $u$. Only causality of $C_+$ and self-adjointness of $C$ enter, so the identity covers the whole-line Wiener--Hopf and the finite-interval Gohberg--Krein/Arveson factorizations. Full details in the appendix.
+\begin{proof}
+Let $u\in L^2_{\adap}$ be arbitrary. We verify that $C_+^{-1}P_+C_-^{-1}$ is a two-sided inverse of $P_+CP_+$ on $L^2_{\adap}$.
+
+\emph{Step 1: triangularity relations.}
+Causality of $C_+$ means its kernel is supported on $\{s\le t\}$, equivalently $C_+$ is a lower-triangular operator with respect to the nest $\{P_{[{-\infty},t]}\}$. This gives the first triangularity relation
+\begin{equation}\label{eq:tri1}
+P_+^\perp\, C_+\, P_+ = 0.
+\end{equation}
+Taking adjoints, with $C_-=C_+^*$ and $(P_+^\perp)^* = P_+^\perp$:
+\begin{equation}\label{eq:tri2}
+P_+\, C_-\, P_+^\perp = 0.
+\end{equation}
+
+\emph{Step 2: $C_+^{-1}$ preserves $L^2_{\adap}$.}
+For any $f\in L^2_{\adap}$, \eqref{eq:tri1} gives $C_+ P_+^\perp\, h = 0$ for $h := C_+^{-1}f - P_+ C_+^{-1}f = P_+^\perp C_+^{-1}f$, hence $h = P_+^\perp C_+^{-1}f = 0$ by injectivity of $C_+^{-1}$ (which follows from strict positivity of $C$ and $C_- = C_+^*$). Thus $C_+^{-1}f\in L^2_{\adap}$.
+
+\emph{Step 3: $P_+C_-^{-1}$ maps $L^2_{\adap}$ into $L^2_{\adap}$.}
+For $u\in L^2_{\adap}$, write $C_-^{-1}u = P_+ C_-^{-1}u + P_+^\perp C_-^{-1}u$. Apply $C_-$ to both sides: $u = C_- P_+ C_-^{-1}u + C_- P_+^\perp C_-^{-1}u$. Since $u\in L^2_{\adap}$ and $P_+u=u$, taking $P_+$ of the equation and using \eqref{eq:tri2} ($P_+ C_- P_+^\perp = 0$) gives $u = P_+ C_- P_+ C_-^{-1}u = P_+ C_-\, P_+ C_-^{-1}u$, so the adapted part $P_+ C_-^{-1}u$ inverts $P_+ C_-$ on $L^2_{\adap}$.
+
+\emph{Step 4: right inverse.}
+For $u\in L^2_{\adap}$, using Steps 2--3 and $C = C_-C_+$:
+\[
+(P_+CP_+)\,(C_+^{-1}P_+C_-^{-1}u)
+= P_+\,C_-\,C_+\,C_+^{-1}\,P_+C_-^{-1}u
+= P_+\,C_-\,P_+C_-^{-1}u
+= u,
+\]
+where the last equality is Step 3.
+
+\emph{Step 5: left inverse.}
+For $u\in L^2_{\adap}$:
+\[
+C_+^{-1}P_+C_-^{-1}\,(P_+CP_+u)
+= C_+^{-1}P_+C_-^{-1}\,P_+C_-C_+u
+= C_+^{-1}P_+(P_+C_-^{-1}P_+)\,C_-\,C_+u.
+\]
+By Step 3, $P_+C_-^{-1}P_+$ is the inverse of $P_+C_-$ on $L^2_{\adap}$; since $C_+u\in L^2_{\adap}$ (Step~2, applied to $u$, using the invertible case), $P_+C_-^{-1}P_+C_-C_+u = C_+u$. Thus the expression equals $C_+^{-1}C_+u = u$.
+
+Only causality of $C_+$, strict positivity of $C$, and $C_-=C_+^*$ enter. The argument covers the whole-line Wiener--Hopf factorization and the finite-interval Gohberg--Krein/Arveson factorization; in the latter case $C_+$ is the reflected causal Volterra factor of Proposition~2 and $C_- = C_+^*$. Full domain-specific details for the power-law unbounded-operator case are in the appendix.
 \end{proof}
 
 \subsection{Closed-form optimal trading rate}
@@ -294,7 +343,7 @@ The first term is the Marchaud truncation error from cutting the fractional-deri
 % =====================================================
 \section{Discussion}
 
-\subsection{Exponential kernel}
+\subsection{Exponential kernel and the signal-speed response}
 
 The exponential kernel $G(t) = e^{-\kappa|t|}$ is a tractable alternative to the power-law. It bounds the cost operator on $L^2(\R)$ and underlies the Obizhaeva--Wang \citeyearpar{ObizhaevaWang2013} resilience model and much of the Almgren--Chriss line of work. Working through it in the present framework does two things: it removes the domain subtleties that arise for the power-law kernel in \S4, and it makes visible which features of Theorem~1 are structural (the three-step factorization) and which are specific to the fractional case (unbounded factors, fractional-derivative discretization, absence of a sign-flip regime).
 
@@ -319,6 +368,22 @@ u^{\star,\,\rm exp}_t \;=\; \frac{\kappa+\theta}{2\kappa\gamma}\bigl[(\kappa-\th
 The white-noise term $\sigma\dot W_t$ reflects that the exponential-kernel cost does not penalize the high-frequency content of the rate, so $u^{\star,\,\rm exp}$ is a distribution-valued optimum; it is regularized to an $L^2$ process by any temporary-impact term $\tfrac12\eta u_t^2$ (\S5.2), the empirically relevant case.
 The conditional mean rate flips sign at $\theta = \kappa$. When the signal mean-reverts faster than the impact tail decays ($\theta>\kappa$), the trader takes the opposite side of the signal on average: any signal-following trade would leave an impact residual longer-lived than the signal itself, so acting against the signal amortises the cost. The power-law analog \eqref{eq:ou} shows no such transition; the scale-free causal inverse has a branch point at $\xi=0$ and no zero on the imaginary axis, so no pole--zero crossing occurs as $\theta$ varies.
 
+Both statements are instances of a kernel-general formula. Let $\alpha$ be a stationary OU signal with rate $\theta$ generating its own filtration, and define the \emph{signal-speed response} $R(\theta) := \lim_{q\downarrow 0}\E[u^\star_{t+q}\mid\alpha_t]/\alpha_t$; the innovations arriving in $(t,t+q]$ are independent of $\alpha_t$, so $R(\theta)$ is the average trade direction executed next by a trader holding the current signal value. Write
+\begin{equation}\label{eq:phi}
+\Phi(\theta) \;:=\; \hat C_+(i\theta) \;=\; \exp\Bigl[\frac{\theta}{2\pi}\int_{-\infty}^{\infty}\frac{\log\hat C(t)}{\theta^2+t^2}\,dt\Bigr] \;>\;0,
+\end{equation}
+the causal factor continued to the Laplace point of the signal; the Szeg\H{o}/outer representation shows $\Phi$ is real and positive because $\hat C$ is even and positive, and $\hat C_-(-i\theta) = \Phi(\theta)$ by conjugate symmetry. In the normalization of Theorem~1 the whitened process is $\zeta_s = \alpha_s/\Phi(\theta)$, consistent with $\zeta = c_\beta^{-1/2}\theta^\nu\alpha$ for the power law and, after the rescaling absorbed into \eqref{eq:exp-bulk}, with $\zeta = (\kappa+\theta)\alpha$. For symbols that are rational (finite mixtures of exponentials) or power-law,
+\begin{equation}\label{eq:response}
+R(\theta) \;=\; \frac{1}{\gamma\,\Phi(\theta)}\Bigl[\frac{1}{\Phi(\theta)} - 2c_1\theta\Bigr], \qquad c_1 \;=\; \lim_{|\xi|\to\infty}\bigl[(-i\xi)\,\hat C_+(\xi)\bigr]^{-1},
+\end{equation}
+derived in the appendix. The constant $c_1$ measures the derivative loading of the inverse causal factor: $c_1 = (-2G'(0^+))^{-1/2}$ for kernels with a kink at the origin ($\hat C(\xi)\sim -2G'(0^+)\,\xi^{-2}$ at high frequency), and $c_1 = 0$ for the power-law cusp. The exponential kernel has $\Phi = \sqrt{2\kappa}/(\kappa+\theta)$ and $c_1 = (2\kappa)^{-1/2}$, and \eqref{eq:response} returns $(\kappa^2-\theta^2)/2\kappa\gamma$; the power-law kernel has $\Phi(\theta)^2 = c_\beta\theta^{\beta-1} = \hat C(\theta)$, and \eqref{eq:response} returns $\theta^{1-\beta}/\gamma c_\beta$ --- the cost symbol inverted at real frequency equal to the signal speed.
+
+Formula \eqref{eq:response} settles when contrarian trading is optimal: $\operatorname{sign} R(\theta) = \operatorname{sign}\bigl(1 - 2c_1\theta\,\Phi(\theta)\bigr)$. For kink kernels $2c_1\theta\,\Phi(\theta)\to 2$ as $\theta\to\infty$, so every sufficiently fast signal is traded against; for the power-law cusp $R(\theta)>0$ at every signal speed. The two-exponential mixture $G(t) = w_1e^{-\kappa_1|t|}+w_2e^{-\kappa_2|t|}$ has $\hat C_+(\xi) = \sqrt{2W}\,(\mu-i\xi)/[(\kappa_1-i\xi)(\kappa_2-i\xi)]$ with $W = w_1\kappa_1+w_2\kappa_2$ and $\mu^2 = (w_1\kappa_1\kappa_2^2+w_2\kappa_2\kappa_1^2)/W$, giving
+\begin{equation}\label{eq:mixture}
+R(\theta) \;=\; \frac{(\kappa_1+\theta)(\kappa_2+\theta)\,\bigl[(\kappa_1+\theta)(\kappa_2+\theta) - 2\theta(\mu+\theta)\bigr]}{2\gamma\,W\,(\mu+\theta)^2},
+\end{equation}
+with exactly one sign change, at $\theta^* = \tfrac12\bigl[(\kappa_1+\kappa_2-2\mu) + \sqrt{(\kappa_1+\kappa_2-2\mu)^2+4\kappa_1\kappa_2}\bigr]$: the bracket in \eqref{eq:mixture} is a downward parabola in $\theta$, positive at $\theta=0$. Setting $\kappa_1=\kappa_2=\kappa$ recovers $\theta^*=\kappa$. Discretized adapted optima reproduce \eqref{eq:response}--\eqref{eq:mixture} to discretization accuracy. The regression of $u^\star_t$ on the contemporaneous $\alpha_t$ instead equals $1/\gamma\Phi(\theta)^2 > 0$ for every kernel: the contrarian term $-2c_1\theta$ is carried by the innovation atom in the optimal rate --- the white-noise component of \eqref{eq:exp-ou} --- which is present exactly when singular trading rates have finite cost, i.e.\ when $G$ is bounded at the origin.
+
 \subsection{Temporary impact}
 
 Adding a temporary-impact term $\tfrac12\eta u_t^2$ modifies the FOC symbol to $M(\xi) = c_\beta|\xi|^{\beta-1}+\eta/\gamma$. The added constant provides high-frequency coercivity that the pure power-law symbol lacks, so $u^\star\in L^2$ without spectral-decay assumptions on $\alpha$. Wiener--Hopf factorization of $M$ gives modified one-sided factors; the crossover frequency $\xi_* = (\gamma c_\beta/\eta)^{1/(1-\beta)}$ separates a long-memory fractional regime ($|\xi|\ll\xi_*$) from a myopic signal-following regime ($|\xi|\gg\xi_*$) in which $u^\star\approx\alpha/\eta$. The $\eta\to 0$ limit is singular but recovers \eqref{eq:bulk} under the spectral-decay hypothesis of \S2.1.
@@ -331,13 +396,39 @@ Empirical cross-impact between correlated assets --- trades in one name moving o
 
 Fractional derivatives discretize to Toeplitz matrices. On a uniform grid of $N$ points, $D_\pm^\nu$ is a lower- or upper-triangular Toeplitz whose entries are generalized binomial coefficients from the expansion of $(1-z)^\nu$. Evaluating \eqref{eq:bulk} over the whole grid costs $O(N\log N)$ via FFT, compared with $O(N^2)$ Nystr\"om inversion of the Fredholm equation. The finite-interval formula \eqref{eq:bdry} adds diagonal multiplications by $B_T$ and $B_T^{-1}$, preserving the $O(N\log N)$ cost.
 
-\subsection{Role of the forecast curve}
+\subsection{Role of the forecast curve: innovations filter and value}
 
-Theorem~1 makes explicit that the optimal rate at time $t$ depends on the \emph{entire} forecast curve $\bar\alpha(t,\cdot)$. The stationary time series of optimal rates against a given signal is a deterministic functional of the family of forecast curves, with two immediate practical consequences.
+Theorem~1 makes explicit that the optimal rate at time $t$ depends on the \emph{entire} forecast curve $\bar\alpha(t,\cdot)$. When $\alpha$ is a stationary, purely non-deterministic Gaussian process generating its own filtration, the dependence collapses to a single transfer function. Let $S_\alpha = |\varphi_+|^2$ with $\varphi_+$ the outer spectral factor (Szeg\H{o} condition $\int\log S_\alpha(\xi)/(1+\xi^2)\,d\xi>-\infty$), so that $\alpha = \varphi_+(D)\dot W$ is a causal moving average of its innovations \citep{Wiener1949}, and let $\Pi_+$ denote the Riesz projection: truncation of a moving-average kernel to non-negative lags. Conditional expectation of a stationary linear functional of $W$ truncates its kernel at lag zero, so the adapted projection of Theorem~1 becomes $\Pi_+$ and
+\begin{equation}\label{eq:innov}
+u^\star \;=\; \hat g(D)\,\dot W, \qquad \hat g \;=\; \gamma^{-1}\,\hat C_+^{-1}\,\Pi_+\!\bigl[\hat C_-^{-1}\varphi_+\bigr],
+\end{equation}
+with $\hat g\in L^2$ under the standing spectral hypothesis (appendix). The optimal rate is a stationary causal filter of the signal innovations --- the Wiener--Kolmogorov form of the three-step recipe. Its spectrum is $S_{u^\star} = |\hat g|^2$; for the power-law kernel $S_{u^\star}$ vanishes like $|\xi|^{1-\beta}$ at low frequency whenever $S_\alpha(0)<\infty$, so cost-optimal flow is anti-persistent at long horizons.
 
-\emph{Signal engineering.} The perfectly-anticipating (non-adapted) optimum $\gamma^{-1}C^{-1}\alpha$ attains value $V_{\rm ant}(\alpha) = \tfrac{1}{2\gamma}\,\E\langle\alpha,C^{-1}\alpha\rangle = \tfrac{1}{2\gamma c_\beta}\!\int|\xi|^{1-\beta}\,S_\alpha(\xi)\,\tfrac{d\xi}{2\pi}$ (spectral density normalized by $\E[\alpha_t^2]=\int S_\alpha\,d\xi/2\pi$). This is an upper bound on the adapted value $\tfrac{1}{2\gamma}\E\|P_+C_-^{-1}\alpha\|^2$ actually attained at $u^\star$ --- for an OU signal the two differ by the factor $\sin(\pi\beta/2)$. The bound weights the signal spectrum by $|\xi|^{1-\beta}$, a specification that differs from an $R^2$ of the signal against future returns: two signals with identical $R^2$ can differ arbitrarily in tradeable value once their timescales differ, and the fractional-order weighting quantifies what makes one forecast better than another for a given impact kernel.
+\emph{Value of a forecast.} Stationarity makes the value \emph{rate} (expected P\&L per unit time) the relevant quantity, $v(u) = \E[u_t\alpha_t] - \tfrac{\gamma}{2}\E[u_t(Cu)_t]$; at the optimum $v = \tfrac12\E[u^\star_t\alpha_t]$, and \eqref{eq:innov} evaluates it:
+\begin{equation}\label{eq:value}
+v_{\rm ad} \;=\; \frac{1}{4\pi\gamma}\,\bigl\|\Pi_+\bigl(\hat C_-^{-1}\varphi_+\bigr)\bigr\|_{L^2}^2, \qquad v_{\rm ant} - v_{\rm ad} \;=\; \frac{1}{4\pi\gamma}\,\bigl\|\Pi_-\bigl(\hat C_-^{-1}\varphi_+\bigr)\bigr\|_{L^2}^2,
+\end{equation}
+where $v_{\rm ant} = \frac{1}{4\pi\gamma}\int S_\alpha(\xi)/\hat C(\xi)\,d\xi$ is the value rate of the perfectly-anticipating optimum $\gamma^{-1}C^{-1}\alpha$ and $\Pi_- = I-\Pi_+$. The half-whitened spectral factor $\hat C_-^{-1}\varphi_+$ splits into a causal part, which prices the adapted problem, and an anticausal remainder, whose energy is the exact cost of causality. For the power-law kernel and an OU signal, $\Pi_+((i\xi)^\nu\varphi_+) = \theta^\nu\varphi_+$ (pole cancellation, appendix), giving
+\[
+v_{\rm ad} \;=\; \frac{\sigma^2\,\theta^{-\beta}}{4\gamma c_\beta}, \qquad \frac{v_{\rm ad}}{v_{\rm ant}} \;=\; \sin(\pi\beta/2):
+\]
+adaptedness costs nothing in the short-memory limit $\beta\to1$ and destroys all value in the permanent-impact limit $\beta\to0$. The weighting of the signal spectrum by $|\xi|^{1-\beta}$ in $v_{\rm ant}$, and by the causal-energy functional in $v_{\rm ad}$, differs from an $R^2$ of the signal against future returns: two signals with identical $R^2$ can differ arbitrarily in tradeable value once their timescales differ, and \eqref{eq:value} quantifies what makes one forecast better than another for a given impact kernel.
 
 \emph{Forecast horizon.} The Marchaud representation of $D_-^\nu$ averages forecast increments $\bar\alpha(s,r) - \bar\alpha(s,s)$ over all future lags $r > s$ with weight $(r-s)^{-1-\nu}$. Forecasts are required over all horizons; horizon truncation gives an error decaying like $r_{\max}^{-\nu}$ in the maximum forecast horizon.
+
+\subsection{Comparison with the Volterra-equation approach}
+
+Abi Jaber and Neuman \citeyearpar{AbiJaberNeuman2025} characterize the adapted optimum of \eqref{eq:gaincost} on $[0,T]$ as the unique solution of the linear stochastic Volterra equation of the second kind
+\begin{equation}\label{eq:ajn-sve}
+\gamma\,u^\star_t + \gamma\!\int_0^t R(t,s)\, u^\star_s\, ds \;=\; \alpha^\star_t,
+\end{equation}
+where $R(t,s)$ is the resolvent kernel of the second kind of the impact propagator $G$ on $[0,T]$ and $\alpha^\star$ is an effective signal incorporating the terminal-inventory multiplier. Existence and uniqueness follow from the Volterra theory and hold for general adapted signals and general Volterra propagators. Closed forms require kernel-specific resolution of the resolvent $R$.
+
+The present paper gives a complementary characterization. Equation \eqref{eq:ajn-sve} characterizes $u^\star$ through a Neumann-series expansion of the resolvent; the Wiener--Hopf identity \eqref{eq:pi-identity} instead expresses $u^\star$ directly as the three-step product $\gamma^{-1}C_+^{-1}P_+C_-^{-1}\alpha$, with no resolvent series. The two expressions are equivalent on $[0,T]$ once the reflected Gohberg--Krein factors \eqref{eq:weight-conj} are substituted: the resolvent expansion in \eqref{eq:ajn-sve} is the Neumann expansion of the inverse Volterra operator, which the factorization bypasses by construction. On the whole line the resolvent-of-the-second-kind characterization is replaced entirely by the Wiener--Hopf bulk formula \eqref{eq:bulk}, valid for any stationary adapted signal under the spectral hypothesis of \S2.1.
+
+The two approaches differ in what they emphasize. The Volterra-equation approach handles the general finite-horizon problem, terminal constraints, and non-stationary signals; it does not require translation invariance or a stationary assumption. The spectral factorization approach requires the kernel to have a Fourier symbol admitting the Wiener--Hopf decomposition \eqref{eq:wh}, and the bulk formula \eqref{eq:bulk} is valid only in the stationary (whole-line) setting; in exchange, the closed form expresses the operator structure of the adapted inverse explicitly as a composition of one-sided fractional operators, making the fractional-calculus content visible and the order $\nu = (1-\beta)/2$ a direct consequence of the kernel symbol.
+
+For the power-law kernel, the FSS factorization \citep{FordeSanchezSmith2022} gives the finite-interval resolvent $R(t,s)$ as an integral against the kernel of $T^{-1}$ (the inverse left-causal Volterra factor). Corollary~2 gives instead $u^{\star,T} = \gamma^{-1}C_+^{-1}P_+C_-^{-1}\alpha^{\rm eff}$ with the reflected factor $C_+ = RT^*R$; these are equivalent formulations of the same operator, and the FSS formula for $R$ can be recovered from the kernel of $(C_+^{-1}C_-^{-1})$. The Proposition~3 interior bound \eqref{eq:interior} then expresses how the weight-conjugation error (the difference between $C_+$ and the whole-line $c_\beta^{1/2}I_+^\nu$) decays as the boundary recedes, quantifying the range of validity of the bulk formula without resolving the full resolvent.
 
 \subsection{Joint gain--risk--cost formulation}
 
@@ -383,6 +474,14 @@ using $I_-^\nu D_-^\nu = \mathrm{id}$ on $H^\nu(\R)$ \citep[\S5.3 Thm 5.3]{Samko
 (D_-^\nu f)(s) = \tfrac{\nu}{\Gamma(1-\nu)}\!\int_0^\infty \tfrac{f(s)-f(s+r)}{r^{1+\nu}}\,dr,
 \]
 truncated at $r = T-s$. Symmetrically the outer $D_+^\nu$ contributes a tail bounded by $t^{-\nu}$. The dominant interior truncation is on the closer boundary, giving the first term of \eqref{eq:interior}. The terminal-weight conjugation contributes a further error: on the Marchaud support the ratio $B_T(t)/B_T(s) = \bigl((T-s)/(T-t)\bigr)^{\nu} = 1 + O((t-s)/(T-t))$, so its deviation from the whole-line unweighted operator is $O(d(t)^{-1})$, subdominant to $d(t)^{-\nu}$ for $\nu<1$. The endpoint-constraint correction enters through the S\"ohngen--Tricomi eigenfunction $\phi_1(t) = [t(T-t)]^{(\beta-1)/2}$ of the no-signal solution \citep{GatheralSchiedSlynko2012,FordeSanchezSmith2022}, which satisfies $|\phi_1(t)|\le d(t)^{-\nu}(T/2)^{-\nu}$; under $\alpha^{\eff}\in\dot H^\nu$ its coefficient is $O(\|\alpha^{\eff}\|_{\dot H^\nu}\,T^{-\nu})$, giving the second term of \eqref{eq:interior}.\qed
+
+\paragraph{Derivation of the innovations form and value \eqref{eq:innov}--\eqref{eq:value}.} $C_-^{-1}\alpha$ is the stationary filter of $W$ with symbol $h := \hat C_-^{-1}\varphi_+$. For fixed $s$, $\E_s$ annihilates the innovations after $s$, so $(P_+C_-^{-1}\alpha)_s$ is the filter with kernel truncated to non-negative lags, symbol $\Pi_+h$; composing with $C_+^{-1}$ gives \eqref{eq:innov}. Membership: $|\xi|^\nu h = c_\beta^{-1/2}|\xi|^{2\nu}\varphi_+\in L^2$ by the standing hypothesis, so $h\in H^\nu(\R)$; the half-line indicator is a bounded pointwise multiplier on $H^\nu$ for $\nu<1/2$ \citep[Ch.~1]{LionsMagenes1972}, so $\Pi_+h\in H^\nu$ and $\hat g = \gamma^{-1}\hat C_+^{-1}\Pi_+h\in L^2$. Value: the FOC \eqref{eq:foc} and adaptedness of $u^\star$ give $\E[u^\star_t\alpha_t] = \gamma\,\E[u^\star_t(Cu^\star)_t]$, hence $v = \tfrac12\E[u^\star_t\alpha_t]$. By the It\^o isometry and Plancherel, $\E[u^\star_t\alpha_t] = \tfrac{1}{2\pi}\int\hat g\,\overline{\varphi_+}\,d\xi$; since $\overline{\varphi_+} = \overline{\hat C_-\,h} = \hat C_+\overline{h}$ on the real axis, the integrand is $\gamma^{-1}(\Pi_+h)\,\overline{h}$, and self-adjointness of $\Pi_+$ gives $\gamma^{-1}\|\Pi_+h\|^2/2\pi$, the first formula in \eqref{eq:value}. The anticipative optimum replaces $\Pi_+h$ by $h$; the gap is $\|\Pi_-h\|^2$ by Pythagoras. OU pole cancellation: with $\varphi_+ = \sigma/(\theta-i\xi)$,
+\[
+h - \frac{\varphi_+}{\hat C_-(-i\theta)} \;=\; \Bigl[\frac{1}{\hat C_-(\xi)} - \frac{1}{\hat C_-(-i\theta)}\Bigr]\frac{\sigma}{\theta-i\xi}
+\]
+is square-integrable and analytic in the lower half-plane (the pole at $\xi = -i\theta$ is removed and $1/\hat C_-$ is analytic there), hence anticausal; so $\Pi_+h = \varphi_+/\hat C_-(-i\theta) = \varphi_+/\Phi(\theta)$. For the power-law kernel $\Phi(\theta) = c_\beta^{1/2}\theta^{-\nu}$, and $\|\varphi_+\|^2 = \pi\sigma^2/\theta$, $\|h\|^2 = c_\beta^{-1}\sigma^2\theta^{2\nu-1}\,\pi/\cos(\pi\nu)$ give the displayed $v_{\rm ad}$ and the ratio $\cos(\pi\nu) = \sin(\pi\beta/2)$.
+
+\paragraph{Derivation of the response formula \eqref{eq:response}.} By the pole cancellation above, $\zeta = \alpha/\Phi(\theta)$ and $\hat g(\xi) = \gamma^{-1}\sigma/[\Phi(\theta)\,\hat C_+(\xi)\,(\theta-i\xi)]$. For $q>0$, $\mathrm{Cov}(u^\star_{t+q},\alpha_t) = \sigma\int_0^\infty g(q+r)\,e^{-\theta r}\,dr$ with $g$ the time-domain kernel of $\hat g$. For rational symbols $\hat g(\xi)\to a_0 := \gamma^{-1}\sigma c_1/\Phi(\theta)$ as $|\xi|\to\infty$, so $g = a_0\delta + g_{\rm reg}$ with $g_{\rm reg}$ integrable against $e^{-\theta\cdot}$; the atom at lag $0$ leaves the integral for every $q>0$, and dominated convergence gives $\mathrm{Cov}\to\sigma[(\mathcal Lg)(\theta) - a_0]$ as $q\downarrow0$, where $(\mathcal Lg)(\theta) = \hat g(i\theta) = \gamma^{-1}\sigma/[2\theta\,\Phi(\theta)^2]$. Dividing by $\mathrm{Var}(\alpha_t) = \sigma^2/2\theta$ yields \eqref{eq:response}. For the power-law class $\hat g(\xi) = O(|\xi|^{\nu-1})\to0$, so $a_0 = c_1 = 0$ and $R = 1/\gamma\Phi(\theta)^2$. The same limit computes the position-increment response $\lim_{\Delta\downarrow0}\E[x_{t+\Delta}-x_t\mid\alpha_t]/\Delta\alpha_t$.\qed
 
 \paragraph{Acknowledgements.} The author thanks Antoine Bambade, Raphael Benichou, Iacopo Mastromatteo, Jean-Yves Audibert, and Raphael Maillet for useful discussions. Drafting, literature review, and LaTeX preparation were assisted by Claude Opus via the Feynman research harness; all mathematical claims and results were verified by the author.
 

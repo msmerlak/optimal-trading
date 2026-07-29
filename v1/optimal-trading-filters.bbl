@@ -1,0 +1,171 @@
+\begin{thebibliography}{28}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abi~Jaber and Neuman(2025)]{AbiJaberNeuman2025}
+E.~Abi~Jaber and E.~Neuman.
+\newblock Optimal liquidation with signals: The general propagator case.
+\newblock \emph{Mathematical Finance}, 35\penalty0 (4):\penalty0 841--866,
+  2025.
+\newblock arXiv:2211.00447.
+
+\bibitem[Abi~Jaber et~al.(2024)Abi~Jaber, Neuman, and
+  Tuschmann]{AbiJaberNeumanTuschmann2024}
+E.~Abi~Jaber, E.~Neuman, and S.~Tuschmann.
+\newblock Optimal portfolio choice with cross-impact propagators.
+\newblock \emph{arXiv preprint arXiv:2403.10273}, 2024.
+
+\bibitem[Alfonsi et~al.(2012)Alfonsi, Schied, and
+  Slynko]{AlfonsiSchiedSlynko2012}
+A.~Alfonsi, A.~Schied, and A.~Slynko.
+\newblock Order book resilience, price manipulation, and the positive portfolio
+  problem.
+\newblock \emph{SIAM Journal on Financial Mathematics}, 3\penalty0
+  (1):\penalty0 511--533, 2012.
+
+\bibitem[Almgren and Chriss(2001)]{AlmgrenChriss2001}
+R.~Almgren and N.~Chriss.
+\newblock Optimal execution of portfolio transactions.
+\newblock \emph{Journal of Risk}, 3:\penalty0 5--39, 2001.
+
+\bibitem[Arveson(1975)]{Arveson1975}
+W.~Arveson.
+\newblock Interpolation problems in nest algebras.
+\newblock \emph{Journal of Functional Analysis}, 20:\penalty0 208--233, 1975.
+
+\bibitem[Bank et~al.(2017)Bank, Soner, and Vo{\ss}]{BankSonerVoss2017}
+P.~Bank, H.~M. Soner, and M.~Vo{\ss}.
+\newblock Hedging with temporary price impact.
+\newblock \emph{Mathematics and Financial Economics}, 11:\penalty0 215--239,
+  2017.
+
+\bibitem[Bouchaud et~al.(2004)Bouchaud, Gefen, Potters, and
+  Wyart]{BouchaudGefenPottersWyart2004}
+J.-P. Bouchaud, Y.~Gefen, M.~Potters, and M.~Wyart.
+\newblock Fluctuations and response in financial markets: The subtle nature of
+  `random' price changes.
+\newblock \emph{Quantitative Finance}, 4:\penalty0 176--190, 2004.
+
+\bibitem[Chakrabarti and George(1994)]{ChakrabartiGeorge1994}
+A.~Chakrabarti and A.~J. George.
+\newblock A formula for the solution of general {A}bel integral equation.
+\newblock \emph{Applied Mathematics Letters}, 7:\penalty0 87--90, 1994.
+
+\bibitem[Forde et~al.(2022)Forde, S{\'a}nchez-Betancourt, and
+  Smith]{FordeSanchezSmith2022}
+M.~Forde, L.~S{\'a}nchez-Betancourt, and B.~Smith.
+\newblock Optimal trade execution for {G}aussian signals with power-law
+  resilience.
+\newblock \emph{Quantitative Finance}, 22:\penalty0 585--596, 2022.
+
+\bibitem[G{\^a}rleanu and Pedersen(2013)]{GarleanuPedersen2013}
+N.~G{\^a}rleanu and L.~H. Pedersen.
+\newblock Dynamic trading with predictable returns and transaction costs.
+\newblock \emph{Journal of Finance}, 68:\penalty0 2309--2340, 2013.
+
+\bibitem[G{\^a}rleanu and Pedersen(2016)]{GarleanuPedersen2016}
+N.~G{\^a}rleanu and L.~H. Pedersen.
+\newblock Dynamic portfolio choice with frictions.
+\newblock \emph{Journal of Economic Theory}, 165:\penalty0 487--516, 2016.
+
+\bibitem[Gatheral(2010)]{Gatheral2010}
+J.~Gatheral.
+\newblock No-dynamic-arbitrage and market impact.
+\newblock \emph{Quantitative Finance}, 10:\penalty0 749--759, 2010.
+
+\bibitem[Gatheral et~al.(2012)Gatheral, Schied, and
+  Slynko]{GatheralSchiedSlynko2012}
+J.~Gatheral, A.~Schied, and A.~Slynko.
+\newblock Transient linear price impact and {F}redholm integral equations.
+\newblock \emph{Mathematical Finance}, 22:\penalty0 445--474, 2012.
+
+\bibitem[Gohberg and Krein(1970)]{GohbergKrein1970}
+I.~C. Gohberg and M.~G. Krein.
+\newblock \emph{Theory and Applications of Volterra Operators in Hilbert
+  Space}.
+\newblock American Mathematical Society, 1970.
+
+\bibitem[Jusselin and Rosenbaum(2020)]{JusselinRosenbaum2020}
+P.~Jusselin and M.~Rosenbaum.
+\newblock No-arbitrage implies power-law market impact and rough volatility.
+\newblock \emph{Mathematical Finance}, 30:\penalty0 1309--1336, 2020.
+
+\bibitem[Krein(1962)]{Krein1962}
+M.~G. Krein.
+\newblock Integral equations on a half-line with kernel depending upon the
+  difference of the arguments.
+\newblock \emph{American Mathematical Society Translations (2)}, 22:\penalty0
+  163--288, 1962.
+
+\bibitem[Lehalle and Neuman(2019)]{LehalleNeuman2019}
+C.-A. Lehalle and E.~Neuman.
+\newblock Incorporating signals into optimal trading.
+\newblock \emph{Finance and Stochastics}, 23:\penalty0 275--311, 2019.
+
+\bibitem[Lions and Magenes(1972)]{LionsMagenes1972}
+J.-L. Lions and E.~Magenes.
+\newblock \emph{Non-Homogeneous Boundary Value Problems and Applications,
+  Vol.~I}.
+\newblock Springer, 1972.
+
+\bibitem[Markowitz(1952)]{Markowitz1952}
+H.~Markowitz.
+\newblock Portfolio selection.
+\newblock \emph{Journal of Finance}, 7:\penalty0 77--91, 1952.
+
+\bibitem[Merton(1971)]{Merton1971}
+R.~C. Merton.
+\newblock Optimum consumption and portfolio rules in a continuous-time model.
+\newblock \emph{Journal of Economic Theory}, 3:\penalty0 373--413, 1971.
+
+\bibitem[Neuman and Vo{\ss}(2022)]{NeumanVoss2022}
+E.~Neuman and M.~Vo{\ss}.
+\newblock Optimal signal-adaptive trading with temporary and transient price
+  impact.
+\newblock \emph{SIAM Journal on Financial Mathematics}, 13:\penalty0 551--575,
+  2022.
+
+\bibitem[Noble(1958)]{Noble1958}
+B.~Noble.
+\newblock \emph{Methods Based on the Wiener--Hopf Technique for the Solution of
+  Partial Differential Equations}.
+\newblock Pergamon Press, 1958.
+
+\bibitem[Obizhaeva and Wang(2013)]{ObizhaevaWang2013}
+A.~A. Obizhaeva and J.~Wang.
+\newblock Optimal trading strategy and supply/demand dynamics.
+\newblock \emph{Journal of Financial Markets}, 16:\penalty0 1--32, 2013.
+
+\bibitem[Rockafellar and Wets(1976)]{RockafellarWets1976}
+R.~T. Rockafellar and R.~J.-B. Wets.
+\newblock Nonanticipativity and {$L^1$}-martingales in stochastic optimization
+  problems.
+\newblock \emph{Mathematical Programming Study}, 6:\penalty0 170--187, 1976.
+
+\bibitem[Samko et~al.(1993)Samko, Kilbas, and
+  Marichev]{SamkoKilbasMarichev1993}
+S.~G. Samko, A.~A. Kilbas, and O.~I. Marichev.
+\newblock \emph{Fractional Integrals and Derivatives: Theory and Applications}.
+\newblock Gordon and Breach, 1993.
+
+\bibitem[Whittle(1963)]{Whittle1963}
+P.~Whittle.
+\newblock \emph{Prediction and Regulation by Linear Least-Square Methods}.
+\newblock English Universities Press, 1963.
+
+\bibitem[Wiener(1949)]{Wiener1949}
+N.~Wiener.
+\newblock \emph{Extrapolation, Interpolation and Smoothing of Stationary Time
+  Series}.
+\newblock Technology Press of MIT and John Wiley, 1949.
+
+\bibitem[Wiener and Hopf(1931)]{WienerHopf1931}
+N.~Wiener and E.~Hopf.
+\newblock {\"U}ber eine klasse singul{\"a}rer integralgleichungen.
+\newblock \emph{Sitzungsberichte der Preussischen Akademie der Wissenschaften
+  Berlin}, pages 696--706, 1931.
+
+\end{thebibliography}

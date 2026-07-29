@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99e (TeX Live 2026)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: optimal-trading-filters-v3.aux
+The style file: plainnat.bst
+Database file #1: optimal-trading-filters.bib
+You've used 33 entries,
+            2773 wiz_defined-function locations,
+            816 strings with 10055 characters,
+and the built_in function-call counts, 14221 in all, are:
+= -- 1309
+> -- 693
+< -- 24
++ -- 238
+- -- 204
+* -- 1093
+:= -- 2188
+add.period$ -- 100
+call.type$ -- 33
+change.case$ -- 161
+chr.to.int$ -- 32
+cite$ -- 66
+duplicate$ -- 677
+empty$ -- 1243
+format.name$ -- 265
+if$ -- 2966
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 39
+newline$ -- 174
+num.names$ -- 132
+pop$ -- 312
+preamble$ -- 1
+purify$ -- 134
+quote$ -- 0
+skip$ -- 496
+stack$ -- 0
+substring$ -- 680
+swap$ -- 44
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 333
+warning$ -- 0
+while$ -- 150
+width$ -- 0
+write$ -- 430

@@ -1,4 +1,4 @@
-\begin{thebibliography}{26}
+\begin{thebibliography}{27}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -109,6 +109,12 @@ C.-A. Lehalle and E.~Neuman.
 F.~Lillo, J.~D. Farmer, and R.~N. Mantegna.
 \newblock Master curve for price-impact function.
 \newblock \emph{Nature}, 421:\penalty0 129--130, 2003.
+
+\bibitem[Lions and Magenes(1972)]{LionsMagenes1972}
+J.-L. Lions and E.~Magenes.
+\newblock \emph{Non-Homogeneous Boundary Value Problems and Applications,
+  Vol.~I}.
+\newblock Springer, 1972.
 
 \bibitem[Markowitz(1952)]{Markowitz1952}
 H.~Markowitz.

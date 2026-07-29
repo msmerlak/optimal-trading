@@ -666,3 +666,501 @@ robustness) into current draft; C (AJN resolvent equivalence) + E (energy-
 space rigor) for journal version; D (roughness-memory frontier), F (three-
 regime gain-risk-cost filter) as companions; H (lead-lag matrix WH,
 Khrapkov) exploratory.
+
+## 2026-07-14 (late) — Extensions A and B folded into the paper (no new section)
+
+Per user direction, integrated into existing structure rather than a new
+numbered section; no renumbering, no new theorem environments.
+
+- §5.1 retitled "Exponential kernel and the signal-speed response"; appended
+  the general response function: Phi(theta) = C_+(i theta) with Szego/outer
+  representation (eq phi); R(theta) = [Phi^{-1} - 2 c1 theta]/(gamma Phi)
+  (eq response); contrarian criterion sign(1 - 2 c1 theta Phi); kink/cusp
+  dichotomy with c1 = (-2G'(0+))^{-1/2} vs 0; two-exponential mixture closed
+  form (eq mixture) with unique flip theta*; contemporaneous-regression and
+  innovation-atom remark. Exponential and power-law cases verified against
+  eqs (exp-ou) and (ou) in text.
+- §5.5 retitled "Role of the forecast curve: innovations filter and value";
+  replaced the anticipative-upper-bound discussion with the innovations form
+  u* = g(D) W-dot, g = gamma^{-1} C_+^{-1} Pi_+[C_-^{-1} phi_+] (eq innov);
+  exact adapted value rate and causality gap as causal/anticausal energies
+  (eq value); OU example v_ad = sigma^2 theta^{-beta}/(4 gamma c_beta),
+  v_ad/v_ant = sin(pi beta/2); flow-spectrum anti-persistence remark.
+- Appendix: two derivation paragraphs (innovations/value; response formula
+  with atom subtraction). New bib entry LionsMagenes1972 (half-line
+  indicator multiplier on H^nu, nu<1/2).
+- Compiles clean: 16 pp, no undefined refs. Formulas match the numerically
+  validated results in experiments/extension_response_check.py (mixture
+  theta=3: -0.4480 pred vs -0.4479 measured).
+
+## 2026-07-14 (night) — Geometry note
+
+`notes/geometry-optimal-trading-dual-norms.md`: pairing/metric/flag framing
+of the gain-risk-cost problem. Key content: dual of sum-of-frictions =
+infimal convolution (optimal signal split, crossover xi_c); adapted value =
+dual distance to annihilator N (same inf-convolution algebra); factorization
+characterized as the unique square root whose isometry fixes N (candidate
+lemma C_-^{-1}N = N, subsumes the review's C1 fix); causality gap as angle
+(cos^2 = sin(pi beta/2) for OU/power-law, checked); contrarian dichotomy as
+unit-ball statement; flow-vs-position response subtlety under risk (pure
+risk R = -theta^2/lambda checked two ways; combined-kernel sign claim
+explicitly marked NOT yet numerically validated). Next steps listed (numeric
+check, angle closed form, N-lemma, Markowitz-of-cost frame).
+
+## 2026-07-18 — Note: Wiener-Hopf solution with propagator + risk
+
+`notes/wiener-hopf-propagator-risk.md`. Key content (all derived +
+limit-checked, NONE numerically validated yet for lambda>0):
+- Position-coordinate reduction: rate problem with q = gamma*C + lambda/xi^2
+  = pure propagator problem for the position with N(xi) = gamma*C*xi^2 +
+  lambda and signal mu = -alpha-dot (drift). FOC equivalence shown (tower +
+  forecast decay). Q_+ = N_+/(-i xi) = integrate-then-color.
+- Exponential+risk factorization fully rational: N_+ = sqrt(A)(m-i xi)/
+  (kappa-i xi), A = 2 kappa gamma + lambda, m = kappa sqrt(lambda/A).
+- OU closed forms: position response X = theta/Phi_N^2 > 0 always (no atom
+  correction — phi_+ decay dominates); flow response R = (theta^2/Phi_N)
+  [1/Phi_N - 2 c1], c1 = [lambda - 2 gamma G'(0+)]^{-1/2} (kink) or 0
+  (power-law cusp). Limit checks pass at all three corners (pure risk, pure
+  exponential, pure power law).
+- Contrarian: positions never flip; flows flip iff 2 c1 Phi_N(theta) > 1.
+  Exponential+risk threshold theta* = kappa - 2m; always-contrarian for
+  lambda >= 2 kappa gamma / 3. Power-law + risk: never.
+- Value v_ad = sigma^2 X/4; v_ant infinite for exponential+risk+OU (angle
+  degenerates); power-law+risk angle = F_beta(theta/xi_c).
+- Consistency ledger + open items (step 1: discrete check with lambda L^T L).
+
+## 2026-07-18 (later) — New paper: "Optimal Trading Filters"
+
+`tex/optimal-trading-filters.tex` + `.bib` (8 pp, compiles clean, no
+undefined refs). Stationary gain/risk/propagator solution via Wiener-Hopf,
+"optimal trading filters" perspective.
+
+### Pre-writing validation (experiments/risk_response_check.py)
+All lambda>0 closed forms from notes/wiener-hopf-propagator-risk.md now
+NUMERICALLY VALIDATED: exponential family sub-1% under dt-refinement
+(R=-0.3093 vs -0.3107 at dt=0.01); always-contrarian regime at lambda=4
+confirmed (signs correct); pure risk OK; power-law converges with the
+singular-kernel quadrature bias measured at the analytically known
+lambda=0 calibration point (0.374 -> 0.3989).
+
+### Paper content
+- Position-coordinate reduction: N(xi) = gamma G-hat xi^2 + lambda, signal
+  = drift; Thm 1: optimal position = causal filter g_x = N_+^{-1} Pi_+
+  [N_-^{-1} (i xi) phi_+] of innovations; value = causal energy.
+- Two limits: Markowitz (memoryless filter, x = mu/lambda) and fractional
+  derivative trading (order (1-beta)/2), companion cited.
+- Exponential+risk: closed-form filter = signal + one EMA at rate
+  m = kappa sqrt(lambda/A); GP13 aim-portfolio comparison (JF 68:2309-2340,
+  venue verified via web).
+- Response functions, contrarian threshold theta* = kappa - 2m,
+  always-contrarian for lambda >= 2 kappa gamma/3; power-law never flips;
+  positions never flip. Value v = sigma^2 theta/(4 Phi^2).
+- Numerical-verification table (dt-refined values from the script).
+- Appendices: FOC equivalence, filter/value proof, response proof.
+
+## 2026-07-18 (evening) — Trading-filters paper: self-contained + recoveries
+
+Per user direction:
+- Removed all citations to the companion WH paper (this paper supersedes it):
+  projected-inverse identity now stated as Lemma 1 with full proof in
+  App. B; fractional/exponential limit results derived in-text.
+- Restructured to START from the position formulation: objective stated in
+  x with drift mu; rate/alpha (execution-literature) form is now a remark +
+  App. A equivalence. Noted mu vs optional projection interchangeability
+  (N_-^{-1} preserves the annihilator).
+- NEW §5.2: Garleanu-Pedersen recovery. N = eta xi^2 + lambda => single EMA
+  at a = sqrt(lam/eta); exact partial-adjustment form u = a(aim - x),
+  aim = [a/(a+theta)] x Markowitz — GP2016 continuous-time solution.
+  Verified algebraically (aim identity lam = eta a^2).
+- NEW §5.3: Neuman-Voss made explicit. Temporary + exponential-resilient +
+  risk: N rational biquadratic, N_+ = sqrt(eta)(b1-i xi)(b2-i xi)/(kap-i xi);
+  optimal position = TWO-EMA filter with rates b1,b2, weights = residues.
+  Degenerations verified: gamma=0 => kappa-pole cancels => GP one-EMA;
+  eta->0 => recovers signal+EMA(m) rule. Numerically validated (appended
+  nv_check to risk_response_check.py): b1=0.7726, b2=3.6610; X +0.2711 vs
+  pred +0.2637; R +0.2406 vs +0.2637; both positive (temporary cost removes
+  the flow atom => no contrarian flow with eta>0).
+- Abstract/intro/discussion updated; SamkoKilbasMarichev bib entry restored.
+- Compiles clean: 10 pp, no undefined refs.
+
+## 2026-07-18 (night) — Trading-filters paper rewritten from scratch
+
+Per user direction: self-contained, motivates the tools, no "position
+problem" section (reduced to one sentence, eq N), intro introduces the WH
+method properly. New architecture:
+1. Intro: 1.1 gain-risk-cost as quadratic optimization (eta, gamma, lambda
+   all from eq. 1); 1.2 adaptedness as THE constraint for non-local costs
+   (temporary-only = diagonal Hessian = free adaptedness; transient/risk
+   couple times); 1.3 the WH method introduced on its own terms (half-line
+   equations, Paley-Wiener causality, triangularity, Cholesky shadow,
+   prediction/control applications); 1.4 contributions incl. stochastic WH
+   (P_+ replaces half-line projection).
+2. General adapted signals: Lemma (projected inverse) + Theorem 1 (policy
+   via forecast curve — whiten/project/color).
+3. Stationary signals: filter theorem, value, OU Phi(theta) formula.
+4. Two limits: Markowitz; fractional derivative trading (general-signal
+   fractional formula eq. 15 carried in).
+5. Explicit filters & earlier solutions: exp+risk signal+EMA; GP aim
+   recovered; NV two-EMA filter; poles=EMAs pattern.
+6. Contrarian & rate response: R formula, c1, phase diagram (theta*=k-2m,
+   always-contrarian, power-law never, eta>0 kills atom), validation table
+   (now 5 rows incl. NV three-friction point).
+7. NEW: Boundary effects & Gohberg-Krein factorization: terminal-anchored
+   causal factor with explicit power-law kernel (eq. 22, numerically exact
+   per review-session checks); FSS Fredholm solutions recovered as the
+   chaos expansion of the solution operator; GSS U-shape as constant-signal
+   case; boundary layers d(t)^{-nu}.
+8. Concluding remarks with limitations.
+Bib: +Noble1958, Krein1962, LionsMagenes1972, ChakrabartiGeorge1994.
+Compiles clean: 11 pp, no undefined refs.
+
+## 2026-07-18 (late) — Note: Neuman-Voss vs stationary filter
+
+notes/nv-vs-stationary-filter.md + experiments/nv_vs_stationary.py.
+Wrote down the NV finite-horizon solution for our parameterization (LQ,
+2-state feedback u* = -K(t)(x,J) + signal feedforward, matrix Riccati P(t),
+free terminal) and compared numerically to our stationary two-EMA filter.
+
+Key results:
+- ANALYTIC BRIDGE (exact, atol 1e-6): NV algebraic-Riccati closed-loop poles
+  = {0.77258, 3.66103} = our EMA rates b1,b2 (zeros of causal factor N_+).
+  LQR <-> spectral-factorization identity. K_inf = [1.41421, 1.01939].
+- FINITE-HORIZON Riccati gains K(t) -> K_inf: err 4e-7 at d=10, 4e-3 at d=4;
+  terminal boundary layer decays ~2*b1, width ~1/b1 ~ 1.3.
+- FULL ADAPTED OU response flat across deep interior (X~0.273, R~0.235 at
+  t=5,10,15), boundary layers near t=0 (startup from x0=0) and t=T (unwind).
+  Interior offset from continuum formula 0.264 = O(dt) discretization bias
+  (matches paper table row 5), not a boundary effect.
+Conclusion: stationary filter = interior T->inf limit of NV; boundary layers
+~1/b1 at both ends (the regime the whole-line filter omits, carried by the
+§7 Gohberg-Krein factors).
+
+## 2026-07-18 (late) — Paper figures
+
+experiments/make_figures.py -> figures/ (PNG+PDF, all from validated formulas):
+- fig_trading_filter: |H(omega)| ~ N(omega)^{-1/2} vs frequency. (a) power-law
+  fractional slopes -(1+beta)/2 for beta=0.2/0.4/0.6; (b) friction family
+  (pure risk flat, exp+risk resilience shelf, temp+exp+risk rolloff,
+  power-law+risk fractional tail) with crossovers omega_c, omega_*.
+- fig_nv_vs_stationary: (a) NV finite-horizon Riccati gains K(t) -> stationary
+  K_inf, terminal boundary layer; (b) optimal position on sin signal,
+  finite-horizon vs whole-line overlap in interior, deviate in boundary
+  layers. (Fixed sign bug: int sin = -cos/omega0; interior amplitudes now
+  match -0.4348 vs -0.4314.)
+- fig_impact_surfing: (a) R(theta) for exp kernel lambda=0/0.5/4 (sign flips)
+  + power-law (never); (b) (theta,lambda) phase diagram, theta*=kappa-2m,
+  always-surfing above lambda=2*kappa*gamma/3.
+
+## 2026-07-18 (late) — Figures wired into paper
+
+Added graphicx + \graphicspath{{figures/}{../figures/}}; inserted 3 floats:
+- fig:filter (§4, crossovers) - trading filter vs frequency
+- fig:nv (§5.3) - NV finite-horizon vs stationary (gains + trajectory)
+- fig:surf (§6.2) - impact-surfing R(theta) + (theta,lambda) phase diagram
+Text references added at each site. Compiles clean, 14pp, no undefined refs,
+all graphics found.
+
+## 2026-07-18 (late) — 4 more figures added (7 total)
+
+experiments/make_figures.py extended; wired into tex:
+- fig:value (§3) - v(theta) vs signal speed (risk: fast worth more; impact:
+  slow worth more) + causality gap sin(pi beta/2).
+- fig:gl (§4) - Grunwald-Letnikov fractional-derivative weights, tail
+  k^{-(1+nu)} (discrete Marchaud long memory).
+- fig:structure (§5) - EMA rates b1,b2 vs risk aversion (b1->0 as lambda->0)
+  + position impulse response g_x(tau) shortening with risk.
+- fig:aim (§5.2) - GP aim-portfolio partial adjustment on an OU path.
+Fixed nothing new (value monotonicity + aim sim verified visually).
+Paper now 16pp, 7 figures, compiles clean, no undefined refs.
+
+## 2026-07-18 (late) — fig_value fix, Fig 5 enriched, boundary-decay theorem
+
+- fig_value: FIXED a confounded comparison. Held innovation variance sigma^2
+  fixed => slower OU signal has larger amplitude (Var=sigma^2/2theta), which
+  spuriously made power-law value DECREASE with theta. Redone at fixed
+  stationary variance (Var=1, sigma^2=2theta): all frictions -> value
+  INCREASES with speed; power-law sub-linear (theta^{1-beta}) vs risk
+  (theta^2). Caption corrected.
+- Fig 5 (fig:structure) enriched to 3 panels: (a) two-EMA rates vs lambda;
+  (b) optimal policy g_x(tau) by kernel (exp/two-EMA finite memory vs
+  power-law heavy tail; Markowitz=delta); (c) power-law policy vs beta
+  (slope (beta-1)/2). Also fixed a heredoc-introduced syntax error.
+- NEW Proposition (Boundary-layer decay, prop:boundary) in §7: |u*T - u*|
+  <= C d(t)^{-nu} (power-law) or C e^{-b1 d(t)} (rational, slowest factor
+  rate b1); proof sketch via Marchaud truncation / factor-kernel decay,
+  ties to Riccati 2*b1 relaxation (fig:nv). Replaces the informal boundary
+  paragraph.
+Paper 16pp, 7 figures, compiles clean.
+
+---
+
+## 2026-07-18 — Math Finance upgrade of tex/factorization-optimal-trading.tex
+
+Applied five targeted edits to retarget the paper from Quantitative Finance to
+Mathematical Finance. Backup at `factorization-optimal-trading.tex.bak-premath`.
+
+### Changes
+
+1. **Abstract** — Replaced `\section*{Abstract}` with `\begin{abstract}...\end{abstract}`
+   (Wiley/Math Finance standard). Rewrote to lead with the projected-inverse identity
+   $(P_+CP_+)^{-1} = C_+^{-1}P_+C_-^{-1}$ as the core structural result; contrasted
+   explicitly with Volterra-equation characterizations (AJN 2025); stated the fractional-
+   derivative result as a consequence of substituting the Liouville factors.
+
+2. **§1.3 Prior treatments — AJN methodological-contrast paragraph** — Added after the
+   AJN (2025) entry: explains that AJN gives an implicit characterization through a
+   stochastic Volterra equation of the second kind; the present paper gives a closed-form
+   operator identity, with no resolvent series. Stated the complementary scope: AJN handles
+   finite-horizon + terminal constraints + non-stationary signals; WH approach gives explicit
+   operator structure for the stationary case. (Style check: "rather than" foil removed;
+   rewritten as positive claim.)
+
+3. **§1.4 Contribution — restructured to lead with Lemma 1** — Three paragraphs:
+   (a) Core abstract identity (Lemma 1): statement, triangularity relations, Cholesky analogy.
+   (b) Closed-form optimal trading rate (Theorem 1): forecast-curve interpretation.
+   (c) Power-law kernel bulk formula (Corollary 1): fractional derivative result.
+
+4. **§3.3 Lemma 1 proof — de-sketched to full proof** — Replaced `\begin{proof}[Proof (sketch)]`
+   with a five-step proof: (1) triangularity relations from causality of $C_+$; (2) $C_+^{-1}$
+   preserves $L^2_{\rm adap}$; (3) $P_+C_-^{-1}$ maps adapted → adapted; (4) right inverse
+   verification; (5) left inverse verification. All steps elementary; only causality of $C_+$,
+   strict positivity of $C$, and $C_-=C_+^*$ used.
+
+5. **§5.7 "Comparison with the Volterra-equation approach" (new subsection)** — Displays the
+   AJN SVE characterization \eqref{eq:ajn-sve}; shows the WH identity bypasses the Neumann-
+   series resolvent expansion; explains the equivalence on $[0,T]$ via reflected GK factors;
+   explains the bulk formula as the stationary replacement; discusses FSS resolvent as a
+   special case recoverable from $C_+^{-1}C_-^{-1}$.
+
+### Verification
+- Compiled 3× pdflatex + 1× bibtex: exit 0 each. 18 pp, 366 KB.
+- Undefined refs: 0. LaTeX warnings: 0.
+- Style checks: `canonical` 0, `rather than` 1 surviving (factual "rather than on $L^2$"
+  in Prop 2, not a rhetorical foil), `?` 0, `is not Y, it` 0.
+- Citation count: 33 (unchanged).
+
+### Outstanding for Math Finance submission
+- Page count (18 pp) is on the short side for Math Finance (typical 25-40 pp); the paper
+  is complete as a theoretical contribution but could be expanded with:
+  (a) A numerical section with explicit FFT benchmarks for the bulk formula;
+  (b) More detailed treatment of the non-stationary extension (comparison with LN 2019);
+  (c) Expanded discussion of the value formula (§5.5) with explicit signal-quality/cost
+      comparisons.
+- `Keywords` line uses "adapted stochastic control" in place of the QF-era
+  "algorithmic trading"; may want to reconsider for Math Finance.
+- `MSC classification` changed from `AMS classification` (cosmetic).
+
+---
+
+## 2026-07-18 — Math Finance upgrade: switched to optimal-trading-filters.tex as base
+
+Previous session applied patches to `factorization-optimal-trading.tex` (the QF
+draft). This session discards that approach and targets `optimal-trading-filters.tex`
+as the correct base: it is coherent, covers three frictions, has 7 figures already
+compiled, has a numerical verification table, and carries clean appendix proofs.
+
+Backup: `optimal-trading-filters.tex.bak-pre-mf`.
+
+### Three targeted edits applied to optimal-trading-filters.tex
+
+1. **Front matter + abstract environment**
+   - Added MSC classification line (45E10; 60G35; 91G80; 26A33) after JEL.
+   - Changed `\section*{Abstract}` to `\begin{abstract}...\end{abstract}`.
+   - Rewrote abstract to state the projected-inverse identity
+     $(P_+QP_+)^{-1} = Q_+^{-1}P_+Q_-^{-1}$ as the core algebraic tool;
+     lists all main results (filter family, Markowitz/fractional limits, aim
+     portfolio, Neuman-Voß in stationary form, impact-surfing phase diagram,
+     finite-horizon recovery); notes numerical verification.
+
+2. **§1.4 AJN methodological comparison paragraph (new)**
+   Added after the literature-survey sentence: explains that AJN (2025, same
+   journal) characterizes the optimum implicitly via a stochastic Volterra
+   equation of the second kind; the present approach uses spectral factorization
+   in the complementary stationary regime, giving the projected-inverse identity
+   directly; the two representations are equivalent on [0,T] via the GK factors;
+   in exchange for the stationary restriction, the factorization yields the
+   trading filter, rate response, and Markowitz-fractional interpolation.
+
+3. **Style fix**: "rather than Volterra-equation characterization" rewritten to
+   "using spectral factorization of the friction symbol" (removes contrast-
+   motivation framing).
+
+### Verification
+- Compiled 3× pdflatex + 1× bibtex: 17 pp, 499 KB, 0 undefined refs, 0 warnings.
+- Style: `rather than` 0 prohibited uses (2 surviving: factual comparisons
+  "against the signal rather than with it" and "own wake rather than from the
+  signal" — both literal descriptions of behavior, not rhetorical foils).
+- `canonical` 0. `is not merely` 0. `it genuinely` 0.
+
+### What remains for submission
+- Submission to Math Finance through ScholarOne/Manuscript Central;
+  Wiley-compatible LaTeX (standard article class already used).
+- Optional: expand numerical section (§6.3 table already present;
+  could add a figure showing filter vs. discretized optimum).
+- arXiv preprint to upload before submission.
+
+---
+
+## 2026-07-18 — Figure 5 rework: aim-portfolio → multi-regime comparison
+
+Reworked `fig_aim_portfolio` (Figure 5 in compiled PDF, `\ref{fig:aim}`) from a
+single-panel GP-only plot to a two-panel multi-regime comparison.
+
+### New design
+- **Panel (a):** Optimal positions on the same OU signal path (theta=lambda=1,
+  Var(alpha)=1, eta=0.5 for all regimes). Grey dashed = Markowitz target.
+  Three regimes:
+  - Blue: aim portfolio (gamma=0, temp+risk only)
+  - Orange: NV stationary (exp transient + temp + risk; kappa=2, gamma=1)
+  - Green: power-law transient + temp + risk (beta=0.5, gamma=1)
+  Position stds: 0.375 / 0.328 / 0.269 vs Markowitz 0.872.
+  Message: more impact friction → smaller position; all damp relative to Markowitz.
+
+- **Panel (b):** Analytical rate step responses (g_x(tau)) on a log tau axis,
+  normalised at tau=0.3.
+  - Blue (aim portfolio): single EMA, decays as exp(-at), a=sqrt(lambda/eta)~1.41
+  - Orange (NV stationary): two EMAs, b1=0.77<a<b2=3.66; NV is MORE persistent
+    than GP because b1<a (adding transient impact slows down the slow mode)
+  - Green (power-law): algebraic decay tau^{-(1-beta)/2} = tau^{-0.25}, the
+    fractional-memory signature clearly visible against exponential drop-off.
+  Message: power-law ≠ exponential in tail; log axis separates them clearly.
+
+### Numerical checks
+- FOC residuals (matrix solve B and C): 3.1e-15, 4.6e-15.
+- Step response at tau=0.5: GP=0.408, NV=0.277, PL=0.387 (all positive, ordered).
+- Power-law regime C: uses same eta=0.5 as A and B, so the matrix is
+  well-conditioned; crossover xi_*=(c_beta/eta)^{1/(1-beta)} ~ 25 rad/time is
+  above signal bandwidth (theta=1) and Nyquist (pi/dt~31).
+
+### Bug fixes
+- Removed stale `a` and `th0` variable references from the old aim-portfolio block
+  that caused a NameError after the rework.
+- Figures now written to experiments/figures/ (script's cwd); manually copied to
+  figures/ for TeX.
+
+### TeX changes
+- Caption of \ref{fig:aim} updated to describe the new two-panel design.
+- Figure width changed from 0.85\linewidth to \linewidth.
+- PDF recompiled clean: 17 pages, 475 KB, 0 undefined refs.
+
+---
+
+## 2026-07-18 — New fig_interpolation: interpolation from fractional to aim-portfolio
+
+New figure `fig_interpolation` added to `make_figures.py` and inserted into the TeX
+after `\ref{fig:aim}` as `\ref{fig:interp}`.
+
+### Design
+Two-panel figure: fixed power-law kernel (β=0.5, γ=λ=θ=1), varying η ∈ {0.02, 0.1, 0.5, 2, 10}.
+- Colors: green (small η, fractional limit) → blue (large η, aim-portfolio limit)
+- Panel (a): Adapted positions computed via the Szegő outer-factor stationary filter
+  applied to the OU signal path. Position amplitude decreases monotonically with η;
+  the crossover between the nearly-indistinguishable small-η cases and the more damped
+  large-η cases occurs near η≈0.5–1 (crossover frequency ξ_* = (c_β/η)^2 passes through
+  θ=1 at η≈c_β/θ^{1/(1-β)/2} ≈ 2.5).
+- Panel (b): Rate step response g_x(τ) = IFFT[H(ω)] computed via the Szegő FFT
+  (outer factor via Hilbert-transform/FFT on ω ∈ [-40, 40], N_fft=4096).
+  Normalised at τ=0.3 on semi-log τ axis. Two analytical limit curves overlay:
+  - Dotted (η→0): τ^{-(1-β)/2} = τ^{-0.25} (fractional power-law tail)
+  - Dashed (η→∞, GP): e^{-aτ} with a=√(λ/η)=0.316 (exponential aim-portfolio)
+  The five interpolating curves are bracketed by these limits, with monotone ordering.
+
+### Key physics shown
+- Large η: temporary cost penalizes fast trading → smaller positions, faster decay of
+  rate response (exponential, moving toward GP limit). More conservative.
+- Small η: power-law dominates → larger positions, slower power-law tail in rate response.
+  The crossover frequency ξ_* determines which regime applies at signal bandwidth θ.
+
+### Checks
+- All Szegő FFT g_x values at τ=0.3 are positive and monotone decreasing with η.
+- Position stds from Szegő filter: 0.200, 0.195, 0.176, 0.134, 0.065 (monotone).
+- TeX compiled clean: 17 pp, 519 KB, 0 undefined refs.
+
+## Repo reorganized into v1/ and v2/ (paper versions separated)
+
+- `v1/` — original figure-bearing paper: `optimal-trading-filters.{tex,bib,pdf}`.
+  Compiles in place; finds shared plots via its `../figures/` graphicspath
+  (root `figures/` left untouched, so the figure-generation pipeline is intact).
+- `v2/` — reorganized thesis version (one factorization; interior vs finite-horizon)
+  with fresh notation: `optimal-trading-filters-v2.tex`, the theorem-only
+  `-v2-skeleton.tex`, a bib copy, an empty `figures/` for new v2 plots, and the
+  v2-specific `notes/` (paper-outline-v2, causality-gap-exp-vs-powerlaw,
+  rockafellar-wets-nonanticipativity) and `experiments/` (causality_gap_exp_vs_powerlaw.py).
+  v2 wired with `\graphicspath{{figures/}{../figures/}}` so new figures live in v2/figures/.
+- Cadence pass from tone review (outputs/v2-tone-humility-review.md): softened epigrams (memory maximal, never forgets, is then forgotten, adaptedness free/destroys value, singularity, precisely-omits), removed one aphorism (sec 4.1), cut duplicate wake metaphor, one honest "we" hedge on finite-horizon constants. Also 1.2 operative-constraint fixed, 1.3 rewritten (existence vs computation), sec 3 fractional-calculus gloss added, sec 6 removed.
+  causality-gap script reruns from v2/experiments/.
+- Left `tex/factorization-optimal-trading.*` in place (separate draft, git-tracked) —
+  version bucket unresolved; awaiting a decision on where it belongs.
+
+## v2 revision pass from internal review (outputs/optimal-trading-filters-v2-review.md)
+
+- C1 (critical): §2.3 position-filter L² claim qualified with lambda>0 (false at eta=lambda=0 power-law).
+- M1: App A spectral-decay hypothesis now explicit (int (1+w^2)S/q < inf); Prop 3 constants stated as kernel-dependent.
+- M2: code-availability sentence added to §6. M3: per-unit-time clause in Remark 1.
+- M4: flow->rate unified (text, notation table, Fig 4 ylabel regenerated); causality gap named once in §2.3.
+- Titles revised to noun phrases (§1.2, §1.3, §3, §4, §4.1, §4.2, §4.3, §5); self-promotional
+  framings removed (P2-P4); stale "kernel at zero lag" roadmap clause fixed; §1.4 paragraph split;
+  §5.1 em-dash sentence split; Prop 1 states finiteness; Table 1 "empirically first order";
+  Fig 5 caption notes nominal shading; conclusion rephrased vs abstract.
+- Compiles 18pp, 0 errors; 9/9 numerical checks unchanged.
+
+## v2 cadence + structure pass
+- 1.2 "operative constraint" pronouncement removed; 1.3 rewritten around existence (WH/GK/Arveson) vs stationary computation (Szego), no premature "projection threaded"; GK/Arveson computational hierarchy claim dropped.
+- sec 3: fractional-calculus gloss for non-experts added.
+- Tone/cadence: 9 epigram/verdict softenings per outputs/v2-tone-humility-review.md; one aphorism removed; duplicate wake metaphor cut; one first-person hedge on finite-horizon constants.
+- sec 6 (Numerical verification) removed; availability note -> acknowledgements.
+- 17pp, 0 errors.
+
+## v3 created — best of v1 + v2 (clarity, style, structuring, figure selection)
+
+Rewritten afresh in `v3/optimal-trading-filters-v3.tex` (20 pp, 0 errors/undefined/overfull, 5 figures).
+
+- **Formulation (user directive):** position-primary — position responds to expected return μ (familiar Markowitz/aim-portfolio picture); revert to trade/rate formulation (u, α, Q) only at λ=0 where the position is non-stationary (power-law). = v2 axis, now confirmed.
+- **From v2:** factor→predict→combine spine (§2 Factorization / Prediction / Trading filter); rich cost-modeling history (AC→LFM→Bouchaud→propagator→power-law/exp); formalized Assumptions (Friction, Signal); general Lemma A=A₋A₊; polished motivation-first prose; §3 power-law (fractional + surfing); §4 finite-horizon; §5 recovery; §6 conclusion; Appendices A–D.
+- **From v1:** fuller Wiener–Hopf method exposition (§1.3 — Paley–Wiener causality, triangular/Cholesky analogy, prediction-vs-control classical uses); keywords/JEL/MSC block; **value of information restored** (§2.4) + causality gap sin(πβ/2) (dropped in v2; verified by numerical suite check #4).
+- **Figure selection (5, evidence-based after viewing all 8 v1 + 3 v2 figures):**
+  1. `fig_value` (v1) — value vs speed + causality gap sin(πβ/2) [§2.4]
+  2. `fig_trading_filter` (v1) — filter magnitude across frictions, crossovers ωc,ω* [§3.1]
+  3. `fig_impact_surfing` (v2 fig2, cleaner) — rate response + phase diagram [§3.2]
+  4. `fig_boundary_layer` (v2 fig3) — finite-horizon vs whole-line [§4.1]
+  5. `fig_filter_structure` (v1) — policy memory across kernels (impulse response) [§5]
+  Copied to `v3/figures/`; v2 bib (33 entries) copied.
+- Cut from v1: fig_gl_weights, fig_aim_portfolio, fig_interpolation, fig_nv_vs_stationary (redundant with the chosen set or too niche).
+- Build clean; value-of-info/sin(πβ/2) re-included honestly (stated for OU/stationary; power-law gap derived in App B).
+- Autoresearch run recorded in `autoresearch.md` / `autoresearch.jsonl` (baseline = accept).
+
+## v3 exposition pass (clarity/style/structure) — groups 1–3 of notes/v3-exposition-plan.md
+
+Directive: traditional academic register; equations state themselves (no narrating "the operator collects / factor whitens"); no math expression as sentence subject ("two shapes bracket").
+
+- **Math-as-subject converted:** "Two shapes bracket that choice"→"In practice $g$ is modeled by one of two forms"; "$N_+$ turns the friction inner product…"→"Conjugation by such a factor whitens the friction: under it $\langle\cdot,N\cdot\rangle$ becomes the flat $L^2$ product"; "The whitened return $N_-^{-1}\mu$ is the stationary filter…/conditional expectation truncates…/$P_+$ acts…"→"In the innovations the whitened return has symbol $h$; …the projection truncates… and acts on symbols as the plus-part."
+- **Equation-restatement cut:** §1.2 "$N$ collects the three costs"→"the three costs define a single friction operator"; §2.1 rate-factor narration dropped; §2.3 three-operations paragraph ("$N_-^{-1}$ whitens… $P_+$ replaces… $N_+^{-1}$ integrates…") → nominalized "the three steps of the classical recipe: an anticausal whitening, the adapted projection, and a causal recolouring", + measured estimation reading; §2.3 Markov "a rational filter with the friction's outer factor in the denominator and the signal's polynomial in the numerator" → "a rational filter" (display speaks).
+- **Structure:** added §2 spine sentence (factor/predict/combine → §2.1/2.2/2.3) before the housekeeping; moved Assumption (Friction) out of §2.3 to the end of §2.1 (Assumption (Signal) kept before Theorem 2), removing one interruption from the dense combine subsection.
+- Audit: 0 bare-symbol-subject action sentences remain (remaining "the factorization returns", "differentiation puts", "the projection acts", "has magnitude proportional to" are named-operation/property statements, acceptable).
+- Build clean: 20 pp, 0 errors / 0 undefined / 0 bad-cite / 0 overfull. Group 4 (Cholesky-aside trim, em-dash reduction, abstract tighten) left pending.
+
+## 2026-07-28 — μ-scale value reframing + new speed/position figure
+- **New figure `fig:speed`** (`experiments/fig_speed_position.py`): adapted position paths under exp+risk+instant. vs power-law+risk+instant. on the SAME OU return signal, for θ∈{0.5,2,6}. Uses the validated causal (reverse-Cholesky) solver `solve_W` + `Wx=dt·L·W`. Fixes Var(μ)=1 so Markowitz μ/λ is constant-amplitude across speeds; held fraction falls (exp 0.41→0.06, power-law 0.27→0.03), power-law smaller/smoother/laggier throughout.
+- **μ-scale value reframing (§2.4, fig_value):** value now compared at FIXED RETURN variance Var(μ)=1 (not Var(α)). Then v=1/2Φ(θ)². Conclusions INVERT: pure risk speed-free (v=1/2λ const); exp+risk bounded decrease [1/2λ, 1/2(2κγ+λ)]; power-law v∝θ^{-(1+β)}; temp cost v∝θ^{-2}. Old fixed-Var(α) story (v∝θ², θ^{1-β}, saturation) had a θ² confound: fixing Var(α) makes a faster signal carry a larger return, Var(μ)=θ²Var(α).
+- Numerically verified taxonomy: v·θ^{1.5}=0.1995 flat (power-law), v·θ²→1/2η (temp), pure-risk v=1/2λ derived exactly (PnL rate Var(μ)/2λ).
+- `sin(πβ/2)` causality gap UNCHANGED (normalization-invariant ratio).
+- Fixed stale "saturates at Var(α)/2η" in §3.2 → "value falls as θ^{-2}"; updated fig_value labels/caption/title to fixed-return-variance.
+- Build clean: 21 pp, 0 errors / 0 undefined / 0 overfull.
+
+## 2026-07-28 (cont.) — position-scaling figure `fig:scaling` (§2.4)
+- New figure `experiments/fig_position_scaling.py` + `explore_position_scaling.py`: position scaling vs θ for exp vs power-law transient kernels. (a) response X(θ)=θ/Φ²; (b) size std(x★)=√J/Φ at fixed Var(μ)=1.
+- Key physics (user correction incorporated): with ANY temporary cost η>0, n̂~ηω² at high freq ⇒ Φ~√η·θ for BOTH kernels ⇒ X~1/(ηθ)→0, std(x★)~θ^{-3/2}→0. All fast-signal positions vanish. Figure: η>0 solid (realistic, →0); η=0 dotted (limiting reference). The exp+risk floor std→1/(2κγ+λ) exists ONLY at η=0 (knife-edge); power-law+risk decays even at η=0 (Φ∝θ^{(1+β)/2} unbounded).
+- Added a short §2.4 paragraph (X(θ)=θ/Φ², position vanishes whenever Φ unbounded — temp cost or long memory; finite-memory+no-temp is the measure-zero exception) + `fig:scaling`.
+- Consistent with value story v=1/2Φ²: position floors iff value floors.
+- Build clean: 22 pp, 0 errors / 0 undefined / 0 overfull.
+
+## 2026-07-28 (cont.) — value figure restructured to match fig:scaling (always include temp)
+- fig_value panel (a) rebuilt to parallel fig:scaling: SOLID = with temporary cost (eta=0.5, realistic) where v=1/2Phi^2 with Phi~sqrt(eta)theta gives v propto theta^{-2} for BOTH kernels; DOTTED = eta=0 reference (exp bounded, power-law theta^{-(1+beta)}); grey dotted = pure risk (speed-free). Phi now via Szego quad (n=eta w^2 + transient + lam), consistent with fig_position_scaling. theta^{-2} slope guide added.
+- Caption updated (solid=temp realistic theta^{-2}; dotted=eta=0 refs). Narrative unchanged (already walks risk/exp/power-law/temp contributions to Phi).
+- Build clean: 22 pp, 0 errors / 0 undefined / 0 overfull.
+
+## 2026-07-28 (cont.) — fig:transfer added to v3 (§3.1); LaTeX in all figure scripts
+- New figure fig:transfer (experiments/fig_transfer_impulse.py -> v3/figures/fig_transfer_impulse.{png,pdf}) inserted after fig:filter in §3.1, with a linking sentence. Two panels: (a) transfer function |H|=1/sqrt(n) and (b) impulse response h(tau)=F^{-1}[1/n_+], exponential vs power-law, small lambda=0.1, eta=0.05. Shows both crossovers (omega_c Markowitz edge; omega_e exp->temp; omega_* power-law->temp), the exp finite-memory plateau 1/sqrt(2kg) vs power-law omega^{-(1+beta)/2} slide; time-domain: h(0+)=1/sqrt(eta) short-lag cap, exp cutoff vs power-law algebraic tail.
+- Enabled text.usetex (Computer Modern serif + amsmath/amssymb, /Library/TeX/texbin PATH shim) in ALL figure scripts: make_figures.py, fig_transfer_impulse.py, fig_speed_position.py, fig_position_scaling.py, fig_value_lambda.py, fig_value_discounted.py. Each verified to render.
+- v3/figures/fig_value.png left as the 2-panel version (matches its caption); the split single-panel fig_value/fig_causality_gap in figures/ is NOT yet wired into the tex (pending the value-figure formulation decision).
+- Build clean: 22 pp, 0 errors / 0 undefined / 0 overfull.

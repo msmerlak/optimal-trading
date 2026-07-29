@@ -1,0 +1,97 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\graphicspath{{figures/}{../figures/}}
+\usepackage[hidelinks]{hyperref}
+\usepackage[authoryear,round]{natbib}
+\bibpunct{(}{)}{,}{a}{}{,}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\pluspart}[1]{\left[#1\right]_+}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\title{Optimal Trading Filters: a Wiener--Hopf Approach}
+\author{Matteo Smerlak\thanks{Capital Fund Management, 23 rue de l'Universit\'e, 75007 Paris, France.\ \texttt{matteo.smerlak@cfm.com}}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\begin{tabular}{p{0.9\linewidth}}
+\textbf{Keywords.} Optimal trading; market impact; propagator model; inventory risk; Wiener--Hopf factorization; linear filters; fractional calculus; adapted stochastic control.\\[2pt]
+\textbf{JEL classification.} C61; G11; G12; G14.\\[2pt]
+\textbf{MSC classification.} 45E10; 60G35; 91G80; 26A33.
+\end{tabular}
+\end{center}
+
+\begin{abstract}
+A trader holding a predictive signal must weigh the expected gain against the cost of acquiring the position and the risk of holding it. Under the propagator model of market impact, trading-induced price changes involve the entire history of past trades. Existing treatments of the resulting path-wise quadratic program characterize the optimum implicitly, as the solution of an integral equation or an equivalent forward--backward system. In this paper I show how stationary solutions can be computed analytically from the signal and its forecasts using a Wiener-Hopf factorization of the friction operator. For rational frictions --- inventory risk, temporary cost, and exponential resilience --- the trading filter reduces to finitely many exponential moving averages, and we recover the Neuman--Vo\ss{} solution away from horizon boundaries. In the (empirically more realistic) case of scale-free impact kernels, the optimal trading filter decays algebraically rather than exponentially at large frequencies; in the limit of small risk aversion, the target position is a fractional integral of the signal. Unlike its exponential (Obizhaeva-Wang) cousin, this solution never surfs its own impact or generates block trades.
+\end{abstract}
+
+% =====================================================================
+% BODY
+% =====================================================================
+
+\section{Introduction}\label{sec:intro}
+\subsection{The quadratic optimal trading problem}
+\subsection{The adaptedness constraint}
+- With instantaneous impact the solution is trivial: Garleanu-Petersen
+- Non-local costs create a difficulty: implement adaptedness constraint
+- Literature (starting from OW and GSS and more recently Neuman, Voss and collaborators) has delt with this using dynamic programming and/or integral equations. Typically implicit and hard to extract intuition from.
+\subsection{The Wiener-Hopf method}
+- history and application in filtering and prediction
+- general formulation: factorization of positive operator along a nest, Gohberg-Krein and Avreson
+- here applied to stochastic processes, with causality = adaptedness
+\subsection{Contribution and outline}
+- WH solution in terms of signal forecasts
+- formulation as linear filter for stationary signals, two-step WH (friction and signal itself)
+- analytical solution for any quadratic friction away from boundaries
+- connection with fractional calculus
+- estimation of causality gap
+- an exact solution on the finite interval (for use as execution policy) with better properties than OW
+
+\section{The Wiener--Hopf solution}\label{sec:interior}
+
+\section{Exact filters}\label{sec:recovery}
+\subsection{Exponential kernels: zero, and two EMAs}
+\subsection{Power-law kernels and fractional calculus}
+
+
+\section{Finite horizon solutions}\label{sec:recovery}
+- general case treated in the literature (NV, AJN, Forde et al, etc), but not in closed form execpt in the absence of signal (OW and GSS)
+- we give closed forms for pure impact (exponential or power-law) with signal
+
+\subsection{Gohberg-Krein generalization of WH}
+- explain GK 
+- bound: WH solution + small away from boundaries
+\subsection{Pure transient impact with signal}
+
+- exponential (OW with signal)
+- power-law (GSS with signal)
+
+\section{Conclusion}
+
+% \appendix
+
+% =====================================================================
+\bibliographystyle{plainnat}
+\bibliography{optimal-trading-filters}
+
+\end{document}
