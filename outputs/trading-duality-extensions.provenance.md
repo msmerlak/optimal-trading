@@ -1,0 +1,24 @@
+# Provenance: Implications, Generalizations, and Connections of Wiener–Hopf Optimal Trading
+
+- **Date:** 2026-05-30
+- **Slug:** `trading-duality-extensions`
+- **Mode:** Direct search, lead-owned (no researcher subagents).
+- **Rounds:** 1 search round (10 `web_search` queries) + 2 `fetch_content` calls to verify authorship/titles of three references.
+- **Sources consulted:** 21 distinct external sources retrieved via `web_search`; 3 verified by `fetch_content` (arXiv abstract pages for 1103.3005, 2106.09267, 1310.4471).
+- **Sources accepted:** 19 cited in final note (see Sources section in `outputs/trading-duality-extensions.md`).
+- **Sources rejected:** None outright. Two sources had attribution paraphrased (1103.3005, 2106.09267) and were re-verified against arXiv abstract pages; reference entries now reflect arXiv submitter names and exact titles, with "et al." where full author list was not confirmed in-session.
+- **PDF parsing:** Not performed (per workflow). All citations are to HTML / abstract / repository landing pages; one PDF landing-page URL (TU Delft MJLS preprint) is cited as metadata only.
+- **Verification:** PASS WITH NOTES
+  - PASS: All claims map to sources or are flagged as conjectures.
+  - NOTES: (1) [GSC11] full author list not enumerated; arXiv submitter (Georgiou) verified by `fetch_content` against https://arxiv.org/abs/1103.3005. (2) [NV21] title corrected to "Trading with the Crowd" after `fetch_content` against https://arxiv.org/abs/2106.09267. (3) [AS13] author list (Alfonsi, Klöck, Schied) corrected after `fetch_content` against https://arxiv.org/abs/1310.4471.
+  - Post-edit on-disk verification: `grep -n "GSC11"` confirms 3 occurrences (1 reference entry + 2 in-text); no stray `BVSW11` remains; `grep -n "Trading with the Crowd"` and `grep -n "Klöck"` confirm corrected reference entries are in place.
+- **Plan:** `outputs/.plans/trading-duality-extensions.md`
+- **Research files:**
+  - `outputs/.drafts/trading-duality-extensions-research-direct.md` (search log, anchor list, conceptual claim mapping)
+  - `outputs/.drafts/trading-duality-extensions-draft.md` (uncited draft)
+  - `outputs/.drafts/trading-duality-extensions-cited.md` (cited draft = final)
+  - `outputs/.drafts/trading-duality-extensions-verification.md` (self-review)
+- **Companion artifacts (this workspace, not modified by this run):**
+  - `papers/noisy-signal-impact-trading.md`
+  - `outputs/optimal-trading-fractional-derivatives.md`
+- **Final artifact:** `outputs/trading-duality-extensions.md`
