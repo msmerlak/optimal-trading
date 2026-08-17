@@ -18,7 +18,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import os
 
-OUT = os.path.join(os.path.dirname(__file__), "..", "v5", "figures")
+OUT = os.path.join(os.path.dirname(__file__), "..", "arxiv", "figures")
 os.makedirs(OUT, exist_ok=True)
 os.environ["PATH"] = "/Library/TeX/texbin:" + os.environ.get("PATH", "")
 plt.rcParams.update({"font.size": 11, "axes.grid": True, "grid.alpha": 0.3,

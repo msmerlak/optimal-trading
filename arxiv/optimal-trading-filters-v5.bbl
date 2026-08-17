@@ -1,4 +1,4 @@
-\begin{thebibliography}{31}
+\begin{thebibliography}{32}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -24,6 +24,14 @@ E.~Abi~Jaber, N.~De~Carvalho, and H.~Pham.
 E.~Abi~Jaber, E.~Neuman, and S.~Tuschmann.
 \newblock Optimal portfolio choice with cross-impact propagators.
 \newblock \emph{arXiv preprint arXiv:2403.10273}, 2024{\natexlab{b}}.
+
+\bibitem[Alfonsi et~al.(2012)Alfonsi, Schied, and
+  Slynko]{AlfonsiSchiedSlynko2012}
+A.~Alfonsi, A.~Schied, and A.~Slynko.
+\newblock Order book resilience, price manipulation, and the positive portfolio
+  problem.
+\newblock \emph{SIAM Journal on Financial Mathematics}, 3\penalty0
+  (1):\penalty0 511--533, 2012.
 
 \bibitem[Almgren and Chriss(2001)]{AlmgrenChriss2001}
 R.~Almgren and N.~Chriss.

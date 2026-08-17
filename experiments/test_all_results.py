@@ -1,6 +1,6 @@
 """
 test_all_results.py  --  numerical verification of every analytical result in
-v3/optimal-trading-filters-v3.tex.
+arxiv/optimal-trading-filters-v5.tex.
 
 Each check verifies BOTH sides of an identity and prints PASS/FAIL with values
 and relative error.  Two independent machineries are used and cross-checked:
@@ -489,6 +489,137 @@ def check_9_neuman_voss_riccati():
     return ("9. Recovery of Neuman-Voss: exact LQ Riccati closed-loop poles = paper's b1,b2 (eq:nv-factor)", ok, cases)
 
 
+def check_10_atom_amplitude():
+    """Lag-zero atom c_1 = lim 1/n_hat_+ (eq:atom): 1/sqrt(A) for exp+risk with
+    eta=0, 1/sqrt(lam) for pure risk (NO impact), and 0 whenever eta>0 or the
+    kernel diverges at zero lag.  This underpins the revised Section on
+    reversing rates: c_1 != 0 does NOT require transient impact."""
+    cases = []
+    ok = True
+    W = 1e7                                    # "|omega| -> infinity"
+    # exponential resilience, eta = 0: closed-form n_hat_+ = sqrt(A)(m-iw)/(k-iw)
+    for (kap, g, lam) in [(2.0, 1.0, 0.5), (2.0, 1.0, 4.0), (1.0, 2.0, 0.3)]:
+        A = 2 * kap * g + lam
+        m = kap * np.sqrt(lam / A)
+        c1_closed = 1.0 / np.sqrt(A)
+        c1_num = abs((kap - 1j * W) / (np.sqrt(A) * (m - 1j * W)))
+        e = relerr(c1_num, c1_closed); ok &= e < 1e-6
+        cases.append(f"exp k={kap} g={g} lam={lam}, eta=0: c1={c1_num:.6f} vs 1/sqrt(A)={c1_closed:.6f} rel={e:.1e}")
+    # pure inventory risk: no impact at all, yet the atom is present
+    for lam in [1.0, 2.0]:
+        c1 = 1.0 / np.sqrt(lam)
+        R = lambda th, Phi, c: (th**2 / Phi) * (1.0 / Phi - 2.0 * c)
+        r = R(0.7, np.sqrt(lam), c1)
+        pred = -0.7**2 / lam
+        e = relerr(r, pred); ok &= (e < 1e-12 and r < 0)
+        cases.append(f"pure risk lam={lam} (gamma=0!): c1=1/sqrt(lam)={c1:.4f}, R(0.7)={r:.5f} = -th^2/lam ({e:.1e}) < 0")
+    # eta > 0 and power law: atom removed because |n_+| is unbounded.  Test the
+    # DECAY EXPONENT of 1/|n_+(w)| = 1/sqrt(n_hat(w)), not an absolute floor:
+    # eta>0 gives slope -1, the pure power law slope -(1+beta)/2.
+    for (label, f, expected) in [
+            ("eta=0.5 (instantaneous cost)", lambda w: 1.0 / np.sqrt(n_hat(w, eta=0.5, lam=1.0)), -1.0),
+            ("power law beta=0.5", lambda w: 1.0 / np.sqrt(n_hat(w, gamma=1.0, kernel=("pow", 0.5))), -0.75)]:
+        w1, w2 = 1e5, 1e7
+        v1, v2 = float(f(w1)), float(f(w2))
+        slope = np.log(v2 / v1) / np.log(w2 / w1)
+        e = abs(slope - expected)
+        ok &= (e < 1e-3 and v2 < v1)
+        cases.append(f"{label}: 1/|n_+| decays {v1:.2e} -> {v2:.2e} over w=1e5..1e7, "
+                     f"slope {slope:+.4f} vs expected {expected:+.2f} -> c1 = 0")
+    return ("10. Lag-zero atom c_1 (eq:atom); present already for pure risk", ok, cases)
+
+
+def check_11_gk_powerlaw_kernel():
+    """Volterra factor on [0,T] (eq:gk-kernel): int_0^T c_+(u,t)c_+(u,s) du must
+    reproduce the friction kernel gamma|t-s|^{-beta} -- constant gamma, NOT
+    gamma*c_beta.  The constant works because c_beta*Gamma(beta)sin(pi nu)/pi = 1."""
+    cases = []
+    ok = True
+    T = 10.0
+    for beta in [0.2, 0.5, 0.8]:
+        nu = (1 - beta) / 2
+        K = Gfun(beta) * np.sin(np.pi * nu) / np.pi
+        cb = cbeta(beta)
+        e0 = relerr(cb * K, 1.0); ok &= e0 < 1e-10
+        for (t, s) in [(0.3, 0.7), (1.0, 3.0), (4.0, 4.5)]:
+            a = max(t, s)
+            f = lambda u: (T - u) ** (-2 * nu) * (u - t) ** (nu - 1) * (u - s) ** (nu - 1)
+            val, _ = integrate.quad(f, a, T, points=[a, T], limit=400)
+            lhs = cb * ((T - t) * (T - s)) ** nu / Gfun(nu) ** 2 * val   # gamma = 1
+            rhs = abs(t - s) ** (-beta)
+            e = relerr(lhs, rhs); ok &= e < 1e-4
+            cases.append(f"beta={beta} (t,s)=({t},{s}): int c+ c+ = {lhs:.6f} vs gamma|t-s|^-beta = {rhs:.6f} rel={e:.1e}")
+        cases.append(f"beta={beta}: c_beta*Gamma(beta)sin(pi nu)/pi = {cb*K:.12f} (must be 1, rel={e0:.1e})")
+    return ("11. Gohberg-Krein power-law factor: int c+ c+ = gamma|t-s|^-beta (constant check)", ok, cases)
+
+
+def check_12_powerlaw_ushape():
+    """No-signal power-law liquidation (Gatheral-Schied-Slynko): the solution of
+    int_0^T u(s)|t-s|^{-beta} ds = const is u(s) prop [s(T-s)]^{(beta-1)/2}."""
+    cases = []
+    ok = True
+    for beta in [0.3, 0.5, 0.7]:
+        n, T = 600, 1.0
+        dt = T / n
+        t = (np.arange(n) + 0.5) * dt
+        lag = np.abs(t[:, None] - t[None, :])
+        np.fill_diagonal(lag, 1.0)
+        G = lag ** (-beta)
+        np.fill_diagonal(G, 2 * dt ** (-beta) / ((1 - beta) * (2 - beta)))
+        u = np.linalg.solve(G * dt, np.ones(n))
+        pred = (t * (T - t)) ** ((beta - 1) / 2)
+        m = (t > 0.1) & (t < 0.9)
+        r = u[m] / pred[m]
+        spread = float(r.std() / r.mean())
+        ok &= spread < 5e-3
+        cases.append(f"beta={beta}: u/[t(T-t)]^((beta-1)/2) constant to {spread:.1e} (shape confirmed)")
+    return ("12. Power-law U-shaped no-signal profile [t(T-t)]^((beta-1)/2)", ok, cases)
+
+
+def check_13_powerlaw_boundary_envelope():
+    """Power-law branch of the boundary-layer proposition, as an ENVELOPE.
+
+    Deterministic window problem, eta=lam=0, g=|t|^-beta: the deviation between
+    the window solution and the padded (whole-line) solution must stay under
+    C d^-nu with C fitted at the first sample point.  The observed decay is
+    FASTER than d^-nu, i.e. the exponent is a bound, not a rate -- which is what
+    the paper now claims."""
+    cases = []
+    beta, gam = 0.5, 1.0
+    nu = (1 - beta) / 2
+    dt, T, P, w0 = 0.1, 10.0, 40.0, 0.6
+
+    def solve_on(t):
+        n = len(t)
+        lag = np.abs(t[:, None] - t[None, :])
+        np.fill_diagonal(lag, 1.0)
+        G = lag ** (-beta)
+        np.fill_diagonal(G, 2 * dt ** (-beta) / ((1 - beta) * (2 - beta)))
+        return np.linalg.solve(gam * dt**2 * G, dt * np.sin(w0 * t))
+
+    t_fh = np.arange(0.0, T + dt / 2, dt)
+    t_pad = np.arange(-P, T + P + dt / 2, dt)
+    assert len(t_pad) <= 6000, "grid too large; raise dt or shrink P"
+    u_fh = solve_on(t_fh)
+    u_pad = solve_on(t_pad)
+    mask = (t_pad >= -1e-9) & (t_pad <= T + 1e-9)
+    dev = np.abs(u_fh - u_pad[mask])
+    ds = [0.5, 1.0, 2.0, 4.0]
+    vals = [dev[int(round(d / dt))] for d in ds]
+    C = vals[0] * ds[0] ** nu
+    inside = all(v <= C * d ** (-nu) * (1 + 1e-9) for d, v in zip(ds, vals))
+    slopes = [np.log(v1 / v0) / np.log(d1 / d0)
+              for d0, d1, v0, v1 in zip(ds[:-1], ds[1:], vals[:-1], vals[1:])]
+    faster = all(sl < -nu for sl in slopes)
+    ok = inside and faster
+    for d, v in zip(ds, vals):
+        cases.append(f"d={d:4.1f}: |dev|={v:.5f}  envelope C d^-nu={C*d**(-nu):.5f}")
+    cases.append("local slopes " + ", ".join(f"{sl:+.2f}" for sl in slopes)
+                 + f" (all steeper than -nu={-nu:+.2f}: {faster})")
+    cases.append("=> envelope holds; exponent is a bound, not a sharp rate")
+    return ("13. Power-law boundary-layer ENVELOPE (bound, not a rate)", ok, cases)
+
+
 def main():
     checks = [
         check_1_szego_vs_closed,
@@ -500,9 +631,13 @@ def main():
         check_7_boundary_layer,
         check_8_markowitz,
         check_9_neuman_voss_riccati,
+        check_10_atom_amplitude,
+        check_11_gk_powerlaw_kernel,
+        check_12_powerlaw_ushape,
+        check_13_powerlaw_boundary_envelope,
     ]
     print("=" * 78)
-    print("NUMERICAL VERIFICATION OF v3/optimal-trading-filters-v3.tex")
+    print("NUMERICAL VERIFICATION OF arxiv/optimal-trading-filters-v5.tex")
     print("=" * 78)
     n_pass = 0
     results = []

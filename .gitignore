@@ -7,3 +7,10 @@ tex/*.blg
 tex/*.synctex.gz
 tex/*.fls
 tex/*.fdb_latexmk
+.feynman/
+arxiv/*.aux
+arxiv/*.log
+arxiv/*.out
+arxiv/*.blg
+texput.log
+arxiv/texput.log

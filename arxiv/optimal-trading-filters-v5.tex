@@ -41,7 +41,7 @@
 \end{center}
 
 \begin{abstract}
-A trader holding a predictive signal must weigh the expected gain against the cost of acquiring the position and the risk of holding it. Under the propagator model of market impact, trading-induced price changes involve the entire history of past trades. Existing treatments of the resulting path-wise quadratic program characterize the optimum implicitly, as the solution of an integral equation or an equivalent forward--backward system. In this paper I show how stationary solutions can be computed analytically from the signal and its forecasts using a Wiener-Hopf factorization of the friction operator. For rational frictions --- inventory risk, instantaneous cost, and exponential resilience --- the trading filter reduces to finitely many exponential moving averages, and we recover the Neuman--Vo\ss{} solution away from horizon boundaries. In the (empirically more realistic) case of scale-free impact kernels, the optimal trading filter decays algebraically rather than exponentially at large frequencies; in the limit of small risk aversion, the target position is a fractional integral of the signal. Unlike its exponential (Obizhaeva-Wang) cousin, this solution never surfs its own impact or generates block trades.
+A trader holding a predictive signal must weigh the expected gain against the cost of acquiring the position and the risk of holding it. Under the propagator model of market impact, trading-induced price changes involve the entire history of past trades. Existing treatments of the resulting path-wise quadratic program characterize the optimum implicitly, as the solution of an integral equation or an equivalent forward--backward system. In this paper I show how stationary solutions can be computed analytically from the signal and its forecasts using a Wiener--Hopf factorization of the friction operator. For rational frictions --- inventory risk, instantaneous cost, and exponential resilience --- the trading filter reduces to finitely many exponential moving averages, whose rates are the zeros of the outer factor; these are the interior feedback gains of the Neuman--Vo\ss{} solution. In the (empirically more realistic) case of scale-free impact kernels, the optimal trading filter decays algebraically rather than exponentially at large frequencies; in the limit of small risk aversion, the target position is a fractional integral of the signal. Unlike its exponential (Obizhaeva--Wang) cousin, this solution carries no instantaneous component: the trading rate has no lag-zero atom, so it produces neither block trades on a finite horizon nor a rate that reverses against its own forecast.
 \end{abstract}
 
 % =====================================================================
@@ -49,7 +49,7 @@ A trader holding a predictive signal must weigh the expected gain against the co
 
 \subsection{The quadratic optimal trading problem}\label{sec:problem}
 
-A trader observes a return signal $\mu_t$, the conditional expectation at time $t$ of the asset's instantaneous drift, and chooses a position $x_t$ that is bought or sold at the rate $u_t=\dot x_t$. Acting on the signal is costly in three ways that this paper takes as given. Holding a large position exposes capital to risk, penalized by an inventory term quadratic in $x_t$. Demanding immediate liquidity costs a instantaneous impact, quadratic in the rate $u_t$. And each trade shifts the price against the trades that follow it, a transient displacement that relaxes through a propagator kernel $g$. The trader chooses $x$ to maximize
+A trader observes a return signal $\mu_t$, the conditional expectation at time $t$ of the asset's instantaneous drift, and chooses a position $x_t$ that is bought or sold at the rate $u_t=\dot x_t$. Acting on the signal is costly in three ways that this paper takes as given. Holding a large position exposes capital to risk, penalized by an inventory term quadratic in $x_t$. Demanding immediate liquidity costs an instantaneous impact, quadratic in the rate $u_t$. And each trade shifts the price against the trades that follow it, a transient displacement that relaxes through a propagator kernel $g$. The trader chooses $x$ to maximize
 \begin{equation}\label{eq:objective}
 J(x) \;=\;
 \underbrace{\E\!\int x_t\mu_t\,dt}_{\text{gain}}
@@ -59,7 +59,7 @@ J(x) \;=\;
 \end{equation}
 where $\eta,\gamma,\lambda\ge0$ weight the instantaneous cost, transient cost, and risk aversion. The first two terms are the mean--variance gain of portfolio choice; the remaining two are impact costs. Sections~\ref{sec:interior}--\ref{sec:filters} treat this problem on the whole line, appropriate to an ongoing operation; Section~\ref{sec:finite} restricts it to a window $[0,T]$ closing flat, the liquidation problem.
 
-Following \citet{AlmgrenChriss2001}, early execution models split impact into a instantaneous part felt only by the trade that causes it and a permanent part linear in cumulative volume. Transaction data driven studies revised this picture: impact is concave in size \citep{LilloFarmerMantegna2003} and transient, a price displacement that decays over time \citep{BouchaudGefenPottersWyart2004}. In the now standard propagator model, the mid-price carries a weighted memory of past order flow through the kernel $g$. \citet{ObizhaevaWang2013} derive an exponential kernel $g(t)=e^{-\kappa t}$ from a block-shaped limit order book that refills at a constant rate, a single resilience time $1/\kappa$. Empirical decay is slower: a power law $g(t)\propto t^{-\beta}$ with $\beta$ around $0.2$--$0.6$ \citep{BouchaudGefenPottersWyart2004,JusselinRosenbaum2020}, consistent with the absence of price manipulation \citep{Gatheral2010} and, through the exponent, with rough volatility \citep{JusselinRosenbaum2020}. The exponential kernel is the tractable choice, the power law the empirically supported one; both are treated below.
+Following \citet{AlmgrenChriss2001}, early execution models split impact into an instantaneous part felt only by the trade that causes it and a permanent part linear in cumulative volume. Transaction data driven studies revised this picture: impact is concave in size \citep{LilloFarmerMantegna2003} and transient, a price displacement that decays over time \citep{BouchaudGefenPottersWyart2004}. In the now standard propagator model, the mid-price carries a weighted memory of past order flow through the kernel $g$. \citet{ObizhaevaWang2013} derive an exponential kernel $g(t)=e^{-\kappa t}$ from a block-shaped limit order book that refills at a constant rate, a single resilience time $1/\kappa$. Empirical decay is slower: a power law $g(t)\propto t^{-\beta}$ with $\beta$ around $0.2$--$0.6$ \citep{BouchaudGefenPottersWyart2004,JusselinRosenbaum2020}, consistent with the absence of price manipulation \citep{Gatheral2010,AlfonsiSchiedSlynko2012} and, through the exponent, with rough volatility \citep{JusselinRosenbaum2020}. The exponential kernel is the tractable choice, the power law the empirically supported one; both are treated below.
 
 The optimization program \eqref{eq:objective} involves the quadratic form $\tfrac12\langle x,Nx\rangle$ with the \emph{friction operator}
 \begin{equation}\label{eq:symbol}
@@ -84,7 +84,7 @@ Transient impact breaks this locality: its contribution to the symbol, $\gamma\h
 P_+\,N\,P_+\,x^\star = \mu ,
 \qquad (P_+X)_t = \E_t[X_t],
 \end{equation}
-where $P_+$ is the optional projection onto adapted processes; The solution of \eqref{eq:foc} requires inverting the compressed operator $P_+NP_+$. Because $N$ couples different times, its compression does not invert to the compression of $N^{-1}$; truncating the acausal solution to the past is not optimal.
+where $P_+$ is the optional projection onto adapted processes. Solving \eqref{eq:foc} requires inverting the compressed operator $P_+NP_+$. Because $N$ couples different times, its compression does not invert to the compression of $N^{-1}$; truncating the acausal solution to the past is not optimal.
 
 The execution literature has resolved this coupling with increasing generality, and largely through dynamic programming and integral equations. Deterministic liquidation under a general propagator was solved by \citet{GatheralSchiedSlynko2012}. Signal-adaptive trading was introduced for Almgren--Chriss costs by \citet{CarteaJaimungal2013} and developed under instantaneous and exponential-resilience costs by \citet{LehalleNeuman2019,NeumanVoss2022,BankSonerVoss2017}, and for general propagators through infinite-dimensional stochastic control and operator-resolvent methods \citep{AbiJaberNeuman2025,AbiJaberNeumanTuschmann2024,AbiJaberDeCarvalhoPham2024}; power-law resilience with a Gaussian signal on a finite horizon was treated by \citet{FordeSanchezSmith2022}. These methods characterize the optimum implicitly, as a Riccati or backward-SDE system, or as a stochastic Fredholm equation, returning a feedback law in which the dependence on the signal is carried by a propagated state. The intuition for how a given signal shape maps to a trade is not easy to read off these formulations, which motivated the present study.
 
@@ -115,7 +115,7 @@ Fix a filtered probability space satisfying the usual conditions. The signal $\m
 \[
 \bar\mu(t,s) \;=\; \E_t[\mu_s] \quad (s\ge t), \qquad \bar\mu(t,s)=\mu_s \quad (s\le t),
 \]
-decaying to zero as $s\to\infty$. The Fourier convention is $\hat f(\omega)=\int e^{i\omega t}f(t)\,dt$, under which causal kernels have transforms analytic in the upper half-plane. Admissible positions are adapted with finite friction norm $\E\langle x,Nx\rangle<\infty$.
+decaying to zero as $s\to\infty$. The Fourier convention is $\hat f(\omega)=\int e^{i\omega t}f(t)\,dt$, under which causal kernels have transforms analytic in the upper half-plane. Admissible positions live in $\mathcal H_N$, the completion of the adapted processes in the friction norm $\|y\|_N^2=\E\langle y,Ny\rangle$; when $\eta>0$ or $\lambda>0$ this norm dominates $L^2$ and $\mathcal H_N$ consists of adapted processes, while in the degenerate case $\eta=\lambda=0$ it does not, and the theory is then stated in the rate variable (Section~\ref{sec:powerlaw}).
 
 \subsection{Factorization of the friction}\label{sec:factor}
 
@@ -154,14 +154,14 @@ Let $A=A_-A_+$ be a positive operator with $A_+$ causal with causal inverse and 
 The proof (Appendix~\ref{app:proofs}) is straightforward bookkeeping: $A_+$ and its inverse preserve the adapted subspace, $A_-$ and its inverse preserve the orthogonal complement, and $P_+$ annihilates whatever falls into that complement. Lemma~\ref{lem:pi} is the projected-inverse identity behind the triangular factorization of a positive operator along a nest \citep{GohbergKrein1970,Arveson1975}; here the nest is the family of adapted subspaces, and \eqref{eq:wh} is the corresponding Cholesky factorization along the filtration.
 
 \begin{theorem}[Optimal policy for a general adapted signal]\label{thm:general}
-Under Assumption~\ref{ass:friction} the maximizer of \eqref{eq:objective} exists, is unique, and equals
+Under Assumption~\ref{ass:friction} with $\eta>0$ or $\lambda>0$, the maximizer of \eqref{eq:objective} over $\mathcal H_N$ exists, is unique, and equals
 \begin{equation}\label{eq:policy}
 x^\star \;=\; N_+^{-1}\,P_+\,N_-^{-1}\,\mu ,
 \qquad\text{equivalently}\qquad
 x^\star_t = \bigl(N_+^{-1}\zeta\bigr)_t, \quad
 \zeta_s = \bigl(N_-^{-1}\,\bar\mu(s,\cdot)\bigr)(s),
 \end{equation}
-the second form using that the deterministic operator $N_-^{-1}$ commutes with conditioning on its time argument.
+the second form using that the deterministic operator $N_-^{-1}$ commutes with conditioning on its time argument. In the degenerate case $\eta=\lambda=0$ the same formulas hold in the rate variable, on the domain $\int(1+\omega^2)S_\alpha(\omega)/\hat q(\omega)\,d\omega<\infty$, where they define a unique optimal rate; the position is then recovered only up to its non-stationary drift (Section~\ref{sec:powerlaw}).
 \end{theorem}
 
 Three steps make up the policy \eqref{eq:policy}: first, whiten by the anticausal factor $N_-^{-1}$; since that would draw on the true future of $\mu$, replace it by the forecast curve $\bar\mu(s,\cdot)$, which yields the whitened forecast $\zeta$; then recolour by the causal factor $N_+^{-1}$. Completing the square in \eqref{eq:objective} gives an equivalent reading: up to a constant, $J(x)=-\tfrac12\|x-N^{-1}\mu\|_N^2$ in the friction norm $\|y\|_N^2=\E\langle y,Ny\rangle$, so $x^\star$ is the orthogonal projection of the perfect-foresight optimum $N^{-1}\mu$ onto the adapted positions in that norm. This is a Wiener--Kolmogorov estimation problem with the friction in place of the signal covariance, and the correspondence is the one that carries frequency-domain factorization from filtering into control \citep{Wiener1949,Whittle1963,Whiteman1985}.
@@ -247,7 +247,7 @@ When the friction has a rational symbol, the outer factor $\hat n_+$ is a ratio 
 u^\star_t = a\,(\mathrm{aim}_t-x^\star_t), \qquad
 \mathrm{aim}_t = \frac{a}{a+\theta}\cdot\frac{\mu_t}{\lambda},
 \end{equation}
-trading toward a target that discounts the Markowitz position by the persistence factor $a/(a+\theta)$. This is the aim portfolio of \citet{GarleanuPedersen2016}, with general targets in \citet{BankSonerVoss2017}.
+trading toward a target that discounts the Markowitz position by the persistence factor $a/(a+\theta)$. This is the aim portfolio of \citet{GarleanuPedersen2013}, in continuous time in \citet{GarleanuPedersen2016}, with general targets in \citet{BankSonerVoss2017}.
 
 \emph{Exponential resilience and risk.} For $g=e^{-\kappa|t|}$ and $\eta=0$, the factor is $\hat n_+=\sqrt A\,(m-i\omega)/(\kappa-i\omega)$ with $A=2\kappa\gamma+\lambda$ and $m=\kappa\sqrt{\lambda/A}$, and the position is the current signal plus one moving average,
 \begin{equation}\label{eq:ema}
@@ -260,12 +260,12 @@ whose rate $m$ increases from $0$ to $\kappa$ with risk aversion. This is the st
 x^\star_t = \frac{1}{\Phi(\theta)\sqrt\eta}\sum_{i=1}^2 w_i\!\int_{-\infty}^t e^{-b_i(t-s)}\mu_s\,ds,
 \qquad w_i=\frac{\kappa-b_i}{b_j-b_i}.
 \]
-\citet{NeumanVoss2022} solve this configuration through a coupled forward--backward SDE system and report a feedback control; in the stationary regime its gains reduce to these two rates and weights, and the finite-horizon gains converge to them in the interior. The two previous policies are special cases: at $\gamma=0$ the rates are $\{a,\kappa\}$ and the $\kappa$-pole cancels, recovering \eqref{eq:gp}; as $\eta\to0$ one rate tends to $m$ and the filter recovers \eqref{eq:ema}. More generally, a rational friction with $n$ poles would give at most $n$ moving averages. Figure~\ref{fig:structure} shows the rates and the resulting policy across this family.
+\citet{NeumanVoss2022} solve this configuration through a coupled forward--backward SDE system and report a feedback control. Their signal is of finite variation, so their theorem and the stationary Gaussian setting here do not contain one another; what coincides is the interior feedback law: the closed-loop poles of their Riccati system are exactly the zeros $b_1,b_2$ of $\hat n_+$, and their finite-horizon gains converge to the corresponding stationary values in the interior. The two previous policies are special cases: at $\gamma=0$ the rates are $\{a,\kappa\}$ and the $\kappa$-pole cancels, recovering \eqref{eq:gp}; as $\eta\to0$ one rate tends to $m$ and the filter recovers \eqref{eq:ema}. More generally, a rational friction with $n$ poles would give at most $n$ moving averages. Figure~\ref{fig:structure} shows the rates and the resulting policy across this family.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{fig_filter_structure}
-\caption{The rational friction family, at fixed $\eta=0.5$, $\lambda=1$, $\theta=1$. (a)~For the instantaneous-plus-resilient friction ($\gamma=1$, $\kappa=2$), the two moving-average rates $b_1,b_2$ against risk aversion $\lambda$: the slow rate $b_1$ tends to zero as $\lambda\to0$, where the position becomes non-stationary, while the fast rate stays near the resilience $\kappa$. (b)~The lag-domain position impulse response $g_x(\tau)$ (normalized at $\tau=0.3$) across the family: the aim portfolio ($\gamma=0$) is a single exponential moving average, the instantaneous-plus-resilient friction ($\gamma=1$) a sum of two, and the memoryless Markowitz limit ($\eta=\gamma=0$) a spike at zero lag. All are finite-memory; the power-law kernel and its algebraic tail appear in Figure~\ref{fig:transfer}.}
+\caption{The rational friction family, at fixed $\eta=0.5$, $\theta=1$. (a)~For the instantaneous-plus-resilient friction ($\gamma=1$, $\kappa=2$), the two moving-average rates $b_1,b_2$ as risk aversion $\lambda$ varies: the slow rate $b_1$ tends to zero as $\lambda\to0$, where the position becomes non-stationary, while the fast rate settles on its $\lambda\to0$ limit $\sqrt{\kappa^2+2\kappa\gamma/\eta}$, of the order of the resilience $\kappa$. (b)~At $\lambda=1$, the lag-domain position impulse response $g_x(\tau)$ (normalized at $\tau=0.3$) across the family: the aim portfolio ($\gamma=0$) is a single exponential moving average, the instantaneous-plus-resilient friction ($\gamma=1$) a sum of two, and the memoryless Markowitz limit ($\eta=\gamma=0$) a spike at zero lag. All are finite-memory; the power-law kernel and its algebraic tail appear in Figure~\ref{fig:transfer}.}
 \label{fig:structure}
 \end{figure}
 
@@ -309,7 +309,7 @@ the scale-free counterpart of the Markowitz position $\mu/\lambda$. Its spectral
 \label{fig:transfer}
 \end{figure}
 
-\subsubsection*{The value of information}\label{sec:value}
+\subsubsection{The value of information}\label{sec:value}
 
 Under pure power-law impact the causality gap of Section~\ref{sec:value-general} does not depend on the signal. The adapted value is $v=\sigma^2\theta^{-\beta}/4\gamma c_\beta$; the perfect-foresight benchmark \eqref{eq:vant}, taken in the rate variable at $\lambda=0$, equals $v_{\rm ant}=v/\sin(\pi\beta/2)$, so
 \begin{equation}\label{eq:sinlaw}
@@ -331,7 +331,7 @@ Most execution problems are posed on a fixed window rather than the whole line: 
 
 \subsection{The Gohberg--Krein factorization}\label{sec:gk}
 
-In the context of optimal liquidiation the natural variable is the trading rate. The friction on $[0,T]$ in the rate variable, $G_T=\eta I$ plus a continuous-kernel integral operator, is positive. Relative to the nest of adapted subspaces such an operator factors triangularly, $G_T=C_-C_+$ with $C_+$ a causal Volterra operator and $C_-=C_+^\ast$ \citep{GohbergKrein1970,Arveson1975}. This is the finite-horizon analogue of the Wiener-Hopf factorization, and the two existence theorems apply to $G_T$ directly. Lemma~\ref{lem:pi} then holds verbatim, and the optimum is
+In the context of optimal liquidation the natural variable is the trading rate. The friction on $[0,T]$ in the rate variable, $G_T=\eta I$ plus a continuous-kernel integral operator, is positive. Relative to the nest of adapted subspaces such an operator factors triangularly, $G_T=C_-C_+$ with $C_+$ a causal Volterra operator and $C_-=C_+^\ast$ \citep{GohbergKrein1970,Arveson1975}. This is the finite-horizon analogue of the Wiener--Hopf factorization, and the two existence theorems apply to $G_T$ directly. Lemma~\ref{lem:pi} then holds verbatim, and the optimum is
 \begin{equation}\label{eq:finiteT}
 u^\star \;=\; C_+^{-1}\,P_+\,C_-^{-1}\,\alpha^{\rm eff},
 \qquad \alpha^{\rm eff}=\alpha+\sum_k\xi_k e_k,
@@ -340,23 +340,23 @@ where $\alpha^{\rm eff}$ adjoins one multiplier $\xi_k$ per linear position cons
 
 The two endpoints and the terminal constraint act locally, and their influence decays into the interior, where \eqref{eq:finiteT} relaxes to the stationary filter of Section~\ref{sec:filter}.
 
-\begin{proposition}[Boundary-layer decay]\label{prop:boundary}
-Let $u^{\star,T}$ be the finite-horizon optimum on $[0,T]$ and $u^\star$ the whole-line optimum for the same bounded signal, and set $d(t)=\min(t,T-t)$. Then, for constants depending only on the kernel parameters,
+\begin{proposition}[Boundary-layer envelope]\label{prop:boundary}
+Let $u^{\star,T}$ be the finite-horizon optimum on $[0,T]$ and $u^\star$ the whole-line optimum for the same signal, let $\zeta$ be the whitened forecast of \eqref{eq:rate-policy}, and set $d(t)=\min(t,T-t)$. Then, for constants depending only on the kernel parameters,
 \begin{equation}\label{eq:bdry-decay}
 \bigl|u^{\star,T}_t-u^\star_t\bigr| \;\le\;
 \begin{cases}
-C(\beta)\,\|\alpha\|_\infty\,d(t)^{-\nu}, & \text{power-law kernel},\ \nu=\tfrac{1-\beta}{2},\\[3pt]
-C\,\|\alpha\|_\infty\,e^{-b_1 d(t)}, & \text{rational symbol},\ b_1 \text{ the slowest zero of }\hat n_+ .
+C(\beta)\,(\gamma c_\beta)^{-1/2}\,\|\zeta\|_\infty\,d(t)^{-\nu}, & \text{power-law kernel},\ \nu=\tfrac{1-\beta}{2},\\[3pt]
+C\,\|\zeta\|_\infty\,e^{-b_1 d(t)}, & \text{rational symbol},\ b_1 \text{ the slowest zero of }\hat n_+ .
 \end{cases}
 \end{equation}
 \end{proposition}
 
-The proof is in Appendix~\ref{app:proofs}. The boundary layer has width $1/b_1$ for a rational kernel and is set by the impact memory for a power law, thin except at the small $\nu$ of the empirical exponents. Figure~\ref{fig:bdry} shows the finite-horizon rate tracking the stationary filter through the interior.
+The proof is in Appendix~\ref{app:proofs}; it is a scaling argument, and \eqref{eq:bdry-decay} should be read as an envelope rather than as a sharp rate. A numerical check on the deterministic window problem finds the power-law deviation inside this envelope and in fact decaying faster than $d^{-\nu}$. The boundary layer has width $1/b_1$ for a rational kernel and is set by the impact memory for a power law, thin except at the small $\nu$ of the empirical exponents. Figure~\ref{fig:bdry} shows the finite-horizon rate tracking the stationary filter through the interior.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.72\linewidth]{fig_boundary_layer}
-\caption{Finite horizon versus whole line ($\eta=0.5$, $\gamma=1$, $\kappa=2$, $\lambda=1$, $T=20$). The finite-horizon optimal rate follows the whole-line stationary rate through the interior and departs only in the start-up and terminal boundary layers of Proposition~\ref{prop:boundary}; the shading marks the boundary-layer scale, not a fitted width.}
+\caption{Finite horizon versus whole line ($\eta=0.5$, $\gamma=1$, $\kappa=2$, $\lambda=1$, $T=20$), on a deterministic sinusoidal signal so that only the boundary layers distinguish the two. The finite-horizon optimal rate follows the whole-line stationary rate through the interior and departs only in the start-up and terminal boundary layers of Proposition~\ref{prop:boundary}; the shading marks three e-folds of the slowest rate $b_1$, a scale rather than a fitted width.}
 \label{fig:bdry}
 \end{figure}
 
@@ -376,24 +376,31 @@ with the two Robin conditions $h'(0)=\kappa h(0)$ and $h'(T)=-\kappa h(T)$ carri
 c_+(t,s)=(\gamma c_\beta)^{1/2}\Bigl(\frac{T-s}{T-t}\Bigr)^{\!\nu}\frac{(t-s)^{\nu-1}}{\Gamma(\nu)},
 \qquad 0\le s\le t\le T,
 \end{equation}
-verified by direct kernel integration to give $C_-C_+=G_T$ with the correct constant. This is the whole-line factor $(\gamma c_\beta)^{1/2}I^\nu_+$ multiplied by the terminal weight $(T-t)^\nu$; homogeneity of the kernel is what reduces the anchoring to a scalar weight, and away from the endpoints the weight tends to one, which is Proposition~\ref{prop:boundary} for this kernel. Because $g(0)=\infty$, an instantaneous trade is prohibitively costly and no endpoint blocks appear. For a constant signal the projection is trivial and \eqref{eq:finiteT} reduces to the continuous U-shaped profile $u^\star(t)\propto[t(T-t)]^{(\beta-1)/2}$ of \citet[Ex.~2.30]{GatheralSchiedSlynko2012}. For a Gaussian Volterra signal the finite-horizon first-order condition is the stochastic Fredholm equation solved by \citet{FordeSanchezSmith2022}; \eqref{eq:finiteT} with \eqref{eq:gk-kernel} is its solution operator, the time reflection of \eqref{eq:gk-kernel} supplying their left-anchored factor and the generalized Abel inversion of \citet{ChakrabartiGeorge1994} implementing $G_T^{-1}$.
+verified by direct kernel integration to give $C_-C_+=G_T$ with the correct constant. This is the whole-line factor $(\gamma c_\beta)^{1/2}I^\nu_+$ multiplied by the terminal weight $(T-t)^\nu$; homogeneity of the kernel is what reduces the anchoring to a scalar weight, and away from the endpoints the weight tends to one, which is Proposition~\ref{prop:boundary} for this kernel. Because $g(0)=\infty$, an instantaneous trade is prohibitively costly and no endpoint blocks appear. For a constant signal the projection is trivial and \eqref{eq:finiteT} reduces to the continuous U-shaped profile $u^\star(t)\propto[t(T-t)]^{(\beta-1)/2}$, the no-signal deterministic solution of \citet{GatheralSchiedSlynko2012}. For a Gaussian Volterra signal the finite-horizon first-order condition is the stochastic Fredholm equation solved by \citet{FordeSanchezSmith2022}; \eqref{eq:finiteT} with \eqref{eq:gk-kernel} is its solution operator, the time reflection of \eqref{eq:gk-kernel} supplying their left-anchored factor and the generalized Abel inversion of \citet{ChakrabartiGeorge1994} implementing $G_T^{-1}$.
 
-\subsection{Impact surfing}\label{sec:surfing}
+\subsection{Reversing rates and the lag-zero atom}\label{sec:surfing}
 
-The endpoint blocks of \S\ref{sec:pureimpact} have a whole-line counterpart. Say that a strategy \emph{surfs} its own impact when the trade rate and the signal carry opposite signs on average, $\E[u^\star_t\,\alpha_t]<0$: the inventory leans with the forecast, but the flow leans against it, so the trader sells into a still-positive signal while the price relaxes back from its earlier impact. For an Ornstein--Uhlenbeck signal this average is proportional to
+The endpoint blocks of \S\ref{sec:pureimpact} have a whole-line counterpart: a lag-zero atom in the rate filter, that is, a jump in the position. Its amplitude is
+\begin{equation}\label{eq:atom}
+c_1=\lim_{|\omega|\to\infty}\frac{1}{\hat n_+(\omega)},
+\end{equation}
+nonzero exactly when the outer factor stays bounded at high frequency. Two features of the friction remove it: an instantaneous cost, which makes $\hat n_+\sim\sqrt\eta\,(-i\omega)$, and a kernel that diverges at zero lag, which makes $\hat n_+$ diverge; either one forces the position to move continuously.
+
+The atom is what allows the trading rate to lean against the signal. For an Ornstein--Uhlenbeck signal the average alignment of rate and signal, taken as the left limit $\E[u^\star_t\alpha_{t-}]$, is proportional to
 \begin{equation}\label{eq:surf}
 R(\theta)\;=\;\frac{\theta^2}{\Phi(\theta)}\Bigl(\frac{1}{\Phi(\theta)}-2c_1\Bigr),
-\qquad c_1=\lim_{|\omega|\to\infty}\frac{1}{\hat n_+(\omega)},
 \end{equation}
-and surfing occurs exactly when $R(\theta)<0$. The inventory stays aligned throughout, $\E[x^\star_t\alpha_t]\propto\theta/\Phi(\theta)^2>0$, so only the flow can reverse.
+the first term positive and the second the atom's contribution. When $c_1=0$ one has $R(\theta)=\theta^2/\Phi(\theta)^2>0$ at every speed: the rate keeps the sign of the signal and only its magnitude varies. The inventory stays aligned in all cases, $\E[x^\star_t\alpha_t]\propto\theta/\Phi(\theta)^2>0$, so only the flow can reverse.
 
-Here $c_1$ is the amplitude of a lag-zero atom in the rate filter --- a jump in the position, the whole-line residue of the endpoint blocks of \S\ref{sec:pureimpact} --- and it is nonzero only when the impact is finite at zero lag and no instantaneous cost smooths it. For the exponential kernel with $\eta=0$, $\hat n_+=\sqrt A\,(m-i\omega)/(\kappa-i\omega)$ with $A=2\kappa\gamma+\lambda$ and $m=\kappa\sqrt{\lambda/A}$, so $c_1=1/\sqrt A$ and
+Two cautions attach to reading $R<0$ as \emph{surfing}, that is, as selling into a still-positive signal while the price relaxes back from earlier impact. First, the contemporaneous average $\E[u^\star_t\alpha_t]$ does not exist once the rate carries an atom, which is why \eqref{eq:surf} is stated as a left limit; it is also the object the discrete numerics measure, by a lag-one regression. Second, a negative $R$ is not by itself a statement about impact: in the frictionless Markowitz case $\eta=\gamma=0$ one has $\Phi=\sqrt\lambda$, $c_1=1/\sqrt\lambda$ and $R=-\theta^2/\lambda<0$ at every speed, although there is no impact to surf; the negative sign there is only the anticorrelation between a mean-reverting signal and its own increments. The atom-free statement is the unambiguous one: with $c_1=0$ the rate cannot reverse, whatever the impact.
+
+With that reading, the exponential kernel with $\eta=0$ separates two regimes. There $\hat n_+=\sqrt A\,(m-i\omega)/(\kappa-i\omega)$ with $A=2\kappa\gamma+\lambda$ and $m=\kappa\sqrt{\lambda/A}$, so $c_1=1/\sqrt A$ and
 \[
 R(\theta)<0 \iff \Phi(\theta)>\tfrac12\sqrt A \iff \theta>\theta^\star:=\kappa-2m.
 \]
-A slowly reverting signal is followed ($R>0$ for $\theta<\theta^\star$) and a fast one is surfed ($R<0$ for $\theta>\theta^\star$); the effect strengthens with the signal speed. As risk aversion or impact grows the threshold $\theta^\star$ is smaller, and past $\lambda=2\kappa\gamma/3$ it is negative, so the flow opposes the signal at every speed. These signs match the discrete adapted optimum to the resolution of the grid.
+A slowly reverting signal is followed ($R>0$ for $\theta<\theta^\star$) and the flow reverses on a fast one ($R<0$ for $\theta>\theta^\star$); the effect strengthens with the signal speed. As risk aversion or impact grows the threshold $\theta^\star$ is smaller, and past $\lambda=2\kappa\gamma/3$ it is negative, so the flow opposes the signal at every speed. These signs match the discrete adapted optimum to the resolution of the grid.
 
-Adding an instantaneous cost removes the atom, and with it the reversal: for any $\eta>0$ the outer factor grows, $\hat n_+\sim\sqrt\eta\,(-i\omega)$, giving $c_1=0$ and $R(\theta)=\theta^2/\Phi(\theta)^2>0$ at every speed, so the rate keeps the sign of the signal and only its magnitude varies. For the power law $c_1=0$ as well, now because $g(0)=\infty$ makes an instantaneous trade infinitely costly and $\hat n_+\propto(-i\omega)^{(1+\beta)/2}$ diverges; again $R>0$ throughout. With no lag-zero atom the scale-free strategy produces neither a block trade on a finite horizon nor a reversing rate on the whole line, the two consequences of the same finite or infinite $g(0)$. This is the sense in which the power-law solution never surfs its own impact, in keeping with the exclusion of dynamic arbitrage under power-law propagators \citep{Gatheral2010}.
+Adding an instantaneous cost removes the atom, and with it the reversal: for any $\eta>0$, $c_1=0$ and $R(\theta)=\theta^2/\Phi(\theta)^2>0$ at every speed. For the power law $c_1=0$ as well, now because $g(0)=\infty$ makes an instantaneous trade infinitely costly and $\hat n_+\propto(-i\omega)^{(1+\beta)/2}$ diverges; again $R>0$ throughout. With no lag-zero atom the scale-free strategy produces neither a block trade on a finite horizon nor a reversing rate on the whole line, the two consequences of the same finite or infinite $g(0)$. This is the sense in which the power-law solution never trades against its own forecast, in keeping with the exclusion of dynamic arbitrage under power-law propagators \citep{Gatheral2010}.
 
 % =====================================================================
 \section{Concluding remarks}\label{sec:conclusion}
@@ -402,7 +409,9 @@ Adaptedness binds in the trading problem because transient impact couples differ
 
 Three restrictions apply to these results. The costs are quadratic, so nonlinear impact is outside the model. The explicit filters require a stationary Gaussian signal; for a general adapted signal, Theorem~\ref{thm:general} gives the policy through the forecast curve but not as a transfer function. And the asset is one-dimensional; a portfolio version would call for a matrix Wiener--Hopf factorization, explicit only in special cases. On finite horizons the operator form \eqref{eq:finiteT} is complete, but sharp constants for the constraint boundary terms require additional work.
 
-\paragraph{Acknowledgements.} The author thanks CFM colleagues, and in particular Jean-Yves Audibert, Antoine Bambade, Raphael Benichou, Jean-Philippe Bouchaud, Raphael Maillet, Iacopo Mastromatteo and Marc Potters, for useful discussions. Research, literature review and write-up were assisted by Claude Opus 4.8 and Fable 5.
+\paragraph{Code availability.} The numerical checks reported above --- the Szeg\H{o} factorizations against the closed-form outer factors, the causality-gap quadrature, the discrete adapted optimum by reverse Cholesky, the recovery of the Neuman--Vo\ss{} feedback gains from the Riccati system, the Volterra-factor identities, and the boundary-layer envelope --- are implemented in the accompanying scripts, together with the code generating every figure. \texttt{TODO: insert repository URL/DOI before posting.}
+
+\paragraph{Acknowledgements.} The author thanks CFM colleagues, and in particular Jean-Yves Audibert, Antoine Bambade, Raphael Benichou, Jean-Philippe Bouchaud, Raphael Maillet, Come Masselin, Iacopo Mastromatteo and Marc Potters, for useful discussions. Research, literature review and write-up were assisted by Claude Opus 4.8 and Fable 5.
 
 % =====================================================================
 \newpage 
@@ -423,9 +432,15 @@ using $P_+A_+u=A_+u$; the reverse composition is the identity by positivity of $
 
 \paragraph{Power-law formulas.} From $\hat g(\omega)=c_\beta|\omega|^{\beta-1}$ the rate symbol $\hat q=\gamma c_\beta|\omega|^{\beta-1}$ has outer factor $(\gamma c_\beta)^{1/2}(\mp i\omega)^{-\nu}$, $\nu=(1-\beta)/2$, the symbols of $(\gamma c_\beta)^{1/2}I^\nu_\pm$, with inverses $D^\nu_\pm$ of symbol $(\mp i\omega)^\nu$; substituting in \eqref{eq:rate-policy} gives \eqref{eq:fractional}. For the position, $\hat n_+=(\gamma c_\beta)^{1/2}(-i\omega)^{(1+\beta)/2}$ in \eqref{eq:ou-filter} gives \eqref{eq:fracpos} and spectral density $|\omega|^{-(1+\beta)}S_\mu$ up to a constant, integrable at the origin iff $S_\mu=o(|\omega|^\beta)$. For the value, the rate forms give $v=\tfrac1{4\pi}\|\pluspart{h_\alpha}\|^2$ and $v_{\rm ant}=\tfrac1{4\pi}\|h_\alpha\|^2$ with $h_\alpha=(\gamma c_\beta)^{-1/2}(-i\omega)^\nu\hat\varphi$, whose plus-part and full norms differ by the factor $\sin(\pi\beta/2)$ from the argument of $(-i\omega)^{\beta-1}$ across the two half-lines; with $\hat\varphi=\sigma/(\theta-i\omega)$ this gives $v=\sigma^2\theta^{-\beta}/4\gamma c_\beta$ and \eqref{eq:sinlaw}. $\square$
 
-\paragraph{Proposition~\ref{prop:boundary}.} The finite-horizon policy \eqref{eq:finiteT} differs from the whole-line one through the terminal-anchored weight and the truncation of the factor kernels to $[0,T]$. For the power-law factor \eqref{eq:gk-kernel} the truncation cuts the Marchaud tail at distance $d(t)$, contributing $d(t)^{-\nu}$; the weight deviation $((T-s)/(T-t))^\nu=1+O(d(t)^{-1})$ is subdominant. For a rational symbol the causal factor $\hat n_+^{-1}$ has kernel decaying as $e^{-b_1\tau}$ at its slowest zero $b_1$, so truncation at distance $d(t)$ costs $e^{-b_1 d(t)}$; equivalently the finite-horizon feedback gains relax to their stationary values at rate $2b_1$. $\square$
+\paragraph{Proposition~\ref{prop:boundary}.} The finite-horizon policy \eqref{eq:finiteT} differs from the whole-line one through the terminal-anchored weight and the truncation of the factor kernels to $[0,T]$. For the power-law factor \eqref{eq:gk-kernel} the truncation cuts the Marchaud tail of $D^\nu_+$ at distance $d(t)$, contributing $(\gamma c_\beta)^{-1/2}\|\zeta\|_\infty d(t)^{-\nu}$; the weight deviation is $((T-s)/(T-t))^\nu=1+O\bigl((t-s)/(T-t)\bigr)$, subdominant on the lags $t-s\ll T-t$ that dominate the integral. The argument bounds the deviation and does not claim a sharp exponent. For a rational symbol the causal factor $\hat n_+^{-1}$ has kernel decaying as $e^{-b_1\tau}$ at its slowest zero $b_1$, so truncation at distance $d(t)$ costs $e^{-b_1 d(t)}$; equivalently the finite-horizon feedback gains relax to their stationary values at rate $2b_1$. $\square$
 
-\paragraph{Volterra factors on $[0,T]$.} For the exponential kernel, $(\kappa^2-\partial_t^2)(E_\kappa f)=2\kappa f$ on $(0,T)$ with $(E_\kappa f)'(0)=\kappa(E_\kappa f)(0)$ and $(E_\kappa f)'(T)=-\kappa(E_\kappa f)(T)$; since $\kappa^2-\partial_t^2=(\kappa+\partial_t)^\ast(\kappa+\partial_t)$, the inverse factors are \eqref{eq:exp-gk}, with the two Robin conditions realized as rank-one endpoint atoms and $C_+$ of Green's function $\sqrt{2\gamma\kappa}\,e^{-\kappa(t-s)}$; this was checked numerically against the reverse-Cholesky factor of $e^{-\kappa|t-s|}$. For the power-law kernel, direct integration of \eqref{eq:gk-kernel} gives $\int_0^T c_+(u,t)c_+(u,s)\,du=\gamma c_\beta|t-s|^{-\beta}$ through a Beta-type integral, using $2\nu=1-\beta$ and $c_\beta=2\Gamma(1-\beta)\sin(\pi\beta/2)$, so $C_-C_+=G_T$; the placement of $C_+$ on the right of \eqref{eq:finiteT} forces the terminal anchor. $\square$
+\paragraph{Volterra factors on $[0,T]$.} For the exponential kernel, $(\kappa^2-\partial_t^2)(E_\kappa f)=2\kappa f$ on $(0,T)$ with $(E_\kappa f)'(0)=\kappa(E_\kappa f)(0)$ and $(E_\kappa f)'(T)=-\kappa(E_\kappa f)(T)$; since $\kappa^2-\partial_t^2=(\kappa+\partial_t)^\ast(\kappa+\partial_t)$, the inverse factors are \eqref{eq:exp-gk}, with the two Robin conditions realized as rank-one endpoint atoms and $C_+$ of Green's function $\sqrt{2\gamma\kappa}\,e^{-\kappa(t-s)}$; this was checked numerically against the reverse-Cholesky factor of $e^{-\kappa|t-s|}$. For the power-law kernel, direct integration of \eqref{eq:gk-kernel} gives $\int_0^T c_+(u,t)c_+(u,s)\,du=\gamma\,|t-s|^{-\beta}$, the kernel of $G_T$, so $C_-C_+=G_T$. The $(t,s)$- and $T$-dependence follow from a Beta-type integral, $\int_{t\vee s}^{T}(T-u)^{-2\nu}(u-t)^{\nu-1}(u-s)^{\nu-1}du$, which returns $|t-s|^{2\nu-1}$ times the anchoring weights; the constant follows from $2\nu=1-\beta$ and
+\[
+c_\beta\cdot\frac{\Gamma(\beta)\sin(\pi\nu)}{\pi}
+= 2\Gamma(1-\beta)\Gamma(\beta)\,\frac{\sin(\pi\beta/2)\cos(\pi\beta/2)}{\pi}
+= \frac{2\pi}{\sin(\pi\beta)}\cdot\frac{\sin(\pi\beta)}{2\pi}=1 ,
+\]
+which is why the prefactor $(\gamma c_\beta)^{1/2}$ in \eqref{eq:gk-kernel} is the right normalization; the placement of $C_+$ on the right of \eqref{eq:finiteT} forces the terminal anchor. $\square$
 
 
 % =====================================================================
